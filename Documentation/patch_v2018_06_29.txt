@@ -1,0 +1,506 @@
+--config project
+
+ALTER TABLE config_project ADD COLUMN packaging_mode character varying(256) COLLATE pg_catalog."default";
+COMMENT ON COLUMN config_project.packaging_mode IS 'Packaging mode 1, 2 or 3';
+-- -----------------------------------------------------------------------------
+
+-- config segment
+
+ALTER TABLE config_segment ADD COLUMN project character varying(255) COLLATE pg_catalog."default";
+
+COMMENT ON COLUMN config_segment.project
+    IS 'Part Number Project';
+-- -----------------------------------------------------------------------------
+
+
+-- config workplace
+ALTER TABLE config_workplace
+    ADD COLUMN project character varying(255) COLLATE pg_catalog."default";
+
+COMMENT ON COLUMN config_workplace.project
+    IS 'Part Number Project';	
+-- -----------------------------------------------------------------------------
+	
+-- config warehouse
+
+ALTER TABLE config_warehouse
+    ADD COLUMN project character varying(255) COLLATE pg_catalog."default";
+	
+COMMENT ON COLUMN config_warehouse.project
+    IS 'Part Number Project';		
+
+-- -----------------------------------------------------------------------------
+-- config ucs
+ALTER TABLE config_ucs
+    ADD COLUMN eng_change character varying(255) COLLATE pg_catalog."default";
+
+COMMENT ON COLUMN config_ucs.eng_change
+    IS 'Engineering change';
+
+ALTER TABLE config_ucs
+    ADD COLUMN article_desc character varying(255) COLLATE pg_catalog."default";
+	
+ALTER TABLE config_ucs
+    ADD COLUMN project character varying(255) COLLATE pg_catalog."default";
+
+COMMENT ON COLUMN config_ucs.project
+    IS 'Part Number Project';
+	
+COMMENT ON COLUMN config_ucs.article_desc
+    IS 'Article description';
+
+COMMENT ON COLUMN config_ucs.destination
+    IS 'Part final destination';		
+	
+ALTER TABLE config_ucs
+    ADD COLUMN warehouse character varying(255) COLLATE pg_catalog."default";
+	
+COMMENT ON COLUMN config_ucs.warehouse
+    IS 'Part Number Finish Good Warehouse';		
+	
+ALTER TABLE config_ucs
+ADD COLUMN net_weight double precision;
+
+COMMENT ON COLUMN config_ucs.net_weight
+    IS 'Net Weight';    
+	
+ALTER TABLE config_ucs
+ADD COLUMN gross_weight double precision;
+
+COMMENT ON COLUMN config_ucs.gross_weight
+    IS 'Gross Weight';
+
+ALTER TABLE config_ucs
+ADD COLUMN volume double precision;
+
+COMMENT ON COLUMN config_ucs.volume
+    IS 'External Volume';	
+
+ALTER TABLE config_ucs
+    ADD COLUMN eng_change_date timestamp without time zone;
+
+COMMENT ON COLUMN config_ucs.eng_change_date
+    IS 'Engineering Change Date';		
+-- -----------------------------------------------------------------------------	
+-- Base harness
+ALTER TABLE base_harness
+    ADD COLUMN project character varying(255) COLLATE pg_catalog."default";
+
+COMMENT ON COLUMN base_harness.project
+    IS 'Part Number Project';
+
+-- -----------------------------------------------------------------------------			
+-- base container
+
+ALTER TABLE base_container
+    ADD COLUMN warehouse character varying(255) COLLATE pg_catalog."default";
+	
+COMMENT ON COLUMN base_container.warehouse
+    IS 'Part Number Finish Good Warehouse';	
+	
+ALTER TABLE base_container
+    ADD COLUMN project character varying(255) COLLATE pg_catalog."default";
+
+COMMENT ON COLUMN base_container.project
+    IS 'Part Number Project';
+	
+ALTER TABLE base_container
+    ADD COLUMN eng_change_date timestamp without time zone;
+
+COMMENT ON COLUMN base_container.eng_change_date
+IS 'Engineering change date';
+
+ALTER TABLE base_container
+    ADD COLUMN reserved_time timestamp without time zone;
+
+COMMENT ON COLUMN base_container.reserved_time
+IS 'Reserved time in dispatch module';
+	
+ALTER TABLE base_container
+    ADD COLUMN dispatch_time timestamp without time zone;
+
+ALTER TABLE base_container
+    ADD COLUMN consign_no character varying(255) COLLATE pg_catalog."default";
+
+COMMENT ON COLUMN base_container.consign_no
+    IS 'Consignment number';
+
+ALTER TABLE base_container
+    ADD COLUMN invoice_no character varying(255) COLLATE pg_catalog."default";
+
+COMMENT ON COLUMN base_container.invoice_no
+    IS 'Invoice number';
+
+ALTER TABLE base_container
+    ADD COLUMN eng_change character varying(255) COLLATE pg_catalog."default";
+
+COMMENT ON COLUMN base_container.eng_change
+    IS 'Engineering change';
+
+ALTER TABLE base_container
+    ADD COLUMN article_desc character varying(255) COLLATE pg_catalog."default";
+
+COMMENT ON COLUMN base_container.article_desc
+    IS 'Article description';
+
+ALTER TABLE base_container
+ADD COLUMN net_weight double precision;
+
+COMMENT ON COLUMN base_container.net_weight
+    IS 'Net Weight';
+
+ALTER TABLE base_container
+ADD COLUMN gross_weight double precision;
+
+COMMENT ON COLUMN base_container.gross_weight
+    IS 'Gross Weight';
+	
+ALTER TABLE base_container
+ADD COLUMN volume double precision;
+
+COMMENT ON COLUMN base_container.volume
+    IS 'External Volume';	
+
+-- -----------------------------------------------------------------------------			
+	
+-- Drop base container
+
+ALTER TABLE drop_base_container
+    ADD COLUMN dispatch_time timestamp without time zone;
+
+ALTER TABLE drop_base_container
+    ADD COLUMN consign_no character varying(255) COLLATE pg_catalog."default";
+
+COMMENT ON COLUMN drop_base_container.consign_no
+    IS 'Consignment number';
+
+ALTER TABLE drop_base_container
+    ADD COLUMN invoice_no character varying(255) COLLATE pg_catalog."default";
+
+COMMENT ON COLUMN drop_base_container.invoice_no
+    IS 'Invoice number';
+
+-- -----------------------------------------------------------------------------			
+-- his_base_container
+
+ALTER TABLE his_base_container
+    ADD COLUMN dispatch_time timestamp without time zone;
+
+ALTER TABLE his_base_container
+    ADD COLUMN consign_no character varying(255) COLLATE pg_catalog."default";
+
+COMMENT ON COLUMN his_base_container.consign_no
+    IS 'Consignment number';
+
+ALTER TABLE his_base_container
+    ADD COLUMN invoice_no character varying(255) COLLATE pg_catalog."default";
+
+COMMENT ON COLUMN his_base_container.invoice_no
+    IS 'Invoice number';
+
+-- -----------------------------------------------------------------------------			
+
+-- Manufacture user
+ALTER TABLE manufacture_users
+    ADD COLUMN project character varying(255) COLLATE pg_catalog."default";
+
+COMMENT ON COLUMN manufacture_users.project
+    IS 'Part Number Project';
+
+-- -----------------------------------------------------------------------------			
+	
+-- Load plan
+ALTER TABLE load_plan
+    ADD COLUMN project character varying(255) COLLATE pg_catalog."default";
+
+COMMENT ON COLUMN load_plan.project
+    IS 'Project of the dispatched parts';
+
+-- -----------------------------------------------------------------------------				
+
+-- Load plan line
+ALTER TABLE load_plan_line
+    ADD COLUMN project character varying(255) COLLATE pg_catalog."default";
+
+COMMENT ON COLUMN load_plan_line.project
+    IS 'Project of the dispatched parts';
+	
+ALTER TABLE load_plan_line
+    ADD COLUMN status character varying(255) COLLATE pg_catalog."default";
+
+COMMENT ON COLUMN load_plan_line.status
+    IS 'Container status Reserved/Dispatched/Received';
+	
+ALTER TABLE load_plan_line
+    ADD COLUMN truck_no character varying(255) COLLATE pg_catalog."default";
+
+COMMENT ON COLUMN load_plan_line.truck_no
+    IS 'Truck number';	
+
+-- -----------------------------------------------------------------------------				
+	
+-- Load plan destination
+ALTER TABLE load_plan_destination
+    ADD COLUMN project character varying(255) COLLATE pg_catalog."default";
+
+COMMENT ON COLUMN load_plan_destination.project
+    IS 'Project of the dispatched parts';	
+	
+-- -----------------------------------------------------------------------------				
+	
+-- His Pallet Print (Openning Sheet)	
+ALTER TABLE his_pallet_print
+    ADD COLUMN project character varying(255) COLLATE pg_catalog."default";
+
+COMMENT ON COLUMN his_pallet_print.project
+    IS 'Part Number Project';
+	
+ALTER TABLE his_pallet_print
+    ADD COLUMN eng_change_date timestamp without time zone;
+
+COMMENT ON COLUMN his_pallet_print.eng_change_date
+IS 'Engineering change date';	
+
+ALTER TABLE his_pallet_print
+    ADD COLUMN eng_change character varying(255) COLLATE pg_catalog."default";
+
+COMMENT ON COLUMN his_pallet_print.eng_change
+    IS 'Engineering change';
+	
+ALTER TABLE his_pallet_print
+    ADD COLUMN article_desc character varying(255) COLLATE pg_catalog."default";
+
+COMMENT ON COLUMN his_pallet_print.article_desc
+    IS 'Article description';	
+	
+ALTER TABLE his_pallet_print
+ADD COLUMN gross_weight double precision;
+
+COMMENT ON COLUMN his_pallet_print.gross_weight
+    IS 'Gross Weight';
+	
+ALTER TABLE his_pallet_print
+ADD COLUMN volume double precision;
+
+COMMENT ON COLUMN his_pallet_print.volume
+    IS 'External Volume';	
+-- -----------------------------------------------------------------------------				
+
+-- His Pallet Print (Closing Sheet)	
+ALTER TABLE his_galia_print
+    ADD COLUMN project character varying(255) COLLATE pg_catalog."default";
+
+COMMENT ON COLUMN his_galia_print.project
+    IS 'Part Number Project';
+	
+ALTER TABLE his_galia_print
+    ADD COLUMN eng_change_date timestamp without time zone;
+
+COMMENT ON COLUMN his_galia_print.eng_change_date
+IS 'Engineering change date';	
+
+ALTER TABLE his_galia_print
+    ADD COLUMN eng_change character varying(255) COLLATE pg_catalog."default";
+
+COMMENT ON COLUMN his_galia_print.eng_change
+    IS 'Engineering change';
+	
+ALTER TABLE his_galia_print
+    ADD COLUMN article_desc character varying(255) COLLATE pg_catalog."default";
+
+COMMENT ON COLUMN his_galia_print.article_desc
+    IS 'Article description';	
+	
+ALTER TABLE his_galia_print
+ADD COLUMN gross_weight double precision;
+
+COMMENT ON COLUMN his_galia_print.gross_weight
+    IS 'Gross Weight';
+	
+ALTER TABLE his_galia_print
+ADD COLUMN volume double precision;
+
+COMMENT ON COLUMN his_galia_print.volume
+    IS 'External Volume';	
+	
+ALTER TABLE his_galia_print
+    ADD COLUMN pack_type character varying(255) COLLATE pg_catalog."default";	
+	
+ALTER TABLE his_galia_print
+    ADD COLUMN warehouse character varying(255) COLLATE pg_catalog."default";		
+
+-- -----------------------------------------------------------------------------				
+
+-- Packaging master
+ALTER TABLE packaging_master
+ADD COLUMN volume double precision;
+
+COMMENT ON COLUMN packaging_master.volume
+    IS 'External Volume';
+
+-- -----------------------------------------------------------------------------				
+
+-- Config company
+CREATE TABLE config_company
+(
+    id integer NOT NULL,
+    address_1 character varying(255) COLLATE pg_catalog."default",
+    address_2 character varying(255) COLLATE pg_catalog."default",
+    city character varying(255) COLLATE pg_catalog."default",
+    country character varying(255) COLLATE pg_catalog."default",
+    description character varying(255) COLLATE pg_catalog."default",
+    company_name character varying(255) COLLATE pg_catalog."default",
+    website character varying(255) COLLATE pg_catalog."default",
+    zip character varying(255) COLLATE pg_catalog."default",
+    CONSTRAINT config_company_pkey PRIMARY KEY (id)
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE config_company
+    OWNER to openpg;
+	
+CREATE SEQUENCE config_company_id_seq
+  INCREMENT 1
+  MINVALUE 1
+  MAXVALUE 9223372036854775807
+  START 1
+  CACHE 1;
+ALTER TABLE config_company_id_seq
+  OWNER TO openpg;	
+
+-- -----------------------------------------------------------------------------				
+
+-- UDPATES
+	
+UPDATE base_container SET eng_change_date = '2018-01-01 00:00:00', volume = 0.00, warehouse = '4CV', gross_weight = 0.00, net_weight = 0.00, project = 'VOLVO' WHERE supplier_part_number like '26C%' AND create_time BETWEEN '2018-01-01' AND '2018-12-30';	
+UPDATE base_container SET eng_change_date = '2018-01-01 00:00:00', volume = 0.00, warehouse = '4DU', gross_weight = 0.00,net_weight = 0.00, project = 'DUCATI' WHERE supplier_part_number like '26F%' AND create_time BETWEEN '2018-01-01' AND '2018-12-30';	
+UPDATE base_container SET price = 0.00 WHERE price is null;
+UPDATE base_harness SET project = 'VOLVO' WHERE harness_type IN ('SMALL','MDEP','HDEP') AND create_time BETWEEN '2018-01-01' AND '2018-12-30';
+UPDATE base_harness SET project = 'DUCATI' WHERE harness_type IN ('DUCATI') AND create_time BETWEEN '2018-01-01' AND '2018-12-30';		
+UPDATE config_segment SET project='VOLVO' WHERE segment in ('SMALLS_MDEP','HDEP');
+UPDATE config_segment SET project='DUCATI' WHERE segment in ('DUCATI_SEG1');	
+UPDATE config_project SET packaging_mode = 2 WHERE customer in ('VOLVO','DUCATI');	
+UPDATE config_workplace SET project = 'VOLVO' WHERE segment IN ('HDEP','SMALLS_MDEP');
+UPDATE config_workplace SET project = 'DUCATI' WHERE segment IN ('DUCATI_SEG1');
+UPDATE config_ucs SET eng_change='?', article_desc='?', net_weight=0.00, gross_weight=0.00, volume=0.00, project='?', warehouse='?', eng_change_date = '2018/01/01';	
+UPDATE config_ucs SET project='VOLVO', warehouse='4CV' WHERE supplier_part_number like '26C%';
+UPDATE config_ucs SET project='DUCATI', warehouse='4DU' WHERE supplier_part_number like '26F%';	
+UPDATE config_warehouse SET project='VOLVO' WHERE warehouse IN ('W64-PM', '4CV','TRANSIT','SCRAP');
+UPDATE manufacture_users SET project = 'VOLVO' WHERE harness_type IN ('SMALL','MDEP','HDEP');
+UPDATE manufacture_users SET project = 'DUCATI' WHERE harness_type IN ('DUCATI');	
+UPDATE load_plan_destination SET project='VOLVO' WHERE destination IN ('VMI', 'SKOVDE') or id = 3;
+UPDATE packaging_master SET volume = 0.00;  
+
+
+-- INSERTS
+INSERT INTO config_workplace(id, segment, workplace, project) VALUES 
+(12, 'PERK_SEG1', 'LINE 1', 'PERKINS');
+ALTER SEQUENCE config_workplace_id_seq RESTART WITH 13;
+-- -----------------------------
+INSERT INTO config_company(
+	id, address_1, address_2, city, country, description, company_name, website, zip)
+	VALUES (1, 'Sidi El Mekki, Route Settat, Berrechid, Morocco', '', 'Berrechid', 'Morocco', 'LEONI Wiring Systems', 
+			'Berrechid, Morocco', 'www.leoni.com', '26114');
+ALTER SEQUENCE config_company_id_seq RESTART WITH 1;
+-- -----------------------------
+
+INSERT INTO config_barcode(
+	id, barcode_pattern, description, ucs_id, key_word, harness_part, harness_type, create_id, create_time, write_id, write_time)
+	VALUES 
+        (239, '^[P]\w{8}', 'Part Number Pattern for PERKINS', null, 'PARTNUMBER', '','PERKINS', 1, '2018-08-29 12:22:45.703', 1, '2018-08-29 12:22:45.703'),
+	(240, '^[P]\w{9}', 'Part Number Pattern for PERKINS', null, 'PARTNUMBER', '','PERKINS', 1, '2018-08-29 12:22:45.703', 1, '2018-08-29 12:22:45.703'),
+	(241, '^[P]\w{9}', 'Dispatch format for PN', null, 'DISPATCH_PN', '','', 1, '2018-08-29 12:22:45.703', 1, '2018-08-29 12:22:45.703'),
+	(242, '^[P]\w{3}[-]\w{4}', 'Part Number Pattern for PERKINS', null, 'PARTNUMBER', '','PERKINS', 1, '2018-08-29 12:22:45.703', 1, '2018-08-29 12:22:45.703'),
+	(243, '^[P]\w{20}', 'Electrical test data matrix format 1', null, 'DOTMATRIX', '','PERKINS', 1, '2018-08-29 12:22:45.703', 1, '2018-08-29 12:22:45.703'),
+	(244, '^[P]\w{3}[-]\w{16}', 'Electrical test data matrix format 2', null, 'DOTMATRIX', '','PERKINS', 1, '2018-08-29 12:22:45.703', 1, '2018-08-29 12:22:45.703'),
+        (245, '\w{3}[-]\w{4}', 'Part Number Pattern for PERKINS', null, 'PARTNUMBER', '','PERKINS', 1, '2018-08-29 12:22:45.703', 1, '2018-08-29 12:22:45.703'),
+        (246, '\w{8}', 'Part Number Pattern for PERKINS', null, 'PARTNUMBER', '','PERKINS', 1, '2018-08-29 12:22:45.703', 1, '2018-08-29 12:22:45.703'),
+	(247, '\w{9}', 'Part Number Pattern for PERKINS', null, 'PARTNUMBER', '','PERKINS', 1, '2018-08-29 12:22:45.703', 1, '2018-08-29 12:22:45.703'),
+        (250, '^[P]\w{23}', 'Electrical test data matrix format 1', null, 'DOTMATRIX', '','PERKINS', 1, '2018-08-29 12:22:45.703', 1, '2018-08-29 12:22:45.703'),
+        (251, '^[P]\w{3}[-]\w{4}', 'Dispatch format for PN', null, 'DISPATCH_PN', '','', 1, '2018-08-29 12:22:45.703', 1, '2018-08-29 12:22:45.703');
+ALTER SEQUENCE config_barcode_id_seq RESTART WITH 252;
+
+-- -----------------------------
+
+INSERT INTO public.packaging_items(
+	id, alert_qty, description, dimension_uom, item_height, item_intern_pn, item_length, item_weight, item_width, pack_item, weight_uom)
+	VALUES 
+	(16, 200, 'Perkins EKARTON1 paper box', 'cm', 20.0, 'EKARTON1', 60.0, 0.200, 40.0, 'EKARTON1', 'kg'),
+	(17, 200, 'Perkins EKARTON20 paper box', 'cm', 20.0, 'EKARTON1', 60.0, 0.200, 40.0, 'EKARTON20', 'kg');
+ALTER SEQUENCE packaging_items_id_seq RESTART WITH 18;
+
+-- -----------------------------
+
+INSERT INTO public.packaging_master(
+	id, description, dimension_uom, pack_height, pack_intern_pn, pack_length, pack_master, pack_weight, pack_width, weight_uom, volume)
+	VALUES 
+	(13, 'Perkins EKARTON 1', 'cm', 20.0, 'EKARTON1', 60.0, 'EKARTON1', 0.200, 40.0, 'kg', 0.048),
+	(14, 'Perkins EKARTON 20', 'cm', 20.0, 'EKARTON20', 60.0, 'EKARTON20', 0.200, 40.0, 'kg', 0.048);
+
+ALTER SEQUENCE packaging_master_id_seq RESTART WITH 18;
+
+-- -----------------------------
+
+INSERT INTO public.packaging_config(
+	id, coefficient, pack_item, pack_master)
+	VALUES 
+	(39, 1, 'EKARTON1', 'EKARTON1'),
+	(40, 1, 'EKARTON20', 'EKARTON20');
+
+ALTER SEQUENCE packaging_config_id_seq RESTART WITH 41;
+
+-- -----------------------------
+	 
+INSERT INTO config_project (id, harness_type, customer, packaging_mode)	VALUES (5, 'PERKINS', 'PERKINS', 3);
+ALTER SEQUENCE config_project_id_seq RESTART WITH 4;
+
+-- -----------------------------
+
+INSERT INTO config_segment (id, segment, project) VALUES (4, 'PERK_SEG1', 'PERKINS');	
+ALTER SEQUENCE config_segment_id_seq RESTART WITH 5;
+
+-- -----------------------------
+
+INSERT INTO config_warehouse(id, description, warehouse, project)
+	VALUES 
+	(5,'DUCATI FINISH GOODS WAREHOUSE', '4DU', 'DUCATI'),
+	(6, 'PERKINS FINISH GOODS WAREHOUSE', '4CV', 'PERKINS'),
+	(7, 'PERKINS PACKAGING WAREHOUSE', 'W64-PM', 'PERKINS'),
+	 (8, 'PERKINS FINAL WAREHOUSE', 'UK', 'PERKINS'),
+	 (9, 'DUCATI FINAL WAREHOUSE', 'ORBASSANO', 'DUCATI');
+
+ALTER SEQUENCE config_warehouse_id_seq RESTART WITH 10;
+
+-- -----------------------------
+
+INSERT INTO load_plan_destination(id, destination, project) VALUES 
+(5, 'INVENT. DUCATI', 'DUCATI'),
+(6, 'UK', 'PERKINS'),
+(7, 'INVENT. UK', 'PERKINS');	
+
+-- -----------------------------
+
+UPDATE load_plan_destination SET destination = 'INVENT. VOLVO' WHERE id = 3;
+UPDATE load_plan_destination SET project = 'DUCATI' WHERE id = 4;
+ALTER SEQUENCE load_plan_destination_id_seq RESTART WITH 8;
+-- -----------------------------
+
+
+
+INSERT INTO manufacture_users(
+            id, access_level, active, create_id, create_time, first_name, 
+            harness_type, last_name, login, login_time, password, write_id, 
+            write_time, project)
+    VALUES (84, 9000, 1, 1, '2018-09-05 12:00:00', 'PERKINS', 
+            'PERKINS', 'DEMO', 'p', '2018-09-05 12:00:00', 'p', 1, 
+            '2018-09-05 12:00:00', 'PERKINS');
+
+ALTER SEQUENCE manufacture_users_id_seq RESTART WITH 85;
+
+UPDATE manufacture_users SET access_level = 2000 WHERE id IN (52, 54, 55, 51, 49, 45);
+
+-- UPDATE BASE_CONTAINER SET container_state_code = '3000' , container_state = 'DISPATCHED' WHERE pallet_number NOT IN (pallet still in the plant) AND container_state NOT IN ('OPEN','WAITING', 'CLOSED', 'STORED', 'RESERVED', 'DROPPED');
+-- UPDATE BASE_CONTAINER SET container_state_code = '3000' , container_state = 'DISPATCHED' WHERE pallet_number not in ('200067312','200067313','200067314','200067316','200067315');

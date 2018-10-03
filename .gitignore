@@ -1,0 +1,20 @@
+
+###> lib folder ###
+.lib
+/.lib/*
+###< lib folder ###
+
+###> Documentation ###
+.Documentation
+/.Documentation/*
+###< Documentation ###
+
+###> log ###
+.log
+/.log/*
+###< log ###
+
+###> print ###
+.print
+/.print/*
+###< print ###
