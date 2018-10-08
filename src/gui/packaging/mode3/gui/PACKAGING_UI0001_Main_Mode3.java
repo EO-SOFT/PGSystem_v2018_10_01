@@ -650,7 +650,7 @@ public final class PACKAGING_UI0001_Main_Mode3 extends javax.swing.JFrame implem
         menu01_report.add(menu017_ucs);
 
         menu018_available_stock.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_W, java.awt.event.InputEvent.CTRL_MASK));
-        menu018_available_stock.setText("Available Stock");
+        menu018_available_stock.setText("Stock");
         menu018_available_stock.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menu018_available_stockActionPerformed(evt);

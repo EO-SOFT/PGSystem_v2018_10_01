@@ -27,30 +27,32 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jScrollPane1" alignment="0" pref="776" max="32767" attributes="0"/>
+                  <Component id="jScrollPane1" alignment="0" pref="1013" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="ok_btn" min="-2" pref="106" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="cancel_btn" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                              <Component id="deliveryDatePicker" min="-2" pref="220" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="truck_no_text" min="-2" pref="122" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                              <Component id="login_lbl3" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="project_filter" min="-2" pref="126" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
+                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                      <Component id="deliveryDatePicker" min="-2" pref="220" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="truck_no_text" min="-2" pref="122" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                      <Component id="login_lbl3" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="project_filter" min="-2" pref="126" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="login_lbl4" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="warehouse_filter" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -69,6 +71,8 @@
                   <Group type="103" alignment="2" groupAlignment="3" attributes="0">
                       <Component id="project_filter" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
                       <Component id="login_lbl3" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="login_lbl4" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="warehouse_filter" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
@@ -168,6 +172,22 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Project"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="login_lbl4">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="F.G warehouse"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="warehouse_filter">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="0"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="warehouse_filterItemStateChanged"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="warehouse_filterActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

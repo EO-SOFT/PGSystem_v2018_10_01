@@ -17,6 +17,7 @@ import entity.ManufactureUsers;
 import entity.PackagingStockMovement;
 import gui.packaging.PackagingVars;
 import gui.packaging.reports.PACKAGING_UI0010_PalletDetails;
+import gui.packaging.reports.PACKAGING_UI0021_FG_AVAILABLE_STOCK;
 import gui.warehouse_dispatch.process_control_labels.ControlState;
 import gui.warehouse_dispatch.process_control_labels.S001_PalletNumberScan;
 import gui.warehouse_dispatch.process_reservation.ReservationState;
@@ -1139,6 +1140,7 @@ public final class WAREHOUSE_DISPATCH_UI0002_DISPATCH_SCAN extends javax.swing.J
         export_plan_menu = new javax.swing.JMenu();
         edit_plan_menu = new javax.swing.JMenu();
         pallet_details_menu = new javax.swing.JMenu();
+        pallet_stock = new javax.swing.JMenu();
         plans_list_meni = new javax.swing.JMenu();
         control_dispatch_menu = new javax.swing.JMenu();
         delete_plan_menu = new javax.swing.JMenu();
@@ -1387,7 +1389,7 @@ public final class WAREHOUSE_DISPATCH_UI0002_DISPATCH_SCAN extends javax.swing.J
 
         jLabel9.setText("Labels Control");
 
-        jpanel_destinations.setBackground(new java.awt.Color(204, 204, 255));
+        jpanel_destinations.setBackground(new java.awt.Color(204, 255, 204));
 
         javax.swing.GroupLayout jpanel_destinationsLayout = new javax.swing.GroupLayout(jpanel_destinations);
         jpanel_destinations.setLayout(jpanel_destinationsLayout);
@@ -1972,6 +1974,15 @@ public final class WAREHOUSE_DISPATCH_UI0002_DISPATCH_SCAN extends javax.swing.J
                 export_plan_menuActionPerformed(evt);
             }
         });
+        export_plan_menu.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                export_plan_menuAncestorAdded(evt);
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
         export_plan_menu.addMenuKeyListener(new javax.swing.event.MenuKeyListener() {
             public void menuKeyPressed(javax.swing.event.MenuKeyEvent evt) {
             }
@@ -2004,6 +2015,20 @@ public final class WAREHOUSE_DISPATCH_UI0002_DISPATCH_SCAN extends javax.swing.J
             }
         });
         jMenuBar1.add(pallet_details_menu);
+
+        pallet_stock.setMnemonic(KeyEvent.VK_F7);
+        pallet_stock.setText("Pallet stock");
+        pallet_stock.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pallet_stockMouseClicked(evt);
+            }
+        });
+        pallet_stock.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                pallet_stockKeyTyped(evt);
+            }
+        });
+        jMenuBar1.add(pallet_stock);
 
         plans_list_meni.setMnemonic(KeyEvent.VK_F8);
         plans_list_meni.setText("Plans list");
@@ -2445,6 +2470,7 @@ public final class WAREHOUSE_DISPATCH_UI0002_DISPATCH_SCAN extends javax.swing.J
                         }
                     }
                     //Loop on packaging supplementaire et déduire les quantitées.
+                    
                     if ("1".equals(GlobalVars.APP_PROP.getProperty("BOOK_PACKAGING").toString())) {
                         Helper.startSession();
                         query = Helper.sess.createQuery(HQLHelper.GET_LOAD_PLAN_PACKAGING_BY_PLAN_ID);
@@ -2461,6 +2487,7 @@ public final class WAREHOUSE_DISPATCH_UI0002_DISPATCH_SCAN extends javax.swing.J
                                             WarehouseHelper.warehouse_reserv_context.getUser().getFirstName() + " "
                                             + WarehouseHelper.warehouse_reserv_context.getUser().getLastName(),
                                             new Date(),
+                                            //@TODO : WarehouseHelper.temp_load_plan.getFgWarehouse();
                                             GlobalVars.APP_PROP.getProperty("WH_PACKAGING"),
                                             -Float.valueOf(line.getQty()),
                                             "Packaging Supplementaire. " + line.getComment());
@@ -2708,6 +2735,19 @@ public final class WAREHOUSE_DISPATCH_UI0002_DISPATCH_SCAN extends javax.swing.J
         this.reloadPackagingContainerTab3(Integer.valueOf(plan_num_label.getText()));
     }//GEN-LAST:event_tab3_refreshActionPerformed
 
+    private void pallet_stockMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pallet_stockMouseClicked
+        PACKAGING_UI0021_FG_AVAILABLE_STOCK report = new PACKAGING_UI0021_FG_AVAILABLE_STOCK(this, false);
+        report.setVisible(true);
+    }//GEN-LAST:event_pallet_stockMouseClicked
+
+    private void pallet_stockKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pallet_stockKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pallet_stockKeyTyped
+
+    private void export_plan_menuAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_export_plan_menuAncestorAdded
+        // TODO add your handling code here:
+    }//GEN-LAST:event_export_plan_menuAncestorAdded
+
     private void clearGui() {
 
         this.cleanDataLabels();
@@ -2796,6 +2836,7 @@ public final class WAREHOUSE_DISPATCH_UI0002_DISPATCH_SCAN extends javax.swing.J
     private javax.swing.JButton new_plan_btn;
     private javax.swing.JMenu new_plan_menu;
     private javax.swing.JMenu pallet_details_menu;
+    private javax.swing.JMenu pallet_stock;
     private javax.swing.JLabel pile_label_help;
     private javax.swing.JComboBox piles_box;
     private javax.swing.JFormattedTextField plan_id_filter;

@@ -28,6 +28,7 @@
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="export_plan_menuMouseClicked"/>
             <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="export_plan_menuMouseEntered"/>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="export_plan_menuActionPerformed"/>
+            <EventHandler event="ancestorAdded" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="export_plan_menuAncestorAdded"/>
             <EventHandler event="menuKeyTyped" listener="javax.swing.event.MenuKeyListener" parameters="javax.swing.event.MenuKeyEvent" handler="export_plan_menuMenuKeyTyped"/>
           </Events>
         </Menu>
@@ -49,6 +50,18 @@
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="pallet_details_menuMouseClicked"/>
             <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="pallet_details_menuKeyTyped"/>
+          </Events>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="pallet_stock">
+          <Properties>
+            <Property name="mnemonic" type="int" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="KeyEvent.VK_F7" type="code"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Pallet stock"/>
+          </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="pallet_stockMouseClicked"/>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="pallet_stockKeyTyped"/>
           </Events>
         </Menu>
         <Menu class="javax.swing.JMenu" name="plans_list_meni">
@@ -803,7 +816,7 @@
                     <Container class="javax.swing.JPanel" name="jpanel_destinations">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="ff" green="cc" red="cc" type="rgb"/>
+                          <Color blue="cc" green="ff" red="cc" type="rgb"/>
                         </Property>
                       </Properties>
 

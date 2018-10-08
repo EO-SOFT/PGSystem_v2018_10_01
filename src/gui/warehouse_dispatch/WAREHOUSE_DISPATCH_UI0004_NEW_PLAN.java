@@ -6,6 +6,7 @@
 package gui.warehouse_dispatch;
 
 import entity.ConfigProject;
+import entity.ConfigWarehouse;
 import entity.LoadPlan;
 import entity.LoadPlanDestination;
 import entity.LoadPlanDestinationRel;
@@ -68,6 +69,8 @@ public final class WAREHOUSE_DISPATCH_UI0004_NEW_PLAN extends javax.swing.JDialo
         truck_no_text = new javax.swing.JTextField();
         project_filter = new javax.swing.JComboBox();
         login_lbl3 = new javax.swing.JLabel();
+        login_lbl4 = new javax.swing.JLabel();
+        warehouse_filter = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Nouveau plan de chargement");
@@ -122,6 +125,19 @@ public final class WAREHOUSE_DISPATCH_UI0004_NEW_PLAN extends javax.swing.JDialo
 
         login_lbl3.setText("Project");
 
+        login_lbl4.setText("F.G warehouse");
+
+        warehouse_filter.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                warehouse_filterItemStateChanged(evt);
+            }
+        });
+        warehouse_filter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                warehouse_filterActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -129,27 +145,30 @@ public final class WAREHOUSE_DISPATCH_UI0004_NEW_PLAN extends javax.swing.JDialo
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 776, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1013, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(ok_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(cancel_btn))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(27, 27, 27)
-                                .addComponent(deliveryDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(truck_no_text, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(login_lbl3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(project_filter, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(jLabel2)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(27, 27, 27)
+                        .addComponent(deliveryDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(truck_no_text, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(login_lbl3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(project_filter, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(login_lbl4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(warehouse_filter, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -163,7 +182,9 @@ public final class WAREHOUSE_DISPATCH_UI0004_NEW_PLAN extends javax.swing.JDialo
                     .addComponent(truck_no_text, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(project_filter, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(login_lbl3)))
+                        .addComponent(login_lbl3)
+                        .addComponent(login_lbl4)
+                        .addComponent(warehouse_filter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(17, 17, 17)
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
@@ -244,8 +265,16 @@ public final class WAREHOUSE_DISPATCH_UI0004_NEW_PLAN extends javax.swing.JDialo
     }//GEN-LAST:event_project_filterItemStateChanged
 
     private void project_filterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_project_filterActionPerformed
-
+        this.setWarehouseByProject(String.valueOf(project_filter.getSelectedItem()));
     }//GEN-LAST:event_project_filterActionPerformed
+
+    private void warehouse_filterItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_warehouse_filterItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_warehouse_filterItemStateChanged
+
+    private void warehouse_filterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_warehouse_filterActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_warehouse_filterActionPerformed
 
     public void disableEditingTable() {
         for (int c = 1; c < destinations_table.getColumnCount(); c++) {
@@ -265,6 +294,20 @@ public final class WAREHOUSE_DISPATCH_UI0004_NEW_PLAN extends javax.swing.JDialo
             project_filter.removeAllItems();
             for (Object o : result) {
                 project_filter.addItem(new ComboItem(o.toString(), o.toString()));
+            }
+        }
+    }
+    
+    private void setWarehouseByProject(String project) {
+        List result = new ConfigWarehouse().selectByProject(project);
+        if (result.isEmpty()) {
+            UILog.severeDialog(this, ErrorMsg.APP_ERR0036);
+            UILog.severe(ErrorMsg.APP_ERR0036[1]);
+        } else { //Map project data in the list
+            warehouse_filter.removeAllItems();
+            for (Object o : result) {
+                ConfigWarehouse cp = (ConfigWarehouse) o;
+                warehouse_filter.addItem(new ComboItem(cp.getWarehouse(), cp.getWarehouse()));
             }
         }
     }
@@ -329,9 +372,11 @@ public final class WAREHOUSE_DISPATCH_UI0004_NEW_PLAN extends javax.swing.JDialo
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel login_lbl3;
+    private javax.swing.JLabel login_lbl4;
     private javax.swing.JButton ok_btn;
     private javax.swing.JComboBox project_filter;
     private javax.swing.JTextField truck_no_text;
+    private javax.swing.JComboBox warehouse_filter;
     // End of variables declaration//GEN-END:variables
 
 }
