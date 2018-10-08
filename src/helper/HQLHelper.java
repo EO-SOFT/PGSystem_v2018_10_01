@@ -214,7 +214,7 @@ public class HQLHelper {
             + "UNION		   \n"
             + "(SELECT destination, pack_item, sum(qty) AS quantity FROM load_plan_line_packaging\n"
             + "WHERE load_plan_id = '%s' group by destination, pack_item)\n"
-            + "	) AS T1 group by T1.destination, T1.pack_item);";
+            + "	) AS T1 GROUP BY T1.destination, T1.pack_item ORDER BY T1.destination);";
 
     public final static String GET_TOTAL_TRUCK_VALUES = "SELECT \n"
             + "sum(net_weight) AS total_net_weight ,\n"
