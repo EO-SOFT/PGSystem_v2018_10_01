@@ -63,6 +63,9 @@ public class LoadPlan extends DAO implements java.io.Serializable {
     @Column(name = "project")
     private String project;
     
+    //@Column(name = "fg_warehouse")
+    //private String fgWarehouse;
+    
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "loadPlan", cascade = CascadeType.ALL)
     private final Set<LoadPlanLine> lines = new HashSet<LoadPlanLine>(0);
     
@@ -149,8 +152,15 @@ public class LoadPlan extends DAO implements java.io.Serializable {
     public void setProject(String project) {
         this.project = project;
     }
+
+    public String getFgWarehouse() {
+        //return fgWarehouse;
+        return "";
+    }
+
+    public void setFgWarehouse(String fgWarehouse) {
+        //this.fgWarehouse = fgWarehouse;
+    }
     
-    
-        
     
 }
