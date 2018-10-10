@@ -65,55 +65,83 @@
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Group type="102" attributes="0">
+                                  <Component id="save_btn" min="-2" pref="88" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="duplicate_btn" min="-2" pref="91" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                                  <Component id="cancel_btn" min="-2" pref="102" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="deletel_btn" min="-2" pref="102" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="login_lbl" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="fname_lbl" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="fname_lbl1" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="fname_txtbox" alignment="0" min="-2" pref="146" max="-2" attributes="0"/>
-                                      <Component id="login_txtbox" alignment="0" min="-2" pref="146" max="-2" attributes="0"/>
-                                      <Component id="id_lbl" alignment="0" min="-2" pref="35" max="-2" attributes="0"/>
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <Component id="login_lbl3" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="project_filter" min="-2" pref="145" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="lname_lbl1" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace min="-2" max="-2" attributes="0"/>
+                                              <Component id="create_time_txt" max="32767" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" attributes="0">
+                                              <Group type="103" groupAlignment="1" attributes="0">
+                                                  <Group type="102" attributes="0">
+                                                      <Component id="fname_lbl1" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace min="-2" pref="76" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <Group type="102" alignment="1" attributes="0">
+                                                      <Group type="103" groupAlignment="1" attributes="0">
+                                                          <Component id="fname_lbl" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="login_lbl" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                  </Group>
+                                              </Group>
+                                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                                  <Component id="fname_txtbox" alignment="0" pref="146" max="32767" attributes="0"/>
+                                                  <Component id="login_txtbox" alignment="0" pref="146" max="32767" attributes="0"/>
+                                                  <Component id="id_lbl" max="32767" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                      </Group>
                                   </Group>
                                   <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="1" attributes="0">
-                                      <Group type="102" alignment="1" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="103" alignment="0" groupAlignment="0" attributes="0">
                                           <Component id="lname_lbl" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Component id="lname_txtbox" min="-2" pref="146" max="-2" attributes="0"/>
+                                          <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                                              <Component id="pwd_lbl7" min="-2" max="-2" attributes="0"/>
+                                              <Component id="pwd_lbl" min="-2" max="-2" attributes="0"/>
+                                          </Group>
                                       </Group>
-                                      <Group type="102" alignment="1" attributes="0">
-                                          <Component id="pwd_lbl" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Component id="pwd_txtbox" min="-2" pref="146" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="1" attributes="0">
-                                      <Component id="pwd_lbl2" min="-2" max="-2" attributes="0"/>
-                                      <Component id="pwd_lbl1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lname_lbl2" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Component id="harnessType_filter" pref="146" max="32767" attributes="0"/>
+                                      <Component id="write_time_txt" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="pwd_txtbox" alignment="0" pref="146" max="32767" attributes="0"/>
+                                      <Component id="lname_txtbox" alignment="0" max="32767" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="pwd_lbl2" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="pwd_lbl1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                       <Component id="level_combobox" pref="146" max="32767" attributes="0"/>
                                       <Component id="active_combobox" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
-                              <Group type="102" attributes="0">
-                                  <Component id="save_btn" min="-2" pref="88" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="cancel_btn" min="-2" pref="102" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="duplicate_btn" min="-2" pref="91" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="deletel_btn" min="-2" pref="102" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
-                              </Group>
                           </Group>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="69" max="32767" attributes="0"/>
                       </Group>
-                      <Component id="msg_lbl" max="32767" attributes="0"/>
+                      <Component id="msg_lbl" alignment="0" pref="792" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -126,50 +154,66 @@
                       <Component id="id_lbl" min="-2" pref="20" max="-2" attributes="0"/>
                       <Component id="fname_lbl1" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="lname_lbl1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="create_time_txt" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lname_lbl2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="write_time_txt" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="fname_lbl" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Group type="103" alignment="0" groupAlignment="2" attributes="0">
-                                  <Component id="lname_txtbox" alignment="2" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lname_lbl" alignment="2" min="-2" max="-2" attributes="0"/>
-                                  <Component id="pwd_lbl1" alignment="2" min="-2" max="-2" attributes="0"/>
-                                  <Component id="level_combobox" alignment="2" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                          <Group type="103" groupAlignment="2" attributes="0">
+                              <Component id="lname_txtbox" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="lname_lbl" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="pwd_lbl1" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="level_combobox" alignment="2" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="login_lbl" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Group type="103" alignment="0" groupAlignment="2" attributes="0">
-                                  <Component id="pwd_txtbox" alignment="2" min="-2" max="-2" attributes="0"/>
-                                  <Component id="pwd_lbl" alignment="2" min="-2" max="-2" attributes="0"/>
-                                  <Group type="103" alignment="2" groupAlignment="3" attributes="0">
-                                      <Component id="pwd_lbl2" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="active_combobox" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
+                          <Group type="103" groupAlignment="2" attributes="0">
+                              <Component id="pwd_txtbox" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="pwd_lbl" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" alignment="2" groupAlignment="3" attributes="0">
+                                  <Component id="pwd_lbl2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="active_combobox" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
-                          <Component id="fname_txtbox" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="fname_txtbox" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="fname_lbl" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="login_txtbox" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="login_txtbox" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="login_lbl" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
                           <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="12" max="32767" attributes="0"/>
+                  <EmptySpace type="unrelated" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="deletel_btn" alignment="2" min="-2" max="-2" attributes="0"/>
-                      <Component id="save_btn" min="-2" max="-2" attributes="0"/>
+                      <Component id="harnessType_filter" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                          <Component id="cancel_btn" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="duplicate_btn" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="project_filter" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="pwd_lbl7" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="login_lbl3" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="msg_lbl" min="-2" pref="23" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="msg_lbl" min="-2" pref="25" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="deletel_btn" alignment="2" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="save_btn" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="duplicate_btn" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="cancel_btn" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <EmptySpace pref="12" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -311,6 +355,56 @@
         <Component class="javax.swing.JLabel" name="fname_lbl1">
           <Properties>
             <Property name="text" type="java.lang.String" value="ID"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lname_lbl1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Creation Date"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="create_time_txt">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="name" type="java.lang.String" value="fname_txtbox" noResource="true"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lname_lbl2">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Edited"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="write_time_txt">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="name" type="java.lang.String" value="fname_txtbox" noResource="true"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="project_filter">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="0"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="project_filterItemStateChanged"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="project_filterActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="login_lbl3">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Project *"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="harnessType_filter">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="0"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="pwd_lbl7">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Harness Type *"/>
           </Properties>
         </Component>
       </SubComponents>

@@ -5,8 +5,10 @@
  */
 package gui.config;
 
+import entity.ConfigProject;
 import entity.ManufactureUsers;
 import gui.packaging.PackagingVars;
+import helper.ComboItem;
 import helper.HQLHelper;
 import helper.Helper;
 import java.awt.event.MouseAdapter;
@@ -21,6 +23,8 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
+import ui.UILog;
+import ui.error.ErrorMsg;
 
 /**
  *
@@ -43,7 +47,9 @@ public class CONFIG_UI0003_USERS extends javax.swing.JDialog {
             "Login",
             "Password",
             "Access Level",
-            "Active"
+            "Active",
+            "Project",
+            "Harness Type"
     );
     Vector users_table_data = new Vector();
     public List<Object[]> resultList;
@@ -65,6 +71,8 @@ public class CONFIG_UI0003_USERS extends javax.swing.JDialog {
         //Load table header
         load_table_header();
 
+        initProjectFilter();
+
         //Support double click on rows in container jtable to display history
         this.initContainerTableDoubleClick();
     }
@@ -77,6 +85,32 @@ public class CONFIG_UI0003_USERS extends javax.swing.JDialog {
         }
 
         users_table.setModel(new DefaultTableModel(users_table_data, users_table_header));
+    }
+
+    private void initProjectFilter() {
+        List result = new ConfigProject().selectCustomers();
+        if (result.isEmpty()) {
+            UILog.severeDialog(this, ErrorMsg.APP_ERR0035);
+            UILog.severe(ErrorMsg.APP_ERR0035[1]);
+        } else { //Map project data in the list
+            project_filter.removeAllItems();
+            for (Object o : result) {
+                project_filter.addItem(new ComboItem(o.toString(), o.toString()));
+            }
+        }
+    }
+
+    private void initHarnessTypeByProject(String project) {
+        List result = new ConfigProject().selectHarnessTypeByProject(project);
+        if (result.isEmpty()) {
+            UILog.severeDialog(this, ErrorMsg.APP_ERR0035);
+            UILog.severe(ErrorMsg.APP_ERR0035[1]);
+        } else { //Map project data in the list
+            harnessType_filter.removeAllItems();
+            for (Object o : result) {
+                harnessType_filter.addItem(new ComboItem(o.toString(), o.toString()));
+            }
+        }
     }
 
     private void initContainerTableDoubleClick() {
@@ -94,11 +128,30 @@ public class CONFIG_UI0003_USERS extends javax.swing.JDialog {
                     lname_txtbox.setText(aux.getLastName());
                     login_txtbox.setText(aux.getLogin());
                     pwd_txtbox.setText(aux.getPassword());
-                    if (aux.getAccessLevel() == 1) {
-                        level_combobox.setSelectedIndex(0);
-                    } else {
-                        level_combobox.setSelectedIndex(0);
+                    create_time_txt.setText(aux.getCreateTime().toString());
+                    write_time_txt.setText(aux.getWriteTime().toString());
+                    
+                    for (int i = 0; i < harnessType_filter.getItemCount(); i++) {
+                        if (harnessType_filter.getItemAt(i).toString().equals(aux.getHarnessType())) {
+                            harnessType_filter.setSelectedIndex(i);
+                            break;
+                        }
                     }
+
+                    for (int i = 0; i < project_filter.getItemCount(); i++) {
+                        if (project_filter.getItemAt(i).toString().equals(aux.getProject())) {
+                            project_filter.setSelectedIndex(i);
+                            break;
+                        }
+                    }
+
+                    for (int i = 0; i < level_combobox.getItemCount(); i++) {
+                        if (Integer.valueOf(level_combobox.getItemAt(i).toString()) ==aux.getAccessLevel()) {
+                            level_combobox.setSelectedIndex(i);
+                            break;
+                        }
+                    }
+                    
                     if (aux.getActive() == 1) {
                         active_combobox.setSelectedIndex(0);
                     } else {
@@ -146,6 +199,8 @@ public class CONFIG_UI0003_USERS extends javax.swing.JDialog {
             oneRow.add(String.valueOf(obj[4])); //Password
             oneRow.add(String.valueOf(obj[5])); //Access Levl
             oneRow.add(String.valueOf(obj[6])); //Active
+            oneRow.add(String.valueOf(obj[7])); //Project
+            oneRow.add(String.valueOf(obj[8])); //Harness Type
 
             users_table_data.add(oneRow);
         }
@@ -198,7 +253,9 @@ public class CONFIG_UI0003_USERS extends javax.swing.JDialog {
                 + " u.login AS login, "
                 + " u.password AS password, "
                 + " u.access_level AS access_level, "
-                + " u.active AS active "
+                + " u.active AS active, "
+                + " u.project AS project, "
+                + " u.harness_type AS harness_type "
                 + " FROM Manufacture_Users u WHERE 1=1 ";
         Helper.startSession();
         if (!fname_txtbox_search.getText().trim().equals("")) {
@@ -250,6 +307,14 @@ public class CONFIG_UI0003_USERS extends javax.swing.JDialog {
         duplicate_btn = new javax.swing.JButton();
         msg_lbl = new javax.swing.JLabel();
         fname_lbl1 = new javax.swing.JLabel();
+        lname_lbl1 = new javax.swing.JLabel();
+        create_time_txt = new javax.swing.JTextField();
+        lname_lbl2 = new javax.swing.JLabel();
+        write_time_txt = new javax.swing.JTextField();
+        project_filter = new javax.swing.JComboBox();
+        login_lbl3 = new javax.swing.JLabel();
+        harnessType_filter = new javax.swing.JComboBox();
+        pwd_lbl7 = new javax.swing.JLabel();
         user_list_panel = new javax.swing.JPanel();
         user_table_scroll = new javax.swing.JScrollPane();
         users_table = new javax.swing.JTable();
@@ -338,6 +403,31 @@ public class CONFIG_UI0003_USERS extends javax.swing.JDialog {
 
         fname_lbl1.setText("ID");
 
+        lname_lbl1.setText("Creation Date");
+
+        create_time_txt.setEditable(false);
+        create_time_txt.setName("fname_txtbox"); // NOI18N
+
+        lname_lbl2.setText("Edited");
+
+        write_time_txt.setEditable(false);
+        write_time_txt.setName("fname_txtbox"); // NOI18N
+
+        project_filter.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                project_filterItemStateChanged(evt);
+            }
+        });
+        project_filter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                project_filterActionPerformed(evt);
+            }
+        });
+
+        login_lbl3.setText("Project *");
+
+        pwd_lbl7.setText("Harness Type *");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -348,44 +438,63 @@ public class CONFIG_UI0003_USERS extends javax.swing.JDialog {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(login_lbl)
-                                    .addComponent(fname_lbl)
-                                    .addComponent(fname_lbl1))
-                                .addGap(27, 27, 27)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(fname_txtbox, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(login_txtbox, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(id_lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(lname_lbl)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(lname_txtbox, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(pwd_lbl)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(pwd_txtbox, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(34, 34, 34)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(pwd_lbl2)
-                                    .addComponent(pwd_lbl1))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(level_combobox, 0, 146, Short.MAX_VALUE)
-                                    .addComponent(active_combobox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(save_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(cancel_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(duplicate_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(26, 26, 26)
+                                .addComponent(cancel_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(deletel_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(45, 45, 45)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(msg_lbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(45, 45, 45))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                        .addComponent(login_lbl3)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(project_filter, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                            .addComponent(lname_lbl1)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(create_time_txt))
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                                    .addComponent(fname_lbl1)
+                                                    .addGap(76, 76, 76))
+                                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                        .addComponent(fname_lbl)
+                                                        .addComponent(login_lbl))
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                .addComponent(fname_txtbox, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
+                                                .addComponent(login_txtbox, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
+                                                .addComponent(id_lbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(lname_lbl)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(pwd_lbl7)
+                                            .addComponent(pwd_lbl)))
+                                    .addComponent(lname_lbl2))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(harnessType_filter, 0, 146, Short.MAX_VALUE)
+                                    .addComponent(write_time_txt, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(pwd_txtbox, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
+                                    .addComponent(lname_txtbox, javax.swing.GroupLayout.Alignment.LEADING))
+                                .addGap(34, 34, 34)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(pwd_lbl2)
+                                    .addComponent(pwd_lbl1))
+                                .addGap(14, 14, 14)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(level_combobox, 0, 146, Short.MAX_VALUE)
+                                    .addComponent(active_combobox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(0, 69, Short.MAX_VALUE))
+                    .addComponent(msg_lbl, javax.swing.GroupLayout.DEFAULT_SIZE, 792, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -394,40 +503,53 @@ public class CONFIG_UI0003_USERS extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(id_lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(fname_lbl1))
-                .addGap(8, 8, 8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lname_lbl1)
+                    .addComponent(create_time_txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lname_lbl2)
+                    .addComponent(write_time_txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(13, 13, 13)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(fname_lbl)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                                .addComponent(lname_txtbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(lname_lbl)
-                                .addComponent(pwd_lbl1)
-                                .addComponent(level_combobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                            .addComponent(lname_txtbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lname_lbl)
+                            .addComponent(pwd_lbl1)
+                            .addComponent(level_combobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(login_lbl)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                                .addComponent(pwd_txtbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(pwd_lbl)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(pwd_lbl2)
-                                    .addComponent(active_combobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                            .addComponent(pwd_txtbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pwd_lbl)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(pwd_lbl2)
+                                .addComponent(active_combobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(fname_txtbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(fname_txtbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(fname_lbl))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(login_txtbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(login_txtbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(login_lbl))
                         .addGap(3, 3, 3)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(harnessType_filter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(project_filter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(pwd_lbl7)
+                        .addComponent(login_lbl3)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(msg_lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(deletel_btn, javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(save_btn)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(cancel_btn)
-                        .addComponent(duplicate_btn)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(msg_lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                        .addComponent(save_btn)
+                        .addComponent(duplicate_btn)
+                        .addComponent(cancel_btn)))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         user_list_panel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Users list", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Calibri", 1, 14))); // NOI18N
@@ -590,6 +712,8 @@ public class CONFIG_UI0003_USERS extends javax.swing.JDialog {
                     mu.setWriteId(PackagingVars.context.getUser().getId());
                     mu.setCreateTime(new Date());
                     mu.setWriteTime(new Date());
+                    mu.setHarnessType(harnessType_filter.getSelectedItem().toString());
+                    mu.setProject(project_filter.getSelectedItem().toString());
                     mu.create(mu);
 
                     clearFields();
@@ -606,6 +730,18 @@ public class CONFIG_UI0003_USERS extends javax.swing.JDialog {
                 aux.setPassword(pwd_txtbox.getText());
                 aux.setWriteId(PackagingVars.context.getUser().getId());
                 aux.setWriteTime(new Date());
+                for (int i = 0; i < harnessType_filter.getItemCount(); i++) {
+                    if (harnessType_filter.getItemAt(i).toString().equals(aux.getHarnessType())) {
+                        harnessType_filter.setSelectedIndex(i);
+                        break;
+                    }
+                }
+                for (int i = 0; i < project_filter.getItemCount(); i++) {
+                    if (project_filter.getItemAt(i).toString().equals(aux.getProject())) {
+                        project_filter.setSelectedIndex(i);
+                        break;
+                    }
+                }
                 aux.update(aux);
                 clearFields();
                 refresh();
@@ -639,6 +775,32 @@ public class CONFIG_UI0003_USERS extends javax.swing.JDialog {
     private void duplicate_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_duplicate_btnActionPerformed
         id_lbl.setText("");
 
+        fname_txtbox.setText(aux.getFirstName());
+        lname_txtbox.setText(aux.getLastName());
+        login_txtbox.setText(aux.getLogin());
+        pwd_txtbox.setText(aux.getPassword());
+
+        for (int i = 0; i < harnessType_filter.getItemCount(); i++) {
+            if (harnessType_filter.getItemAt(i).toString().equals(aux.getHarnessType())) {
+                harnessType_filter.setSelectedIndex(i);
+                break;
+            }
+        }
+
+        for (int i = 0; i < project_filter.getItemCount(); i++) {
+            if (project_filter.getItemAt(i).toString().equals(aux.getProject())) {
+                project_filter.setSelectedIndex(i);
+                break;
+            }
+        }
+
+        for (int i = 0; i < level_combobox.getItemCount(); i++) {
+            if (level_combobox.getItemAt(i).toString().equals(aux.getAccessLevel())) {
+                level_combobox.setSelectedIndex(i);
+                break;
+            }
+        }
+
         if (String.valueOf(aux.getActive()).equals("1")) {
             active_combobox.setSelectedIndex(0);
         } else {
@@ -661,11 +823,20 @@ public class CONFIG_UI0003_USERS extends javax.swing.JDialog {
         refresh();
     }//GEN-LAST:event_login_txtbox_searchKeyPressed
 
+    private void project_filterItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_project_filterItemStateChanged
+
+    }//GEN-LAST:event_project_filterItemStateChanged
+
+    private void project_filterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_project_filterActionPerformed
+        this.initHarnessTypeByProject(String.valueOf(project_filter.getSelectedItem()));
+    }//GEN-LAST:event_project_filterActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox active_combobox;
     private javax.swing.JButton cancel_btn;
     private javax.swing.JButton clear_search_btn;
+    private javax.swing.JTextField create_time_txt;
     private javax.swing.JButton deletel_btn;
     private javax.swing.JButton duplicate_btn;
     private javax.swing.JLabel fname_lbl;
@@ -673,27 +844,34 @@ public class CONFIG_UI0003_USERS extends javax.swing.JDialog {
     private javax.swing.JLabel fname_lbl_search;
     private javax.swing.JTextField fname_txtbox;
     private javax.swing.JTextField fname_txtbox_search;
+    private javax.swing.JComboBox harnessType_filter;
     private javax.swing.JLabel id_lbl;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JComboBox level_combobox;
     private javax.swing.JLabel llogin_lbl_search;
     private javax.swing.JLabel lname_lbl;
+    private javax.swing.JLabel lname_lbl1;
+    private javax.swing.JLabel lname_lbl2;
     private javax.swing.JLabel lname_lbl_search;
     private javax.swing.JTextField lname_txtbox;
     private javax.swing.JTextField lname_txtbox_search;
     private javax.swing.JLabel login_lbl;
+    private javax.swing.JLabel login_lbl3;
     private javax.swing.JTextField login_txtbox;
     private javax.swing.JTextField login_txtbox_search;
     private javax.swing.JLabel msg_lbl;
+    private javax.swing.JComboBox project_filter;
     private javax.swing.JLabel pwd_lbl;
     private javax.swing.JLabel pwd_lbl1;
     private javax.swing.JLabel pwd_lbl2;
+    private javax.swing.JLabel pwd_lbl7;
     private javax.swing.JTextField pwd_txtbox;
     private javax.swing.JButton refresh_btn;
     private javax.swing.JButton save_btn;
     private javax.swing.JPanel user_list_panel;
     private javax.swing.JScrollPane user_table_scroll;
     private javax.swing.JTable users_table;
+    private javax.swing.JTextField write_time_txt;
     // End of variables declaration//GEN-END:variables
 
 }
