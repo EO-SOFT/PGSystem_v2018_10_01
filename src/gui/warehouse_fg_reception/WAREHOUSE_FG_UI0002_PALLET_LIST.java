@@ -60,19 +60,19 @@ public final class WAREHOUSE_FG_UI0002_PALLET_LIST extends javax.swing.JFrame {
 
     Vector<String> searchResult_table_header = new Vector<String>();
     List<String> table_header = Arrays.asList(
-            "Segment",
-            "Workplace",
-            "Pack Number",
-            "CPN",
-            "Fifo Time",
-            "SPN",
-            "Pack Type",
-            "Pack Size",
-            "Qty Read",
-            "Std Time",
-            "Total Std Time",
-            "State",
-            "State code"
+            "Segment",          //0
+            "Workplace",        //1
+            "Pack Number",      //2            
+            "CPN",              //3
+            "Fifo Time",        //4
+            "SPN",              //5
+            "Pack Type",        //6
+            "Pack Size",        //7
+            "Qty Read",         //8
+            "Std Time",         //9
+            "Total Std Time",   //10
+            "State",            //11
+            "State code"        //12
     );
 
     SimpleDateFormat timeDf = new SimpleDateFormat("HH:mm");
@@ -204,7 +204,8 @@ public final class WAREHOUSE_FG_UI0002_PALLET_LIST extends javax.swing.JFrame {
         JTableHelper.sizeColumnsToFit(searchResult_table);
 
         //Load table header
-        load_table_header();
+        reset_table_content();
+        load_table_header(table_header);
 
         //Init time spinner
         initTimeSpinners();
@@ -266,7 +267,7 @@ public final class WAREHOUSE_FG_UI0002_PALLET_LIST extends javax.swing.JFrame {
         }
     }
 
-    private void load_table_header() {
+    private void load_table_header(List<String> table_header) {
         this.reset_table_content();
 
         for (Iterator<String> it = table_header.iterator(); it.hasNext();) {
@@ -782,34 +783,42 @@ public final class WAREHOUSE_FG_UI0002_PALLET_LIST extends javax.swing.JFrame {
                 if (selected.get(i).equals(GlobalVars.PALLET_OPEN)) {
                     state = GlobalVars.PALLET_OPEN;
                     fifo_time = " bc.create_time AS fifo_time, ";
+                    this.searchResult_table_header.set(4, "OPEN TIME"); // Modify the header of fifo time acording to choosen status
                 }
                 if (selected.get(i).equals(GlobalVars.PALLET_WAITING)) {
                     state = GlobalVars.PALLET_WAITING;
                     fifo_time = " bc.complete_time AS fifo_time, ";
+                    this.searchResult_table_header.set(4, "COMPLETE TIME"); // Modify the header of fifo time acording to choosen status
                 }
                 if (selected.get(i).equals(GlobalVars.PALLET_CLOSED)) {
                     state = GlobalVars.PALLET_CLOSED;
                     fifo_time = " bc.closed_time AS fifo_time, ";
+                    this.searchResult_table_header.set(4, "CLOSED TIME"); // Modify the header of fifo time acording to choosen status
                 }
                 if (selected.get(i).equals(GlobalVars.PALLET_STORED)) {
                     state = GlobalVars.PALLET_STORED;
                     fifo_time = " bc.stored_time AS fifo_time, ";
+                    this.searchResult_table_header.set(4, "STORED TIME"); // Modify the header of fifo time acording to choosen status
                 }
                 if (selected.get(i).equals(GlobalVars.PALLET_RESERVED)) {
                     state = GlobalVars.PALLET_RESERVED;
                     fifo_time = " bc.reserved_time AS fifo_time, ";
+                    this.searchResult_table_header.set(4, "RESERVED TIME"); // Modify the header of fifo time acording to choosen status
                 }
                 if (selected.get(i).equals(GlobalVars.PALLET_DISPATCHED)) {
                     state = GlobalVars.PALLET_DISPATCHED;
                     fifo_time = " bc.dispatch_time AS fifo_time, ";
+                    this.searchResult_table_header.set(4, "DISPATCH TIME"); // Modify the header of fifo time acording to choosen status
                 }
                 if (selected.get(i).equals(GlobalVars.PALLET_QUARANTAINE)) {
                     state = GlobalVars.PALLET_QUARANTAINE;
                     fifo_time = " bc.write_time AS fifo_time, ";
+                    this.searchResult_table_header.set(4, "QUARANT. TIME"); // Modify the header of fifo time acording to choosen status
                 }
                 if (selected.get(i).equals(GlobalVars.PALLET_DROPPED)) {
                     state = GlobalVars.PALLET_DROPPED;
                     fifo_time = " bc.dispatch_time AS fifo_time, ";
+                    this.searchResult_table_header.set(4, "OPEN TIME"); // Modify the header of fifo time acording to choosen status
                 }
 
             }
@@ -1010,6 +1019,8 @@ public final class WAREHOUSE_FG_UI0002_PALLET_LIST extends javax.swing.JFrame {
 
                 this.resultList = resultList = query.list();
                 nbreLigne.setText(resultList.size() + "");
+                
+                //this.load_table_header(table_header);
                 this.reload_container_table_data(resultList);
                 Helper.sess.getTransaction().commit();
 
