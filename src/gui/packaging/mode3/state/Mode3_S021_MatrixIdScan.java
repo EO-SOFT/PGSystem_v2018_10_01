@@ -77,7 +77,9 @@ public class Mode3_S021_MatrixIdScan implements Mode3_State {
             //Format 3 Harness Part with prefix P but removed to be compared with QR Code without P 5101C861C;05.10.2017;10:05:01
         } else if (!counter.startsWith(context.getBaseContainerTmp().getHarnessPart())
                 && !counter.startsWith(GlobalVars.HARN_COUNTER_PREFIX + context.getBaseContainerTmp().getHarnessPart())
-                && !counter.startsWith(context.getBaseContainerTmp().getHarnessPart().substring(1))) {
+                && !counter.startsWith(context.getBaseContainerTmp().getHarnessPart().substring(1))
+//                && !counter.startsWith(context.getBaseContainerTmp().getSupplierPartNumber())                
+                ) {
             UILog.severe(ErrorMsg.APP_ERR0011[0], counter, context.getBaseContainerTmp().getHarnessPart());
             UILog.severeDialog(null, ErrorMsg.APP_ERR0011, counter, context.getBaseContainerTmp().getHarnessPart());
             PackagingVars.Packaging_Gui_Mode3.getFeedbackTextarea().setText(UILog.severe(ErrorMsg.APP_ERR0011[0], counter, context.getBaseContainerTmp().getHarnessPart()));

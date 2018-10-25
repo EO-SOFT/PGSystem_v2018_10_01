@@ -123,7 +123,7 @@ public class CONFIG_UI0001_STD_PACK_CONFIG extends javax.swing.JFrame {
         }
     }
 
-    private void setHarnessTypeByProject(String project) {
+    private void initHarnessTypeByProject(String project) {
         List result = new ConfigProject().selectHarnessTypeByProject(project);
         if (result.isEmpty()) {
             UILog.severeDialog(this, ErrorMsg.APP_ERR0035);
@@ -877,7 +877,7 @@ public class CONFIG_UI0001_STD_PACK_CONFIG extends javax.swing.JFrame {
                             .addComponent(segment_filter, javax.swing.GroupLayout.Alignment.TRAILING, 0, 174, Short.MAX_VALUE)
                             .addComponent(cpn_txtbox, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(netWeight_txtbox, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
-                            .addComponent(project_filter, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(project_filter, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -1065,7 +1065,7 @@ public class CONFIG_UI0001_STD_PACK_CONFIG extends javax.swing.JFrame {
                             .addComponent(pack_type_filter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(pwd_lbl4)
                             .addComponent(pack_size_txtbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 42, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(login_lbl4)
@@ -1784,7 +1784,7 @@ public class CONFIG_UI0001_STD_PACK_CONFIG extends javax.swing.JFrame {
         } else {
             this.setWarehouseByProject(String.valueOf(project_filter.getSelectedItem()));
             if (this.setSegmentByProject(String.valueOf(project_filter.getSelectedItem()))) {
-                this.setHarnessTypeByProject(String.valueOf(project_filter.getSelectedItem()));
+                this.initHarnessTypeByProject(String.valueOf(project_filter.getSelectedItem()));
             }
         }
     }//GEN-LAST:event_project_filterActionPerformed

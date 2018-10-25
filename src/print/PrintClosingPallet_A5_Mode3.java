@@ -146,15 +146,19 @@ public final class PrintClosingPallet_A5_Mode3 {
         table.setWidthPercent(100f);
 
         //-------- LINE 1 ---------------------------------
-        //Customer Part no. (P) Barcode + Data
-        table.addCell(new Cell(0, 2)//.setBorder(Border.NO_BORDER)
-                .add(h.h3((String) DATA[0][0]))
-                .add(createBarcode((String) DATA[0][2], pdfDoc, false, 1, 20))
-                .add(h.h((String) DATA[0][1], true, 36)
-                ).setMarginBottom(0).setPaddingLeft(10));
+        //Project
+        table.addCell(new Cell()//.setBorder(Border.NO_BORDER)
+                .add(
+                        h.h3((String) DATA[14][0]))
+                .add(
+                        "" //createBarcode((String) DATA[12][2], pdfDoc, false, 1, 20))
+                )
+                .add(
+                        h.h((String) DATA[14][1], true, 32)
+                ).setMarginBottom(1).setMarginTop(0));        
 
         //Supplier Address Data
-        table.addCell(new Cell(0, 2)//.setBorder(Border.NO_BORDER)
+        table.addCell(new Cell(0, 3)//.setBorder(Border.NO_BORDER)
                 .add(h.h3((String) DATA[1][0]))
                 .add(h.h2Bold((String) DATA[1][1]))
                 .add((String) DATA[1][2]).setMarginBottom(0));
@@ -226,17 +230,9 @@ public final class PrintClosingPallet_A5_Mode3 {
                         h.h2Bold((String) DATA[7][1])
                 ).setMarginBottom(1).setMarginTop(0));
         //-------- LINE 4 ---------------------------------
-        //Container no.
-        table.addCell(new Cell()//.setBorder(Border.NO_BORDER)
-                .add(
-                        h.h3((String) DATA[8][0]))
-                .add(
-                        createBarcode((String) DATA[8][2], pdfDoc, false, 1, 20))
-                .add(
-                        h.h((String) DATA[8][1], true, 32)
-                ).setMarginBottom(1).setMarginTop(0).setPaddingLeft(15));
+        
         //Warehouse
-        table.addCell(new Cell()//.setBorder(Border.NO_BORDER)
+        table.addCell(new Cell(0, 2)//.setBorder(Border.NO_BORDER)
                 .add(
                         h.h3((String) DATA[15][0]))
                 .add(
@@ -245,16 +241,16 @@ public final class PrintClosingPallet_A5_Mode3 {
                         h.h((String) DATA[15][1], true, 32)
                 ).setMarginBottom(1).setMarginTop(0).setPaddingLeft(15));
         //Gross weight
-        table.addCell(new Cell()//.setBorder(Border.NO_BORDER)
-                .add(
-                        h.h3((String) DATA[9][0]))
-                .add(
-                        createBarcode((String) DATA[9][2], pdfDoc, false, 1, 20))
-                .add(
-                        h.h2Bold((String) DATA[9][1])
-                ).setMarginBottom(1).setMarginTop(0));
+//        table.addCell(new Cell()//.setBorder(Border.NO_BORDER)
+//                .add(
+//                        h.h3((String) DATA[9][0]))
+//                .add(
+//                        createBarcode((String) DATA[9][2], pdfDoc, false, 1, 20))
+//                .add(
+//                        h.h2Bold((String) DATA[9][1])
+//                ).setMarginBottom(1).setMarginTop(0));
         //FIFO Date
-        table.addCell(new Cell()//.setBorder(Border.NO_BORDER)
+        table.addCell(new Cell(0, 2)//.setBorder(Border.NO_BORDER)
                 .add(
                         h.h3((String) DATA[10][0]))
                 .add(
@@ -263,38 +259,42 @@ public final class PrintClosingPallet_A5_Mode3 {
                         h.h2Bold((String) DATA[10][1])
                 ).setMarginBottom(1).setMarginTop(0));
         //-------- LINE 5 ---------------------------------
-        //Project
-        table.addCell(new Cell()//.setBorder(Border.NO_BORDER)
-                .add(
-                        h.h3((String) DATA[14][0]))
-                .add(
-                        "" //createBarcode((String) DATA[12][2], pdfDoc, false, 1, 20))
-                )
-                .add(
-                        h.h((String) DATA[14][1], true, 32)
-                ).setMarginBottom(1).setMarginTop(0));
-
-        //Eng.Change
+        //Customer Part no. (P) Barcode + Data
+        table.addCell(new Cell(0, 2)//.setBorder(Border.NO_BORDER)
+                .add(h.h3((String) DATA[0][0]))
+                .add(createBarcode((String) DATA[0][2], pdfDoc, false, 1, 20))
+                .add(h.h((String) DATA[0][1], true, 36)
+                ).setMarginBottom(0).setPaddingLeft(10));
+        //Container no.
         table.addCell(new Cell(0, 2)//.setBorder(Border.NO_BORDER)
                 .add(
-                        h.h3((String) DATA[11][0]))
+                        h.h3((String) DATA[8][0]))
                 .add(
-                        ""//createBarcode((String) DATA[11][2], pdfDoc, false, 1, 20)
-                )
+                        createBarcode((String) DATA[8][2], pdfDoc, false, 1, 20))
                 .add(
-                        h.h2Bold((String) DATA[11][1])
-                ).setMarginBottom(1).setMarginTop(0));
+                        h.h((String) DATA[8][1], true, 32)
+                ).setMarginBottom(1).setMarginTop(0).setPaddingLeft(15));
+        //Eng.Change
+//        table.addCell(new Cell(0, 2)//.setBorder(Border.NO_BORDER)
+//                .add(
+//                        h.h3((String) DATA[11][0]))
+//                .add(
+//                        ""//createBarcode((String) DATA[11][2], pdfDoc, false, 1, 20)
+//                )
+//                .add(
+//                        h.h2Bold((String) DATA[11][1])
+//                ).setMarginBottom(1).setMarginTop(0));
 
         //Eng.Change Date
-        table.addCell(new Cell()//.setBorder(Border.NO_BORDER)
-                .add(
-                        h.h3((String) DATA[12][0]))
-                .add(
-                        "" //createBarcode((String) DATA[12][2], pdfDoc, false, 1, 20))
-                )
-                .add(
-                        h.h2Bold((String) DATA[12][1])
-                ).setMarginBottom(1).setMarginTop(0));
+//        table.addCell(new Cell()//.setBorder(Border.NO_BORDER)
+//                .add(
+//                        h.h3((String) DATA[12][0]))
+//                .add(
+//                        "" //createBarcode((String) DATA[12][2], pdfDoc, false, 1, 20))
+//                )
+//                .add(
+//                        h.h2Bold((String) DATA[12][1])
+//                ).setMarginBottom(1).setMarginTop(0));
 
         doc.add(table);
         doc.close();

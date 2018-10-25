@@ -281,7 +281,7 @@ public class PrinterHelper {
         if (!reprint) {
             //Save the new close pallet in DB with new state
             hisGalia = new HisClosingPalPrint(bc.getHarnessPart(),
-                    GlobalVars.COMPANY_INFO.getDesc()+" "+GlobalVars.COMPANY_INFO.getName(),
+                    GlobalVars.COMPANY_INFO.getName()+" "+GlobalVars.COMPANY_INFO.getAddress1(),
                     bc.getSupplierPartNumber(),
                     bc.getHarnessIndex(),
                     bc.getQtyExpected(),

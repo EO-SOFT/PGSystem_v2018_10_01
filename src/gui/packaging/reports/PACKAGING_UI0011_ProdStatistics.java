@@ -45,7 +45,7 @@ import ui.error.ErrorMsg;
  *
  * @author Administrator
  */
-public class PACKAGING_UI0011_ProdStatistics extends javax.swing.JDialog {
+public class PACKAGING_UI0011_ProdStatistics extends javax.swing.JFrame {
 
     Vector<String> declared_result_table_header = new Vector<String>();
     Vector declared_result_table_data = new Vector();
@@ -71,7 +71,7 @@ public class PACKAGING_UI0011_ProdStatistics extends javax.swing.JDialog {
      * Creates new form UI0011_ProdStatistics_
      */
     public PACKAGING_UI0011_ProdStatistics(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+        //super(parent, modal);
         initComponents();
         initTimeSpinners();
         initProjectFilter();
@@ -82,7 +82,8 @@ public class PACKAGING_UI0011_ProdStatistics extends javax.swing.JDialog {
         //initWorkplaceFilter();
         this.reset_tables_content();
         this.refresh();
-        Helper.centerJDialog(this);
+        //Helper.centerJDialog(this);
+        Helper.centerJFrame(this);
     }
 
     private void initProjectFilter() {

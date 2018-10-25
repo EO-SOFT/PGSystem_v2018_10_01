@@ -203,6 +203,14 @@ public class WAREHOUSE_DISPATCH_UI0009_LABELS_CONTROL extends javax.swing.JFrame
                 scan_textboxActionPerformed(evt);
             }
         });
+        scan_textbox.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                scan_textboxFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                scan_textboxFocusLost(evt);
+            }
+        });
         scan_textbox.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 scan_textboxKeyPressed(evt);
@@ -380,6 +388,14 @@ public class WAREHOUSE_DISPATCH_UI0009_LABELS_CONTROL extends javax.swing.JFrame
         scan_textbox.requestFocus();
         clearTextFields();
     }//GEN-LAST:event_button_initializeActionPerformed
+
+    private void scan_textboxFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_scan_textboxFocusGained
+        scan_textbox.setBackground(Color.GREEN);
+    }//GEN-LAST:event_scan_textboxFocusGained
+
+    private void scan_textboxFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_scan_textboxFocusLost
+        scan_textbox.setBackground(Color.WHITE); 
+    }//GEN-LAST:event_scan_textboxFocusLost
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton button_initialize;

@@ -455,9 +455,16 @@ public final class PACKAGING_UI0001_Main_Mode1 extends javax.swing.JFrame {
             }
         });
 
-        scan_txtbox.setBackground(new java.awt.Color(204, 204, 255));
         scan_txtbox.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         scan_txtbox.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        scan_txtbox.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                scan_txtboxFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                scan_txtboxFocusLost(evt);
+            }
+        });
         scan_txtbox.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 scan_txtboxKeyPressed(evt);
@@ -986,6 +993,14 @@ public final class PACKAGING_UI0001_Main_Mode1 extends javax.swing.JFrame {
     private void menu018_open_pallet_list1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu018_open_pallet_list1ActionPerformed
         new PACKAGING_UI0022_ClosedContainer(this, true).setVisible(true);
     }//GEN-LAST:event_menu018_open_pallet_list1ActionPerformed
+
+    private void scan_txtboxFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_scan_txtboxFocusGained
+        scan_txtbox.setBackground(Color.GREEN);
+    }//GEN-LAST:event_scan_txtboxFocusGained
+
+    private void scan_txtboxFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_scan_txtboxFocusLost
+        scan_txtbox.setBackground(Color.WHITE);
+    }//GEN-LAST:event_scan_txtboxFocusLost
 
     public void setIconLabel(ImageIcon icon) {
         this.img_lbl.setIcon(icon);

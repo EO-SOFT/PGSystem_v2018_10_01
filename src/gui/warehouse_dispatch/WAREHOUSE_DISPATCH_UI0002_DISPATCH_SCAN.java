@@ -1102,6 +1102,8 @@ public final class WAREHOUSE_DISPATCH_UI0002_DISPATCH_SCAN extends javax.swing.J
         tab2_txt_totalQty = new javax.swing.JLabel();
         tab2_txt_nbreLigne = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
+        controlled_combobox_tab_2 = new javax.swing.JComboBox();
+        jLabel22 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         txt_total_hours = new javax.swing.JTextField();
@@ -1176,6 +1178,14 @@ public final class WAREHOUSE_DISPATCH_UI0002_DISPATCH_SCAN extends javax.swing.J
         scan_txt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 scan_txtActionPerformed(evt);
+            }
+        });
+        scan_txt.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                scan_txtFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                scan_txtFocusLost(evt);
             }
         });
         scan_txt.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -1264,7 +1274,7 @@ public final class WAREHOUSE_DISPATCH_UI0002_DISPATCH_SCAN extends javax.swing.J
         });
 
         refresh_btn.setBackground(new java.awt.Color(153, 204, 255));
-        refresh_btn.setText("Refresh");
+        refresh_btn.setText("Actualiser");
         refresh_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 refresh_btnActionPerformed(evt);
@@ -1413,7 +1423,7 @@ public final class WAREHOUSE_DISPATCH_UI0002_DISPATCH_SCAN extends javax.swing.J
         });
 
         btn_filter_ok.setBackground(new java.awt.Color(153, 204, 255));
-        btn_filter_ok.setText("Refresh");
+        btn_filter_ok.setText("Actualiser");
         btn_filter_ok.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_filter_okActionPerformed(evt);
@@ -1560,14 +1570,14 @@ public final class WAREHOUSE_DISPATCH_UI0002_DISPATCH_SCAN extends javax.swing.J
 
             },
             new String [] {
-                "DESTINATION", "CPN", "PACK TYPE", "TOTAL QTY", "TOTAL PACK"
+                "CPN", "LPN", "PACK TYPE", "TOTAL QTY", "TOTAL PACK", "DESTINATION"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -1627,6 +1637,15 @@ public final class WAREHOUSE_DISPATCH_UI0002_DISPATCH_SCAN extends javax.swing.J
         jLabel21.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel21.setText("Total Packages ");
 
+        controlled_combobox_tab_2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ALL", "Controlled", "Not controlled" }));
+        controlled_combobox_tab_2.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                controlled_combobox_tab_2ItemStateChanged(evt);
+            }
+        });
+
+        jLabel22.setText("Labels Control");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -1650,15 +1669,18 @@ public final class WAREHOUSE_DISPATCH_UI0002_DISPATCH_SCAN extends javax.swing.J
                                 .addComponent(tab2_packtype, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(tab2_refresh))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(445, 445, 445)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel22)
+                            .addComponent(controlled_combobox_tab_2, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(198, 198, 198)
                         .addComponent(jLabel20)
                         .addGap(18, 18, 18)
-                        .addComponent(tab2_txt_totalQty, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(tab2_txt_totalQty, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(jLabel21)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tab2_txt_nbreLigne, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(tab2_txt_nbreLigne, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(590, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -1682,14 +1704,18 @@ public final class WAREHOUSE_DISPATCH_UI0002_DISPATCH_SCAN extends javax.swing.J
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(tab2_cpn, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
                             .addComponent(tab2_destination))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(tab2_txt_nbreLigne)
-                    .addComponent(jLabel21)
-                    .addComponent(tab2_txt_totalQty)
-                    .addComponent(jLabel20))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 537, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel22)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(controlled_combobox_tab_2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                        .addComponent(jLabel20)
+                        .addComponent(tab2_txt_totalQty)
+                        .addComponent(jLabel21)
+                        .addComponent(tab2_txt_nbreLigne)))
+                .addGap(9, 9, 9)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(1012, Short.MAX_VALUE))
         );
 
@@ -2616,8 +2642,9 @@ public final class WAREHOUSE_DISPATCH_UI0002_DISPATCH_SCAN extends javax.swing.J
      * @param destination
      * @param pn
      * @param pack_type
+     * @param lineState
      */
-    public void total_per_part_and_destination(String destination, String pn, String pack_type) {
+    public void total_per_part_and_destination(String destination, String pn, String pack_type, int lineState) {
         
         
         tab2_txt_nbreLigne.setText("0");
@@ -2625,13 +2652,13 @@ public final class WAREHOUSE_DISPATCH_UI0002_DISPATCH_SCAN extends javax.swing.J
         total_per_dest_table_data = new Vector();
         total_per_dest_table_data_header = new Vector();
         //Init table header
-        total_per_dest_table_data_header.add("DESTINATION");
         total_per_dest_table_data_header.add("CPN");
         total_per_dest_table_data_header.add("SPN");
         total_per_dest_table_data_header.add("PACK TYPE");
         total_per_dest_table_data_header.add("UCS");
         total_per_dest_table_data_header.add("TOTAL QTY");
         total_per_dest_table_data_header.add("TOTAL PACKS");
+        total_per_dest_table_data_header.add("DESTINATION");
 
         DefaultTableModel dataModel = new DefaultTableModel(total_per_dest_table_data, total_per_dest_table_data_header);
         total_per_pn_table.setModel(dataModel);
@@ -2639,13 +2666,13 @@ public final class WAREHOUSE_DISPATCH_UI0002_DISPATCH_SCAN extends javax.swing.J
         Helper.startSession();
 
         String query_str = "SELECT\n"
-                + "line.destination_wh AS destination_wh,\n"
                 + "line.harness_part AS harness_part,\n"
                 + "line.supplier_part AS supplier_part,\n"
                 + "line.pack_type AS pack_type,\n"
                 + "line.qty AS qty,\n"
                 + "SUM(line.qty) AS total_qty,    \n"
-                + "COUNT(*) AS total_pack\n"
+                + "COUNT(*) AS total_pack, \n"
+                + "line.destination_wh AS destination_wh \n"
                 + "FROM load_plan_line line\n"
                 + "WHERE load_plan_id = '"+plan_num_label.getText()+"' \n";
         if(destination != null && !destination.isEmpty()){
@@ -2657,22 +2684,29 @@ public final class WAREHOUSE_DISPATCH_UI0002_DISPATCH_SCAN extends javax.swing.J
         if(pack_type != null && !pack_type.isEmpty()){
             query_str += " AND pack_type LIKE '%"+pack_type.toUpperCase()+"%'";
         }
+        
+        if (lineState == 1) {
+            query_str += " AND line.dispatch_label_no != '' ";
+        }
+        if (lineState == 2) {
+            query_str += " AND line.dispatch_label_no = '' ";
+        }
+        
         query_str += " GROUP BY destination_wh, harness_part, pack_type, qty, supplier_part\n"
                 + "ORDER BY destination_wh ASC, pack_type DESC;";
 
-//        SQLQuery query = Helper.sess.createSQLQuery(
-//                String.format(query_str, plan_num_label.getText()));
         SQLQuery query = Helper.sess.createSQLQuery(query_str);
         
         System.out.println("Query "+query_str);
         
-        query.addScalar("destination_wh", StandardBasicTypes.STRING)
+        query
                 .addScalar("harness_part", StandardBasicTypes.STRING)
                 .addScalar("supplier_part", StandardBasicTypes.STRING)
                 .addScalar("pack_type", StandardBasicTypes.STRING)
                 .addScalar("qty", StandardBasicTypes.DOUBLE)
                 .addScalar("total_qty", StandardBasicTypes.DOUBLE)
-                .addScalar("total_pack", StandardBasicTypes.INTEGER);
+                .addScalar("total_pack", StandardBasicTypes.INTEGER)
+                .addScalar("destination_wh", StandardBasicTypes.STRING);
 
         List<Object[]> result = query.list();
         Helper.sess.getTransaction().commit();
@@ -2684,17 +2718,17 @@ public final class WAREHOUSE_DISPATCH_UI0002_DISPATCH_SCAN extends javax.swing.J
             oneRow.add((String) obj[0]);
             oneRow.add((String) obj[1]);
             oneRow.add((String) obj[2]);
-            oneRow.add((String) obj[3]);
+            oneRow.add(String.format("%1$,.2f", obj[3]));
             oneRow.add(String.format("%1$,.2f", obj[4]));
-            oneRow.add(String.format("%1$,.2f", obj[5]));
-            oneRow.add(String.format("%d", obj[6]));
+            oneRow.add(String.format("%d", obj[5]));
+            oneRow.add((String) obj[6]);
             
             System.out.println("one row "+oneRow.toString());
             
             total_per_dest_table_data.add(oneRow);
             
             total_qty += Float.valueOf(obj[5].toString());
-            total_packs += Float.valueOf(String.format("%d", obj[6]));
+            total_packs += Float.valueOf(String.format("%d", obj[5]));
         }
         tab2_txt_nbreLigne.setText(total_packs+"");
         tab2_txt_totalQty.setText(total_qty+"");
@@ -2703,7 +2737,8 @@ public final class WAREHOUSE_DISPATCH_UI0002_DISPATCH_SCAN extends javax.swing.J
     }
 
     private void tab2_refreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tab2_refreshActionPerformed
-        total_per_part_and_destination(tab2_destination.getText().trim(), tab2_cpn.getText().trim(), tab2_packtype.getText().trim());
+       
+        total_per_part_and_destination(tab2_destination.getText().trim(), tab2_cpn.getText().trim(), tab2_packtype.getText().trim(), controlled_combobox_tab_2.getSelectedIndex());
     }//GEN-LAST:event_tab2_refreshActionPerformed
 
     private void export_plan_menuMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_export_plan_menuMouseEntered
@@ -2715,20 +2750,20 @@ public final class WAREHOUSE_DISPATCH_UI0002_DISPATCH_SCAN extends javax.swing.J
     }//GEN-LAST:event_current_plan_jpanelMouseClicked
 
     private void tab2_destinationKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tab2_destinationKeyTyped
-        total_per_part_and_destination(tab2_destination.getText().trim(), tab2_cpn.getText().trim(), tab2_packtype.getText().trim());
+        total_per_part_and_destination(tab2_destination.getText().trim(), tab2_cpn.getText().trim(), tab2_packtype.getText().trim(), controlled_combobox_tab_2.getSelectedIndex());
     }//GEN-LAST:event_tab2_destinationKeyTyped
 
     private void tab2_cpnKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tab2_cpnKeyTyped
-        total_per_part_and_destination(tab2_destination.getText().trim(), tab2_cpn.getText().trim(), tab2_packtype.getText().trim());
+        total_per_part_and_destination(tab2_destination.getText().trim(), tab2_cpn.getText().trim(), tab2_packtype.getText().trim(),controlled_combobox_tab_2.getSelectedIndex());
 
     }//GEN-LAST:event_tab2_cpnKeyTyped
 
     private void jPanel1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPanel1KeyTyped
-        total_per_part_and_destination(tab2_destination.getText().trim(), tab2_cpn.getText().trim(), tab2_packtype.getText().trim());
+        total_per_part_and_destination(tab2_destination.getText().trim(), tab2_cpn.getText().trim(), tab2_packtype.getText().trim(),controlled_combobox_tab_2.getSelectedIndex());
     }//GEN-LAST:event_jPanel1KeyTyped
 
     private void tab2_packtypeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tab2_packtypeKeyTyped
-        total_per_part_and_destination(tab2_destination.getText().trim(), tab2_cpn.getText().trim(), tab2_packtype.getText().trim());
+        total_per_part_and_destination(tab2_destination.getText().trim(), tab2_cpn.getText().trim(), tab2_packtype.getText().trim(),controlled_combobox_tab_2.getSelectedIndex());
     }//GEN-LAST:event_tab2_packtypeKeyTyped
 
     private void tab3_refreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tab3_refreshActionPerformed
@@ -2747,6 +2782,18 @@ public final class WAREHOUSE_DISPATCH_UI0002_DISPATCH_SCAN extends javax.swing.J
     private void export_plan_menuAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_export_plan_menuAncestorAdded
         // TODO add your handling code here:
     }//GEN-LAST:event_export_plan_menuAncestorAdded
+
+    private void scan_txtFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_scan_txtFocusGained
+        scan_txt.setBackground(Color.GREEN);
+    }//GEN-LAST:event_scan_txtFocusGained
+
+    private void scan_txtFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_scan_txtFocusLost
+        scan_txt.setBackground(Color.WHITE);        
+    }//GEN-LAST:event_scan_txtFocusLost
+
+    private void controlled_combobox_tab_2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_controlled_combobox_tab_2ItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_controlled_combobox_tab_2ItemStateChanged
 
     private void clearGui() {
 
@@ -2786,6 +2833,7 @@ public final class WAREHOUSE_DISPATCH_UI0002_DISPATCH_SCAN extends javax.swing.J
     private javax.swing.JLabel connectedUserName_label;
     private javax.swing.JMenu control_dispatch_menu;
     private javax.swing.JComboBox controlled_combobox;
+    private javax.swing.JComboBox controlled_combobox_tab_2;
     private javax.swing.JLabel create_time_label;
     private javax.swing.JLabel create_user_label;
     private javax.swing.JTabbedPane current_plan_jpanel;
@@ -2811,6 +2859,7 @@ public final class WAREHOUSE_DISPATCH_UI0002_DISPATCH_SCAN extends javax.swing.J
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

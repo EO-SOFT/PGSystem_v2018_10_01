@@ -38,7 +38,7 @@ import ui.error.ErrorMsg;
  *
  * @author Administrator
  */
-public class PACKAGING_UI0021_FG_AVAILABLE_STOCK extends javax.swing.JDialog {
+public class PACKAGING_UI0021_FG_AVAILABLE_STOCK extends javax.swing.JFrame {
 
     Vector<String> declared_result_table_header = new Vector<String>();
     Vector declared_result_table_data = new Vector();
@@ -46,7 +46,7 @@ public class PACKAGING_UI0021_FG_AVAILABLE_STOCK extends javax.swing.JDialog {
     //Vector<String> dropped_result_table_header = new Vector<String>();
     //Vector dropped_result_table_data = new Vector();
 
-    private List<Object[]> declaredResultList;
+    private List<Object[]> storedResultList;
 
     List<Object> segments = new ArrayList<>();
     List<Object> workplaces = new ArrayList<>();
@@ -67,7 +67,7 @@ public class PACKAGING_UI0021_FG_AVAILABLE_STOCK extends javax.swing.JDialog {
      * Creates new form UI0011_ProdStatistics_
      */
     public PACKAGING_UI0021_FG_AVAILABLE_STOCK(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+        //super(parent, modal);
         initComponents();
         //initFamillyFilter();
         //initSegmentFilter();
@@ -76,7 +76,8 @@ public class PACKAGING_UI0021_FG_AVAILABLE_STOCK extends javax.swing.JDialog {
         //initWorkplaceFilter();
         this.reset_tables_content();
         this.refresh();
-        Helper.centerJDialog(this);
+        //Helper.centerJDialog(this);
+        Helper.centerJFrame(this);
     }
 
     private void initProjectFilter() {
@@ -302,11 +303,11 @@ public class PACKAGING_UI0021_FG_AVAILABLE_STOCK extends javax.swing.JDialog {
             if (!workplaces.isEmpty()) {
                 query.setParameterList("workplaces", workplaces);
             }
-            this.declaredResultList = query.list();
+            this.storedResultList = query.list();
 
             Helper.sess.getTransaction().commit();
 
-            this.reload_declared_result_table_data(declaredResultList);
+            this.reload_declared_result_table_data(storedResultList);
 
             this.disableEditingTables();
 
@@ -328,20 +329,21 @@ public class PACKAGING_UI0021_FG_AVAILABLE_STOCK extends javax.swing.JDialog {
     private void initComponents() {
 
         north_panel = new javax.swing.JPanel();
-        refresh_btn = new javax.swing.JButton();
         result_table_scroll = new javax.swing.JScrollPane();
         declared_result_table = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        export_btn = new javax.swing.JButton();
-        project_filter = new javax.swing.JComboBox();
-        workplace_filter = new javax.swing.JComboBox();
-        segment_filter = new javax.swing.JComboBox();
-        jLabel20 = new javax.swing.JLabel();
-        jLabel22 = new javax.swing.JLabel();
-        harness_part_txt = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
         jLabel21 = new javax.swing.JLabel();
+        project_filter = new javax.swing.JComboBox();
+        jLabel20 = new javax.swing.JLabel();
+        segment_filter = new javax.swing.JComboBox();
+        jLabel22 = new javax.swing.JLabel();
+        workplace_filter = new javax.swing.JComboBox();
+        jLabel6 = new javax.swing.JLabel();
+        harness_part_txt = new javax.swing.JTextField();
+        export_btn = new javax.swing.JButton();
+        refresh_btn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Production statistics");
@@ -355,15 +357,6 @@ public class PACKAGING_UI0021_FG_AVAILABLE_STOCK extends javax.swing.JDialog {
         north_panel.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 north_panelKeyPressed(evt);
-            }
-        });
-
-        refresh_btn.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        refresh_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui/refresh.png"))); // NOI18N
-        refresh_btn.setText("Refresh");
-        refresh_btn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                refresh_btnActionPerformed(evt);
             }
         });
 
@@ -382,18 +375,14 @@ public class PACKAGING_UI0021_FG_AVAILABLE_STOCK extends javax.swing.JDialog {
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("Quantités en stock");
+        jLabel7.setText("Stock");
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel11.setText("Stock produit fini");
+        jLabel11.setText("Stock");
 
-        export_btn.setText("Exporter en Excel...");
-        export_btn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                export_btnActionPerformed(evt);
-            }
-        });
+        jLabel21.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel21.setText("Project");
 
         project_filter.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ALL" }));
         project_filter.addItemListener(new java.awt.event.ItemListener() {
@@ -407,18 +396,8 @@ public class PACKAGING_UI0021_FG_AVAILABLE_STOCK extends javax.swing.JDialog {
             }
         });
 
-        workplace_filter.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        workplace_filter.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ALL" }));
-        workplace_filter.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                workplace_filterItemStateChanged(evt);
-            }
-        });
-        workplace_filter.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                workplace_filterActionPerformed(evt);
-            }
-        });
+        jLabel20.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel20.setText("Segment");
 
         segment_filter.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         segment_filter.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ALL" }));
@@ -433,13 +412,24 @@ public class PACKAGING_UI0021_FG_AVAILABLE_STOCK extends javax.swing.JDialog {
             }
         });
 
-        jLabel20.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel20.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel20.setText("Segment");
-
-        jLabel22.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel22.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel22.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel22.setText("Workplace");
+
+        workplace_filter.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        workplace_filter.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ALL" }));
+        workplace_filter.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                workplace_filterItemStateChanged(evt);
+            }
+        });
+        workplace_filter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                workplace_filterActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel6.setText("Part number");
 
         harness_part_txt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -452,79 +442,104 @@ public class PACKAGING_UI0021_FG_AVAILABLE_STOCK extends javax.swing.JDialog {
             }
         });
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Part number");
+        export_btn.setText("Exporter en Excel...");
+        export_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                export_btnActionPerformed(evt);
+            }
+        });
 
-        jLabel21.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel21.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel21.setText("Project");
+        refresh_btn.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        refresh_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui/refresh.png"))); // NOI18N
+        refresh_btn.setText("Actualiser");
+        refresh_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                refresh_btnActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(project_filter, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel21))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel20)
+                    .addComponent(segment_filter, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(workplace_filter, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel22))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(harness_part_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(export_btn)
+                        .addGap(13, 13, 13)
+                        .addComponent(refresh_btn))
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(104, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel20)
+                            .addComponent(jLabel21))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(segment_filter, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(project_filter, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel22)
+                        .addGap(31, 31, 31))
+                    .addComponent(workplace_filter, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addGap(1, 1, 1)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(harness_part_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(refresh_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(export_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(31, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout north_panelLayout = new javax.swing.GroupLayout(north_panel);
         north_panel.setLayout(north_panelLayout);
         north_panelLayout.setHorizontalGroup(
             north_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(result_table_scroll)
             .addGroup(north_panelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(north_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(result_table_scroll)
                     .addGroup(north_panelLayout.createSequentialGroup()
-                        .addGap(11, 11, 11)
                         .addGroup(north_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(project_filter, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel21))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(north_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel20)
-                            .addComponent(segment_filter, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(north_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(workplace_filter, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel22))
-                        .addGap(18, 18, 18)
-                        .addGroup(north_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(north_panelLayout.createSequentialGroup()
-                                .addComponent(harness_part_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(export_btn)
-                                .addGap(13, 13, 13)
-                                .addComponent(refresh_btn))
-                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(229, Short.MAX_VALUE))
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 102, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         north_panelLayout.setVerticalGroup(
             north_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(north_panelLayout.createSequentialGroup()
                 .addGap(8, 8, 8)
-                .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addGroup(north_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, north_panelLayout.createSequentialGroup()
-                        .addGroup(north_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel20)
-                            .addComponent(jLabel21))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(north_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(segment_filter, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(project_filter, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, north_panelLayout.createSequentialGroup()
-                        .addComponent(jLabel22)
-                        .addGap(31, 31, 31))
-                    .addComponent(workplace_filter, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, north_panelLayout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addGap(1, 1, 1)
-                        .addGroup(north_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(harness_part_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(refresh_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(export_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addComponent(jLabel11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel7)
-                .addGap(18, 18, 18)
-                .addComponent(result_table_scroll, javax.swing.GroupLayout.PREFERRED_SIZE, 463, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(result_table_scroll, javax.swing.GroupLayout.DEFAULT_SIZE, 513, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -535,7 +550,7 @@ public class PACKAGING_UI0021_FG_AVAILABLE_STOCK extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(north_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(north_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -565,7 +580,7 @@ public class PACKAGING_UI0021_FG_AVAILABLE_STOCK extends javax.swing.JDialog {
         Workbook wb = new HSSFWorkbook();
         Sheet sheet = wb.createSheet("PROD_STATISTICS");
         CreationHelper createHelper = wb.getCreationHelper();
-        int total_available = 0;
+        double total_available = 0;
 
         //######################################################################
         //##################### SHEET 1 : PILES DETAILS ########################
@@ -577,11 +592,13 @@ public class PACKAGING_UI0021_FG_AVAILABLE_STOCK extends javax.swing.JDialog {
         row.createCell(1).setCellValue("WORKPLACE");
         row.createCell(2).setCellValue("PART NUMBER");
         row.createCell(3).setCellValue("AVAILABLE");
-        row.createCell(3).setCellValue("RESERVED");
+        row.createCell(4).setCellValue("RESERVED");
+        row.createCell(5).setCellValue("TOTAL");
 
         short sheetPointer = 1;
 
-        for (Object[] obj : this.declaredResultList) {
+        for (Object[] obj : this.storedResultList) {            
+            
             row = sheet.createRow(sheetPointer);
             row.createCell(0).setCellValue(String.valueOf(obj[0])); //SEGMENT
             row.createCell(1).setCellValue(String.valueOf(obj[1])); //WORKPLACE
@@ -590,10 +607,23 @@ public class PACKAGING_UI0021_FG_AVAILABLE_STOCK extends javax.swing.JDialog {
             } else {
                 row.createCell(2).setCellValue(String.valueOf(obj[2]));//PART NUMBER
             }
-            row.createCell(3).setCellValue(Double.valueOf(obj[3].toString()));//AVAILABLE QTY
-            row.createCell(4).setCellValue(Double.valueOf(obj[4].toString()));//RESERVED QTY
+            try {
+                row.createCell(3).setCellValue(Double.valueOf(obj[3].toString()));//AVAILABLE QTY
+                total_available += Double.valueOf(obj[3].toString());
+            } catch (NullPointerException e) {
+                row.createCell(3).setCellValue(0.00f);//RESERVED QTY                
+            }
+            
+            try {
+                row.createCell(4).setCellValue(Double.valueOf(obj[4].toString()));//RESERVED QTY                
+            } catch (NullPointerException e) {
+                row.createCell(4).setCellValue(0.00f);//RESERVED QTY                
+            }
+            
+            
+            row.createCell(5).setCellValue(Double.valueOf(obj[5].toString()));//TOTAL
 
-            total_available = total_available + Integer.valueOf(String.valueOf(obj[3]));
+            
 
             sheetPointer++;
         }
@@ -672,6 +702,7 @@ public class PACKAGING_UI0021_FG_AVAILABLE_STOCK extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel north_panel;
     private javax.swing.JComboBox project_filter;
     private javax.swing.JButton refresh_btn;
