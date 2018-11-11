@@ -854,11 +854,11 @@ public class PACKAGING_UI0011_ProdStatistics extends javax.swing.JFrame {
         // Create a row and put some cells in it. Rows are 0 based.
         Row row = sheet.createRow((short) 0);
 
-        row.createCell(0).setCellValue("SEGMENT");
-        row.createCell(1).setCellValue("WORKPLACE");
-        row.createCell(2).setCellValue("PART NUMBER");
-        row.createCell(3).setCellValue("STD TIME");
-        row.createCell(4).setCellValue("PRODUCED QTY");
+        row.createCell(0).setCellValue("PART NUMBER");
+        row.createCell(1).setCellValue("PRODUCED QTY");
+        row.createCell(2).setCellValue("SEGMENT");
+        row.createCell(3).setCellValue("WORKPLACE");
+        row.createCell(4).setCellValue("STD TIME");
         row.createCell(5).setCellValue("PRODUCED HOURS");
 
         short sheetPointer = 1;
@@ -866,7 +866,7 @@ public class PACKAGING_UI0011_ProdStatistics extends javax.swing.JFrame {
         for (Object[] obj : this.declaredResultList) {
             row = sheet.createRow(sheetPointer);
             row.createCell(0).setCellValue(String.valueOf(obj[0])); //PN
-            row.createCell(1).setCellValue(String.valueOf(obj[1])); //QTY
+            row.createCell(1).setCellValue(Double.valueOf(obj[1].toString())); //QTY
             if (String.valueOf(obj[2].toString()).startsWith("P")) {
                 row.createCell(2).setCellValue(String.valueOf(obj[2]).substring(1));//SEGMENT
             } else {

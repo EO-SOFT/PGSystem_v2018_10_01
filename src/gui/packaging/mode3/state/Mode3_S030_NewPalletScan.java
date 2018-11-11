@@ -97,6 +97,7 @@ public class Mode3_S030_NewPalletScan implements Mode3_State {
                 bc.setEngChange(context.getBaseContainerTmp().getEngChange());
                 bc.setEngChangeDate(context.getBaseContainerTmp().getEngChangeDate());
                 bc.setArticleDesc(context.getBaseContainerTmp().getArticleDesc());
+                bc.setLabelPerPiece(context.getBaseContainerTmp().isLabelPerPiece());
                 bc.create(bc);
                 UILog.info(String.format("BaseContainer created %s ", bc.toString()));
                 //##############################################################
@@ -138,9 +139,11 @@ public class Mode3_S030_NewPalletScan implements Mode3_State {
                     }
                 }
                 //##############################################################
-                //Print Harness Label
+                //Print Harness Label if this option is set to true
                 //######################### Print Harness Label ################
-                PrinterHelper.PrintPieceLabel(bc, bh);
+                if(bc.isLabelPerPiece()){
+                    PrinterHelper.PrintPieceLabel(bc, bh);
+                }
                 //##############################################################
                 
                 //Close connection

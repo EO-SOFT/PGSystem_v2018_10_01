@@ -313,6 +313,7 @@ public final class PACKAGING_UI9000_ChoosePackType_Mode2 extends javax.swing.JDi
         PackagingVars.mode2_context.getBaseContainerTmp().setWarehouse(u.getWarehouse());
         PackagingVars.mode2_context.getBaseContainerTmp().setDestination(u.getDestination());
         PackagingVars.mode2_context.getBaseContainerTmp().setArticleDesc(u.getArticleDesc());
+        PackagingVars.mode2_context.getBaseContainerTmp().setLabelPerPiece(u.isLabelPerPiece());
         
         System.out.println(PackagingVars.mode2_context.getBaseContainerTmp().toString());
     }

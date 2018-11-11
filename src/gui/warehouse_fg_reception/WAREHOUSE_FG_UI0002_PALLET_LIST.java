@@ -71,8 +71,8 @@ public final class WAREHOUSE_FG_UI0002_PALLET_LIST extends javax.swing.JFrame {
             "Qty Read",         //8
             "Std Time",         //9
             "Total Std Time",   //10
-            "State",            //11
-            "State code"        //12
+            "Actual State",            //11
+            "Actual State code"        //12
     );
 
     SimpleDateFormat timeDf = new SimpleDateFormat("HH:mm");

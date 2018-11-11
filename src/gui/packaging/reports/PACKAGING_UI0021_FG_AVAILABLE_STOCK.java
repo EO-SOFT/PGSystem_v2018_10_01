@@ -43,9 +43,6 @@ public class PACKAGING_UI0021_FG_AVAILABLE_STOCK extends javax.swing.JFrame {
     Vector<String> declared_result_table_header = new Vector<String>();
     Vector declared_result_table_data = new Vector();
 
-    //Vector<String> dropped_result_table_header = new Vector<String>();
-    //Vector dropped_result_table_data = new Vector();
-
     private List<Object[]> storedResultList;
 
     List<Object> segments = new ArrayList<>();
@@ -346,7 +343,7 @@ public class PACKAGING_UI0021_FG_AVAILABLE_STOCK extends javax.swing.JFrame {
         refresh_btn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Production statistics");
+        setTitle("Actual Stock");
         addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 formKeyPressed(evt);

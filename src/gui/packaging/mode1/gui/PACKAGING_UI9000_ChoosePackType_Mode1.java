@@ -527,7 +527,8 @@ public final class PACKAGING_UI9000_ChoosePackType_Mode1 extends javax.swing.JDi
                 PackagingVars.mode1_context.getTempBC().getComment(),
                 PackagingVars.mode1_context.getTempBC().getOrder_no(),
                 PackagingVars.mode1_context.getTempBC().getPackWorkstation(),
-                PackagingVars.mode1_context.getTempBC().getUcsId()
+                PackagingVars.mode1_context.getTempBC().getUcsId(),
+                PackagingVars.mode1_context.getTempBC().isLabelPerPiece()                
         );
 
         //System.out.println("newBc " + newBc.toString());

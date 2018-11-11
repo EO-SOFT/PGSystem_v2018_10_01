@@ -68,7 +68,7 @@ public class BaseContainer extends DAO implements java.io.Serializable {
 
     @Column(name = "m_user")
     private String user;
-    
+
     @Column(name = "create_user")
     private String createUser;
 
@@ -135,6 +135,14 @@ public class BaseContainer extends DAO implements java.io.Serializable {
      */
     @Column(name = "special_order", nullable = true)
     private Integer special_order;
+
+    /**
+     * Print an A5 label for each scanned piece. This label is different from
+     * open and closing sheet labels, If set to true, it will be printed once
+     * the user scan the QR code of a harness.';
+     */
+    @Column(name = "label_per_piece", nullable = true)
+    private Boolean labelPerPiece;
 
     /**
      * Comment in case of specific orders
@@ -256,7 +264,7 @@ public class BaseContainer extends DAO implements java.io.Serializable {
             String state, String state_code, String packType, String harnessType,
             Double stdTime, Double price, Integer special_order, String segment,
             String workplace, Integer ucsLifes, String comment, String orderNo,
-            String packWorkstation, Integer ucsId) {
+            String packWorkstation, Integer ucsId, boolean labelPerPiece) {
 
         setDefautlVals();
         this.palletNumber = palletNumber;
@@ -279,6 +287,7 @@ public class BaseContainer extends DAO implements java.io.Serializable {
         this.order_no = orderNo;
         this.packWorkstation = packWorkstation;
         this.ucsId = ucsId;
+        this.labelPerPiece = labelPerPiece;
 
     }
 
@@ -286,7 +295,7 @@ public class BaseContainer extends DAO implements java.io.Serializable {
             Integer writeId, String user, Date startTime, String palletNumber,
             String harnessPart, String harnessIndex, String supplierPartNumber,
             Integer qtyExpected, Integer qtyRead, String packType, String harnessType,
-            Double stdTime, Double price) {
+            Double stdTime, Double price, boolean labelPerPiece) {
         this.startTime = this.createTime = GlobalMethods.getTimeStamp(null);
         this.fifoTime = GlobalMethods.getTimeStamp(null);
         this.createId = PackagingVars.context.getUser().getId();
@@ -303,6 +312,7 @@ public class BaseContainer extends DAO implements java.io.Serializable {
         this.harnessType = harnessType;
         this.stdTime = stdTime;
         this.price = price;
+        this.labelPerPiece = labelPerPiece;
     }
 
     public BaseContainer(Date createTime, Date writeTime, Integer createId,
@@ -310,7 +320,8 @@ public class BaseContainer extends DAO implements java.io.Serializable {
             Date closedTime, Float workTime, String palletNumber,
             String harnessPart, String harnessIndex, String supplierPartNumber,
             Integer qtyExpected, Integer qtyRead, String state, String state_code,
-            String packType, String harnessType, Double stdTime, Double price) {
+            String packType, String harnessType, Double stdTime, Double price,
+             boolean labelPerPiece) {
         this.createTime = createTime;
         this.fifoTime = writeTime;
         this.createId = createId;
@@ -332,6 +343,7 @@ public class BaseContainer extends DAO implements java.io.Serializable {
         this.harnessType = harnessType;
         this.stdTime = stdTime;
         this.price = price;
+        this.labelPerPiece = labelPerPiece;
     }
 
     public Integer getId() {
@@ -740,8 +752,7 @@ public class BaseContainer extends DAO implements java.io.Serializable {
 
     public Date getEngChangeDate() {
         return engChangeDate;
-    }   
-    
+    }
 
     public String getEngChangeDate(String format) {
         // Create an instance of SimpleDateFormat used for formatting 
@@ -753,6 +764,14 @@ public class BaseContainer extends DAO implements java.io.Serializable {
 
     public void setEngChangeDate(Date engChangeDate) {
         this.engChangeDate = engChangeDate;
+    }
+
+    public Boolean isLabelPerPiece() {
+        return labelPerPiece;
+    }
+
+    public void setLabelPerPiece(Boolean labelPerPiece) {
+        this.labelPerPiece = labelPerPiece;
     }
 
     @Override

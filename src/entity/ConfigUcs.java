@@ -96,96 +96,16 @@ public class ConfigUcs extends DAO implements java.io.Serializable {
 
     @Column(name = "project")
     private String project;
-    
+
     @Column(name = "warehouse")
     private String warehouse;
-    
+
     @Column(name = "destination")
     private String destination;
-    
+
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     @Column(name = "eng_change_date")
     private Date engChangeDate;
-
-    public String getDestination() {
-        return destination;
-    }
-
-    public void setDestination(String destination) {
-        this.destination = destination;
-    }                    
-    
-    public Date getEngChangeDate() {
-        return engChangeDate;
-    }
-
-    public void setEngChangeDate(Date engChangeDate) {
-        this.engChangeDate = engChangeDate;
-    }
-    
-    public String getWarehouse() {
-        return warehouse;
-    }
-
-    public void setWarehouse(String warehouse) {
-        this.warehouse = warehouse;
-    }
-    
-    public String getProject() {
-        return project;
-    }
-
-    public void setProject(String project) {
-        this.project = project;
-    }
-
-    public double getNetWeight() {
-        return netWeight;
-    }
-
-    public void setNetWeight(double netWeight) {
-        this.netWeight = netWeight;
-    }
-
-    public double getGrossWeight() {
-        return grossWeight;
-    }
-
-    public void setGrossWeight(double grossWeight) {
-        this.grossWeight = grossWeight;
-    }
-
-    public double getVolume() {
-        return volume;
-    }
-
-    public void setVolume(double volume) {
-        this.volume = volume;
-    }
-
-    public String getEngChange() {
-        return engChange;
-    }
-
-    public void setEngChange(String engChange) {
-        this.engChange = engChange;
-    }
-
-    public String getArticleDesc() {
-        return articleDesc;
-    }
-
-    public void setArticleDesc(String articleDesc) {
-        this.articleDesc = articleDesc;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
 
     @Column(name = "additional_barcode", nullable = true)
     private int additionalBarcode;
@@ -233,6 +153,14 @@ public class ConfigUcs extends DAO implements java.io.Serializable {
     @Column(name = "special_order", nullable = true)
     private int specialOrder;
 
+    /**
+     * Print an A5 label for each scanned piece. This label is different from
+     * open and closing sheet labels, If set to true, it will be printed once
+     * the user scan the QR code of a harness.';
+     */
+    @Column(name = "label_per_piece", nullable = true)
+    private Boolean labelPerPiece;
+
     //@ManyToOne(optional = true, cascade = CascadeType.REFRESH)
     //private AssyWorkstation assyWorkstation;
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "ucs", cascade = CascadeType.ALL)
@@ -243,7 +171,10 @@ public class ConfigUcs extends DAO implements java.io.Serializable {
 
     public ConfigUcs(String harnessIndex, String supplierPartNumber,
             String harnessPart, String harnessType,
-            String packType, int packSize, int active, int additionalBarcode, double stdTime, String comment, int special_order, String order_no, double price) {
+            String packType, int packSize, int active, int additionalBarcode,
+            double stdTime, String comment, int special_order, String order_no,
+            double price,
+            boolean print_label_per_piece) {
         this.setDefautlVals();
         this.harnessIndex = harnessIndex;
         this.supplierPartNumber = supplierPartNumber;
@@ -258,6 +189,7 @@ public class ConfigUcs extends DAO implements java.io.Serializable {
         this.additionalBarcode = additionalBarcode;
         this.comment = comment;
         this.price = price;
+        this.labelPerPiece = print_label_per_piece;
     }
 
     public ConfigUcs setDefautlVals() {
@@ -445,6 +377,94 @@ public class ConfigUcs extends DAO implements java.io.Serializable {
 
     public void setSpecialOrder(int specialOrder) {
         this.specialOrder = specialOrder;
+    }
+
+    public String getDestination() {
+        return destination;
+    }
+
+    public void setDestination(String destination) {
+        this.destination = destination;
+    }
+
+    public Date getEngChangeDate() {
+        return engChangeDate;
+    }
+
+    public void setEngChangeDate(Date engChangeDate) {
+        this.engChangeDate = engChangeDate;
+    }
+
+    public String getWarehouse() {
+        return warehouse;
+    }
+
+    public void setWarehouse(String warehouse) {
+        this.warehouse = warehouse;
+    }
+
+    public String getProject() {
+        return project;
+    }
+
+    public void setProject(String project) {
+        this.project = project;
+    }
+
+    public double getNetWeight() {
+        return netWeight;
+    }
+
+    public void setNetWeight(double netWeight) {
+        this.netWeight = netWeight;
+    }
+
+    public double getGrossWeight() {
+        return grossWeight;
+    }
+
+    public void setGrossWeight(double grossWeight) {
+        this.grossWeight = grossWeight;
+    }
+
+    public double getVolume() {
+        return volume;
+    }
+
+    public void setVolume(double volume) {
+        this.volume = volume;
+    }
+
+    public String getEngChange() {
+        return engChange;
+    }
+
+    public void setEngChange(String engChange) {
+        this.engChange = engChange;
+    }
+
+    public String getArticleDesc() {
+        return articleDesc;
+    }
+
+    public void setArticleDesc(String articleDesc) {
+        this.articleDesc = articleDesc;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public Boolean isLabelPerPiece() {
+        return labelPerPiece;
+    }
+
+    public void setLabelPerPiece(Boolean labelPerPiece) {
+        this.labelPerPiece = labelPerPiece;
     }
 
     //######################################################################

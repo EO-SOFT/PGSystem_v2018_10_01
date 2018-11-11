@@ -313,6 +313,7 @@ public final class PACKAGING_UI9000_ChoosePackType_Mode3 extends javax.swing.JDi
         PackagingVars.mode3_context.getBaseContainerTmp().setWarehouse(u.getWarehouse());
         PackagingVars.mode3_context.getBaseContainerTmp().setDestination(u.getDestination());
         PackagingVars.mode3_context.getBaseContainerTmp().setArticleDesc(u.getArticleDesc());
+        PackagingVars.mode3_context.getBaseContainerTmp().setLabelPerPiece(u.isLabelPerPiece());
         
         System.out.println(PackagingVars.mode3_context.getBaseContainerTmp().toString());
     }

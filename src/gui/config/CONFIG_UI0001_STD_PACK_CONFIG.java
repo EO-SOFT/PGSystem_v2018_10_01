@@ -198,97 +198,107 @@ public class CONFIG_UI0001_STD_PACK_CONFIG extends javax.swing.JFrame {
     private void initContainerTableDoubleClick() {
         this.ucs_table.addMouseListener(
                 new MouseAdapter() {
-                    @Override
-                    public void mouseClicked(MouseEvent e) {
-                        if (e.getClickCount() == 2) {
-                            Helper.startSession();
-                            Query query = Helper.sess.createQuery(HQLHelper.GET_UCS_BY_ID);
-                            query.setParameter("id", Integer.valueOf(ucs_table.getValueAt(ucs_table.getSelectedRow(), 0).toString()));
-                            Helper.sess.getTransaction().commit();
-                            aux = (ConfigUcs) query.list().get(0);
-                            id_lbl.setText(aux.getId().toString());
-                            create_time_txt.setText(aux.getCreateTime().toString());
-                            write_time_txt.setText(aux.getWriteTime().toString());
-                            cpn_txtbox.setText(aux.getHarnessPart());
-                            lpn_txtbox.setText(aux.getSupplierPartNumber());
-                            index_txtbox.setText(aux.getHarnessIndex());
-                            engChange_textArea.setText(aux.getEngChange());
-                            engChangeDatePicker.setDate(aux.getEngChangeDate());
-                            articleDesc_textArea.setText(aux.getArticleDesc());
-                            netWeight_txtbox.setText(aux.getNetWeight() + "");
-                            grossWeight_txtbox.setText(aux.getGrossWeight() + "");
-                            volume_txtbox.setText(aux.getVolume() + "");
-                            pack_size_txtbox.setText(aux.getPackSize() + "");
-                            assy_txtbox.setText(aux.getAssyWorkstationName());
-                            barcodes_nbre_txtbox.setText(aux.getAdditionalBarcode() + "");
-                            lifes_txtbox.setText(aux.getLifes() + "");
-                            order_no_txt.setText(aux.getOrderNo());
-                            comment_txt.setText(aux.getComment());
-                            destination_txtbox.setText(aux.getDestination());
-                            try {
-                                stdTime_txtbox.setText(aux.getStdTime() + "");
-                            } catch (Exception ex) {
-                                stdTime_txtbox.setText("0.00");
-                            }
-                            try {
-                                price_txtbox.setText(aux.getPrice() + "");
-                            } catch (Exception ex) {
-                                price_txtbox.setText("0.00");
-                            }
-                            for (int i = 0; i < pack_type_filter.getItemCount(); i++) {
-                                if (pack_type_filter.getItemAt(i).toString().equals(aux.getPackType())) {
-                                    pack_type_filter.setSelectedIndex(i);
-                                    break;
-                                }
-                            }
-                            for (int i = 0; i < project_filter.getItemCount(); i++) {
-                                if (project_filter.getItemAt(i).toString().equals(aux.getProject())) {
-                                    project_filter.setSelectedIndex(i);
-                                    break;
-                                }
-                            }
-                            for (int i = 0; i < warehouse_filter.getItemCount(); i++) {
-                                if (warehouse_filter.getItemAt(i).toString().equals(aux.getWarehouse())) {
-                                    warehouse_filter.setSelectedIndex(i);
-                                    break;
-                                }
-                            }
-                            for (int i = 0; i < segment_filter.getItemCount(); i++) {
-                                if (segment_filter.getItemAt(i).toString().equals(aux.getSegment())) {
-                                    segment_filter.setSelectedIndex(i);
-                                    break;
-                                }
-                            }
-                            for (int i = 0; i < workplace_filter.getItemCount(); i++) {
-                                if (workplace_filter.getItemAt(i).toString().equals(aux.getWorkplace())) {
-                                    workplace_filter.setSelectedIndex(i);
-                                    break;
-                                }
-                            }
-                            for (int i = 0; i < harnessType_filter.getItemCount(); i++) {
-                                if (harnessType_filter.getItemAt(i).toString().equals(aux.getHarnessType())) {
-                                    harnessType_filter.setSelectedIndex(i);
-                                    break;
-                                }
-                            }
-
-                            if (String.valueOf(aux.getActive()).equals("1")) {
-                                active_combobox.setSelectedIndex(0);
-                            } else {
-                                active_combobox.setSelectedIndex(1);
-                            }
-
-                            if (aux.getSpecialOrder() == 1) {
-                                special_order_check.setSelected(true);
-                            } else {
-                                special_order_check.setSelected(false);
-                            }
-
-                            delete_btn.setEnabled(true);
-                            duplicate_btn.setEnabled(true);
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    Helper.startSession();
+                    Query query = Helper.sess.createQuery(HQLHelper.GET_UCS_BY_ID);
+                    query.setParameter("id", Integer.valueOf(ucs_table.getValueAt(ucs_table.getSelectedRow(), 0).toString()));
+                    Helper.sess.getTransaction().commit();
+                    aux = (ConfigUcs) query.list().get(0);
+                    id_lbl.setText(aux.getId().toString());
+                    create_time_txt.setText(aux.getCreateTime().toString());
+                    write_time_txt.setText(aux.getWriteTime().toString());
+                    cpn_txtbox.setText(aux.getHarnessPart());
+                    lpn_txtbox.setText(aux.getSupplierPartNumber());
+                    index_txtbox.setText(aux.getHarnessIndex());
+                    engChange_textArea.setText(aux.getEngChange());
+                    engChangeDatePicker.setDate(aux.getEngChangeDate());
+                    articleDesc_textArea.setText(aux.getArticleDesc());
+                    netWeight_txtbox.setText(aux.getNetWeight() + "");
+                    grossWeight_txtbox.setText(aux.getGrossWeight() + "");
+                    volume_txtbox.setText(aux.getVolume() + "");
+                    pack_size_txtbox.setText(aux.getPackSize() + "");
+                    assy_txtbox.setText(aux.getAssyWorkstationName());
+                    barcodes_nbre_txtbox.setText(aux.getAdditionalBarcode() + "");
+                    lifes_txtbox.setText(aux.getLifes() + "");
+                    order_no_txt.setText(aux.getOrderNo());
+                    comment_txt.setText(aux.getComment());
+                    destination_txtbox.setText(aux.getDestination());
+                    try {
+                        stdTime_txtbox.setText(aux.getStdTime() + "");
+                    } catch (Exception ex) {
+                        stdTime_txtbox.setText("0.00");
+                    }
+                    try {
+                        price_txtbox.setText(aux.getPrice() + "");
+                    } catch (Exception ex) {
+                        price_txtbox.setText("0.00");
+                    }
+                    for (int i = 0; i < pack_type_filter.getItemCount(); i++) {
+                        if (pack_type_filter.getItemAt(i).toString().equals(aux.getPackType())) {
+                            pack_type_filter.setSelectedIndex(i);
+                            break;
                         }
                     }
+                    for (int i = 0; i < project_filter.getItemCount(); i++) {
+                        if (project_filter.getItemAt(i).toString().equals(aux.getProject())) {
+                            project_filter.setSelectedIndex(i);
+                            break;
+                        }
+                    }
+                    for (int i = 0; i < warehouse_filter.getItemCount(); i++) {
+                        if (warehouse_filter.getItemAt(i).toString().equals(aux.getWarehouse())) {
+                            warehouse_filter.setSelectedIndex(i);
+                            break;
+                        }
+                    }
+                    for (int i = 0; i < segment_filter.getItemCount(); i++) {
+                        if (segment_filter.getItemAt(i).toString().equals(aux.getSegment())) {
+                            segment_filter.setSelectedIndex(i);
+                            break;
+                        }
+                    }
+                    for (int i = 0; i < workplace_filter.getItemCount(); i++) {
+                        if (workplace_filter.getItemAt(i).toString().equals(aux.getWorkplace())) {
+                            workplace_filter.setSelectedIndex(i);
+                            break;
+                        }
+                    }
+                    for (int i = 0; i < harnessType_filter.getItemCount(); i++) {
+                        if (harnessType_filter.getItemAt(i).toString().equals(aux.getHarnessType())) {
+                            harnessType_filter.setSelectedIndex(i);
+                            break;
+                        }
+                    }
+
+                    if (String.valueOf(aux.getActive()).equals("1")) {
+                        active_combobox.setSelectedIndex(0);
+                    } else {
+                        active_combobox.setSelectedIndex(1);
+                    }
+
+                    if (aux.getSpecialOrder() == 1) {
+                        special_order_check.setSelected(true);
+                    } else {
+                        special_order_check.setSelected(false);
+                    }
+
+                    try {
+                        if (aux.isLabelPerPiece()) {
+                            label_per_piece_checkbox.setSelected(true);
+                        } else {
+                            label_per_piece_checkbox.setSelected(false);
+                        }
+                    } catch (NullPointerException ex) {
+                        label_per_piece_checkbox.setSelected(false);
+                    }
+
+                    delete_btn.setEnabled(true);
+                    duplicate_btn.setEnabled(true);
                 }
+            }
+        }
         );
     }
 
@@ -355,7 +365,7 @@ public class CONFIG_UI0001_STD_PACK_CONFIG extends javax.swing.JFrame {
         netWeight_txtbox.setText("0.00");
         grossWeight_txtbox.setText("0.00");
         volume_txtbox.setText("0.00");
-
+        label_per_piece_checkbox.setSelected(false);
         aux = null;
     }
 
@@ -420,46 +430,11 @@ public class CONFIG_UI0001_STD_PACK_CONFIG extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        fname_lbl = new javax.swing.JLabel();
-        cpn_txtbox = new javax.swing.JTextField();
-        lname_lbl = new javax.swing.JLabel();
-        lpn_txtbox = new javax.swing.JTextField();
-        login_lbl = new javax.swing.JLabel();
-        pwd_lbl = new javax.swing.JLabel();
-        pwd_lbl1 = new javax.swing.JLabel();
         save_btn = new javax.swing.JButton();
         cancel_btn = new javax.swing.JButton();
-        active_combobox = new javax.swing.JComboBox();
-        pwd_lbl2 = new javax.swing.JLabel();
         delete_btn = new javax.swing.JButton();
-        id_lbl = new javax.swing.JLabel();
-        index_txtbox = new javax.swing.JTextField();
-        pwd_lbl3 = new javax.swing.JLabel();
-        pwd_lbl4 = new javax.swing.JLabel();
-        pwd_lbl5 = new javax.swing.JLabel();
-        assy_txtbox = new javax.swing.JTextField();
-        login_lbl1 = new javax.swing.JLabel();
-        pack_size_txtbox = new javax.swing.JTextField();
-        lifes_txtbox = new javax.swing.JTextField();
-        login_lbl2 = new javax.swing.JLabel();
-        barcodes_nbre_txtbox = new javax.swing.JTextField();
-        pwd_lbl6 = new javax.swing.JLabel();
-        stdTime_txtbox = new javax.swing.JTextField();
         duplicate_btn = new javax.swing.JButton();
-        pwd_lbl7 = new javax.swing.JLabel();
         msg_lbl = new javax.swing.JLabel();
-        fname_lbl1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        comment_txt = new javax.swing.JTextArea();
-        segment_filter = new javax.swing.JComboBox();
-        workplace_filter = new javax.swing.JComboBox();
-        harnessType_filter = new javax.swing.JComboBox();
-        pack_type_filter = new javax.swing.JComboBox();
-        order_no_txt = new javax.swing.JTextField();
-        login_lbl4 = new javax.swing.JLabel();
-        special_order_check = new javax.swing.JCheckBox();
-        pwd_lbl8 = new javax.swing.JLabel();
-        price_txtbox = new javax.swing.JTextField();
         user_list_panel = new javax.swing.JPanel();
         user_table_scroll = new javax.swing.JScrollPane();
         ucs_table = new javax.swing.JTable();
@@ -473,52 +448,83 @@ public class CONFIG_UI0001_STD_PACK_CONFIG extends javax.swing.JFrame {
         clear_search_btn = new javax.swing.JButton();
         supplier_pn_txtbox_search = new javax.swing.JTextField();
         llogin_lbl_search1 = new javax.swing.JLabel();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jPanel2 = new javax.swing.JPanel();
+        project_filter = new javax.swing.JComboBox();
+        login_lbl3 = new javax.swing.JLabel();
+        login_lbl5 = new javax.swing.JLabel();
+        warehouse_filter = new javax.swing.JComboBox();
+        login_lbl6 = new javax.swing.JLabel();
+        destination_txtbox = new javax.swing.JTextField();
+        login_lbl = new javax.swing.JLabel();
+        segment_filter = new javax.swing.JComboBox();
+        pwd_lbl = new javax.swing.JLabel();
+        workplace_filter = new javax.swing.JComboBox();
+        pwd_lbl7 = new javax.swing.JLabel();
+        harnessType_filter = new javax.swing.JComboBox();
+        cpn_txtbox = new javax.swing.JTextField();
+        fname_lbl = new javax.swing.JLabel();
+        lname_lbl = new javax.swing.JLabel();
+        lpn_txtbox = new javax.swing.JTextField();
+        pwd_lbl1 = new javax.swing.JLabel();
+        index_txtbox = new javax.swing.JTextField();
+        active_combobox = new javax.swing.JComboBox();
+        pwd_lbl2 = new javax.swing.JLabel();
+        login_lbl1 = new javax.swing.JLabel();
+        assy_txtbox = new javax.swing.JTextField();
+        order_no_txt = new javax.swing.JTextField();
+        login_lbl4 = new javax.swing.JLabel();
+        pwd_lbl6 = new javax.swing.JLabel();
+        stdTime_txtbox = new javax.swing.JTextField();
+        fname_lbl1 = new javax.swing.JLabel();
+        id_lbl = new javax.swing.JLabel();
         lname_lbl1 = new javax.swing.JLabel();
         create_time_txt = new javax.swing.JTextField();
         lname_lbl2 = new javax.swing.JLabel();
         write_time_txt = new javax.swing.JTextField();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jPanel4 = new javax.swing.JPanel();
+        pwd_lbl3 = new javax.swing.JLabel();
+        pack_type_filter = new javax.swing.JComboBox();
+        login_lbl2 = new javax.swing.JLabel();
+        barcodes_nbre_txtbox = new javax.swing.JTextField();
+        label_per_piece_checkbox = new javax.swing.JCheckBox();
+        pwd_lbl4 = new javax.swing.JLabel();
+        pack_size_txtbox = new javax.swing.JTextField();
+        pwd_lbl5 = new javax.swing.JLabel();
+        lifes_txtbox = new javax.swing.JTextField();
+        special_order_check = new javax.swing.JCheckBox();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        comment_txt = new javax.swing.JTextArea();
+        jPanel3 = new javax.swing.JPanel();
         pwd_lbl9 = new javax.swing.JLabel();
         netWeight_txtbox = new javax.swing.JTextField();
         pwd_lbl10 = new javax.swing.JLabel();
         grossWeight_txtbox = new javax.swing.JTextField();
-        project_filter = new javax.swing.JComboBox();
-        login_lbl3 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        articleDesc_textArea = new javax.swing.JTextArea();
-        pwd_lbl11 = new javax.swing.JLabel();
-        volume_txtbox = new javax.swing.JTextField();
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 100), new java.awt.Dimension(0, 100), new java.awt.Dimension(32767, 100));
         pwd_lbl12 = new javax.swing.JLabel();
+        volume_txtbox = new javax.swing.JTextField();
+        pwd_lbl8 = new javax.swing.JLabel();
+        price_txtbox = new javax.swing.JTextField();
+        filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 100), new java.awt.Dimension(0, 100), new java.awt.Dimension(32767, 100));
+        pwd_lbl13 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         engChange_textArea = new javax.swing.JTextArea();
-        pwd_lbl13 = new javax.swing.JLabel();
-        warehouse_filter = new javax.swing.JComboBox();
-        login_lbl5 = new javax.swing.JLabel();
-        engChangeDatePicker = new org.jdesktop.swingx.JXDatePicker();
         pwd_lbl14 = new javax.swing.JLabel();
-        destination_txtbox = new javax.swing.JTextField();
-        login_lbl6 = new javax.swing.JLabel();
+        engChangeDatePicker = new org.jdesktop.swingx.JXDatePicker();
+        filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 100), new java.awt.Dimension(0, 100), new java.awt.Dimension(32767, 100));
+        pwd_lbl11 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        articleDesc_textArea = new javax.swing.JTextArea();
 
-        setTitle("Configuration packaging par référence");
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Standard Pack Master Data");
         setName("Configuration packaging par référence"); // NOI18N
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Configuration packaging par référence", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Calibri", 1, 14))); // NOI18N
-        jPanel1.setToolTipText("Configuration packaging par référence");
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Standard Pack Master Data", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Calibri", 1, 14))); // NOI18N
+        jPanel1.setToolTipText("Standard Pack Master Data");
         jPanel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jPanel1.setName("Configuration packaging par référence"); // NOI18N
-
-        fname_lbl.setText("CPN *");
-
-        cpn_txtbox.setName("cpn_txtbox"); // NOI18N
-
-        lname_lbl.setText("LPN *");
-
-        lpn_txtbox.setName("fname_txtbox"); // NOI18N
-
-        login_lbl.setText("Segment *");
-
-        pwd_lbl.setText("Workplace *");
-
-        pwd_lbl1.setText("Index *");
+        jPanel1.setName("Standard Pack Master Data"); // NOI18N
 
         save_btn.setText("Save");
         save_btn.addActionListener(new java.awt.event.ActionListener() {
@@ -534,58 +540,11 @@ public class CONFIG_UI0001_STD_PACK_CONFIG extends javax.swing.JFrame {
             }
         });
 
-        active_combobox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "0" }));
-        active_combobox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                active_comboboxActionPerformed(evt);
-            }
-        });
-
-        pwd_lbl2.setText("Active *");
-
         delete_btn.setText("Delete");
         delete_btn.setEnabled(false);
         delete_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 delete_btnActionPerformed(evt);
-            }
-        });
-
-        id_lbl.setBackground(new java.awt.Color(153, 204, 255));
-        id_lbl.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        id_lbl.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        id_lbl.setRequestFocusEnabled(false);
-
-        index_txtbox.setName("fname_txtbox"); // NOI18N
-
-        pwd_lbl3.setText("Pack Type *");
-
-        pwd_lbl4.setText("Pack Size *");
-
-        pwd_lbl5.setText("Nbre Packs *");
-
-        assy_txtbox.setName("fname_txtbox"); // NOI18N
-
-        login_lbl1.setText("Assembly Workstation");
-
-        pack_size_txtbox.setText("1");
-        pack_size_txtbox.setName("fname_txtbox"); // NOI18N
-
-        lifes_txtbox.setText("-1");
-        lifes_txtbox.setName("fname_txtbox"); // NOI18N
-
-        login_lbl2.setText("Barcodes Nbre *");
-
-        barcodes_nbre_txtbox.setText("0");
-        barcodes_nbre_txtbox.setName("fname_txtbox"); // NOI18N
-
-        pwd_lbl6.setText("Std Time *");
-
-        stdTime_txtbox.setText("0.00");
-        stdTime_txtbox.setName("fname_txtbox"); // NOI18N
-        stdTime_txtbox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                stdTime_txtboxActionPerformed(evt);
             }
         });
 
@@ -597,55 +556,8 @@ public class CONFIG_UI0001_STD_PACK_CONFIG extends javax.swing.JFrame {
             }
         });
 
-        pwd_lbl7.setText("Harness Type *");
-
         msg_lbl.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         msg_lbl.setForeground(new java.awt.Color(0, 0, 255));
-
-        fname_lbl1.setText("ID");
-
-        comment_txt.setColumns(10);
-        comment_txt.setRows(3);
-        jScrollPane1.setViewportView(comment_txt);
-
-        segment_filter.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                segment_filterItemStateChanged(evt);
-            }
-        });
-        segment_filter.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                segment_filterActionPerformed(evt);
-            }
-        });
-
-        workplace_filter.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                workplace_filterItemStateChanged(evt);
-            }
-        });
-        workplace_filter.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                workplace_filterActionPerformed(evt);
-            }
-        });
-
-        order_no_txt.setName("fname_txtbox"); // NOI18N
-
-        login_lbl4.setText("Order No *");
-
-        special_order_check.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        special_order_check.setText("Special Order");
-        special_order_check.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                special_order_checkStateChanged(evt);
-            }
-        });
-
-        pwd_lbl8.setText("Price *");
-
-        price_txtbox.setText("0.00");
-        price_txtbox.setName("fname_txtbox"); // NOI18N
 
         user_list_panel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "UCS list", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Calibri", 1, 14))); // NOI18N
         user_list_panel.setToolTipText("");
@@ -731,53 +643,160 @@ public class CONFIG_UI0001_STD_PACK_CONFIG extends javax.swing.JFrame {
             user_list_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(user_list_panelLayout.createSequentialGroup()
                 .addGroup(user_list_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, user_list_panelLayout.createSequentialGroup()
+                    .addComponent(user_table_scroll)
+                    .addGroup(user_list_panelLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(fname_lbl_search)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cpn_txtbox_search, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(lname_lbl_search)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pack_type_txtbox_search, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(llogin_lbl_search)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(segment_txtbox_search, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)
-                        .addComponent(llogin_lbl_search1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(supplier_pn_txtbox_search, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(filter_btn)
-                        .addGap(18, 18, 18)
-                        .addComponent(clear_search_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(83, 83, 83))
-                    .addComponent(user_table_scroll))
+                        .addGroup(user_list_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(user_list_panelLayout.createSequentialGroup()
+                                .addComponent(filter_btn)
+                                .addGap(18, 18, 18)
+                                .addComponent(clear_search_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(user_list_panelLayout.createSequentialGroup()
+                                .addComponent(cpn_txtbox_search, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(lname_lbl_search)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(pack_type_txtbox_search, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(llogin_lbl_search)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(segment_txtbox_search, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(27, 27, 27)
+                                .addComponent(llogin_lbl_search1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(supplier_pn_txtbox_search, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         user_list_panelLayout.setVerticalGroup(
             user_list_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, user_list_panelLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addGroup(user_list_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(29, 29, 29)
+                .addGroup(user_list_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(user_list_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(filter_btn)
-                        .addComponent(clear_search_btn))
-                    .addGroup(user_list_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(user_list_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(llogin_lbl_search1)
-                            .addComponent(supplier_pn_txtbox_search, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(user_list_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cpn_txtbox_search, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(fname_lbl_search)
-                            .addComponent(lname_lbl_search)
-                            .addComponent(pack_type_txtbox_search, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(llogin_lbl_search)
-                            .addComponent(segment_txtbox_search, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(llogin_lbl_search1)
+                        .addComponent(supplier_pn_txtbox_search, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(user_list_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(cpn_txtbox_search, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(fname_lbl_search)
+                        .addComponent(lname_lbl_search)
+                        .addComponent(pack_type_txtbox_search, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(llogin_lbl_search)
+                        .addComponent(segment_txtbox_search, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(user_list_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(filter_btn)
+                    .addComponent(clear_search_btn))
                 .addGap(18, 18, 18)
                 .addComponent(user_table_scroll, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE))
         );
+
+        project_filter.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                project_filterItemStateChanged(evt);
+            }
+        });
+        project_filter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                project_filterActionPerformed(evt);
+            }
+        });
+
+        login_lbl3.setText("Project *");
+
+        login_lbl5.setText("F.G Warehouse");
+
+        warehouse_filter.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                warehouse_filterItemStateChanged(evt);
+            }
+        });
+        warehouse_filter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                warehouse_filterActionPerformed(evt);
+            }
+        });
+
+        login_lbl6.setText("Final Destination");
+
+        destination_txtbox.setName("fname_txtbox"); // NOI18N
+
+        login_lbl.setText("Segment *");
+
+        segment_filter.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                segment_filterItemStateChanged(evt);
+            }
+        });
+        segment_filter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                segment_filterActionPerformed(evt);
+            }
+        });
+
+        pwd_lbl.setText("Workplace *");
+
+        workplace_filter.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                workplace_filterItemStateChanged(evt);
+            }
+        });
+        workplace_filter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                workplace_filterActionPerformed(evt);
+            }
+        });
+
+        pwd_lbl7.setText("Harness Type *");
+
+        cpn_txtbox.setName("cpn_txtbox"); // NOI18N
+
+        fname_lbl.setText("CPN *");
+
+        lname_lbl.setText("LPN *");
+
+        lpn_txtbox.setName("fname_txtbox"); // NOI18N
+
+        pwd_lbl1.setText("Index *");
+
+        index_txtbox.setName("fname_txtbox"); // NOI18N
+
+        active_combobox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "0" }));
+        active_combobox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                active_comboboxActionPerformed(evt);
+            }
+        });
+
+        pwd_lbl2.setText("Active *");
+
+        login_lbl1.setText("Assembly Workstation");
+
+        assy_txtbox.setName("fname_txtbox"); // NOI18N
+
+        order_no_txt.setName("fname_txtbox"); // NOI18N
+
+        login_lbl4.setText("Order No *");
+
+        pwd_lbl6.setText("Std Time *");
+
+        stdTime_txtbox.setText("0.00");
+        stdTime_txtbox.setName("fname_txtbox"); // NOI18N
+        stdTime_txtbox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                stdTime_txtboxActionPerformed(evt);
+            }
+        });
+
+        fname_lbl1.setText("ID");
+
+        id_lbl.setBackground(new java.awt.Color(153, 204, 255));
+        id_lbl.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        id_lbl.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        id_lbl.setRequestFocusEnabled(false);
 
         lname_lbl1.setText("Creation Date");
 
@@ -788,6 +807,229 @@ public class CONFIG_UI0001_STD_PACK_CONFIG extends javax.swing.JFrame {
 
         write_time_txt.setEditable(false);
         write_time_txt.setName("fname_txtbox"); // NOI18N
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(login_lbl6)
+                                .addComponent(login_lbl3)
+                                .addComponent(login_lbl5))
+                            .addGap(34, 34, 34))
+                        .addComponent(login_lbl1, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(fname_lbl1)
+                    .addComponent(lname_lbl1))
+                .addGap(31, 31, 31)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(create_time_txt)
+                    .addComponent(warehouse_filter, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(destination_txtbox)
+                    .addComponent(assy_txtbox)
+                    .addComponent(id_lbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(project_filter, 0, 176, Short.MAX_VALUE))
+                .addGap(35, 35, 35)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lname_lbl2)
+                    .addComponent(pwd_lbl6)
+                    .addComponent(pwd_lbl7)
+                    .addComponent(pwd_lbl)
+                    .addComponent(login_lbl)
+                    .addComponent(pwd_lbl2))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(active_combobox, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(stdTime_txtbox, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE)
+                    .addComponent(harnessType_filter, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(segment_filter, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(workplace_filter, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(write_time_txt))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(44, 44, 44)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(fname_lbl)
+                                .addComponent(lname_lbl))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(pwd_lbl1)
+                                .addGap(1, 1, 1)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cpn_txtbox, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lpn_txtbox, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(index_txtbox, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(login_lbl4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(order_no_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(446, 446, 446))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(active_combobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pwd_lbl2))
+                        .addComponent(fname_lbl1))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addComponent(id_lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(segment_filter, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(login_lbl)
+                            .addComponent(fname_lbl)
+                            .addComponent(cpn_txtbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(workplace_filter, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pwd_lbl)
+                            .addComponent(lname_lbl)
+                            .addComponent(lpn_txtbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(project_filter, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(login_lbl3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(warehouse_filter, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(login_lbl5))))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(login_lbl6)
+                    .addComponent(assy_txtbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pwd_lbl7)
+                    .addComponent(harnessType_filter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pwd_lbl1)
+                    .addComponent(index_txtbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(login_lbl1)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(destination_txtbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(pwd_lbl6)
+                        .addComponent(stdTime_txtbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(order_no_txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(login_lbl4)))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(write_time_txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lname_lbl2)
+                    .addComponent(create_time_txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lname_lbl1))
+                .addContainerGap())
+        );
+
+        jTabbedPane1.addTab("General", jPanel2);
+
+        pwd_lbl3.setText("Pack Type *");
+
+        login_lbl2.setText("Barcodes Nbre *");
+
+        barcodes_nbre_txtbox.setText("0");
+        barcodes_nbre_txtbox.setName("fname_txtbox"); // NOI18N
+
+        label_per_piece_checkbox.setText("Print label for each piece ?");
+        label_per_piece_checkbox.setToolTipText("Print an A5 label for each scanned piece.\nThis label is different from open and closing sheet labels, If set to true, it will be printed once the user scan the QR code of a harness.");
+        label_per_piece_checkbox.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                label_per_piece_checkboxStateChanged(evt);
+            }
+        });
+
+        pwd_lbl4.setText("Std Pack Qty  *");
+
+        pack_size_txtbox.setText("1");
+        pack_size_txtbox.setName("fname_txtbox"); // NOI18N
+
+        pwd_lbl5.setText("Nbre Packs *");
+
+        lifes_txtbox.setText("-1");
+        lifes_txtbox.setName("fname_txtbox"); // NOI18N
+
+        special_order_check.setText("Special Order");
+        special_order_check.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                special_order_checkStateChanged(evt);
+            }
+        });
+
+        comment_txt.setColumns(10);
+        comment_txt.setRows(2);
+        comment_txt.setToolTipText("Special order comment or short description");
+        jScrollPane1.setViewportView(comment_txt);
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
+                        .addComponent(special_order_check)
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(pwd_lbl3, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(login_lbl2))
+                        .addGap(27, 27, 27)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(pack_type_filter, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(barcodes_nbre_txtbox, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(30, 30, 30)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(pwd_lbl4)
+                                .addGap(26, 26, 26)
+                                .addComponent(pack_size_txtbox, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(61, 61, 61)
+                                .addComponent(pwd_lbl5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lifes_txtbox, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(label_per_piece_checkbox))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 277, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(38, 38, 38)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(pwd_lbl3)
+                    .addComponent(pack_type_filter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pwd_lbl4)
+                    .addComponent(pack_size_txtbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pwd_lbl5)
+                    .addComponent(lifes_txtbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(login_lbl2)
+                    .addComponent(barcodes_nbre_txtbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(label_per_piece_checkbox))
+                .addGap(26, 26, 26)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(special_order_check)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(193, Short.MAX_VALUE))
+        );
+
+        jScrollPane4.setViewportView(jPanel4);
+
+        jTabbedPane1.addTab("Packaging", jScrollPane4);
 
         pwd_lbl9.setText("Net Weight (kg)");
 
@@ -804,56 +1046,132 @@ public class CONFIG_UI0001_STD_PACK_CONFIG extends javax.swing.JFrame {
         grossWeight_txtbox.setText("0.00");
         grossWeight_txtbox.setName("fname_txtbox"); // NOI18N
 
-        project_filter.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                project_filterItemStateChanged(evt);
-            }
-        });
-        project_filter.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                project_filterActionPerformed(evt);
-            }
-        });
+        filler1.setBackground(new java.awt.Color(255, 255, 255));
+        filler1.setOpaque(true);
 
-        login_lbl3.setText("Project *");
-
-        articleDesc_textArea.setColumns(20);
-        articleDesc_textArea.setRows(5);
-        articleDesc_textArea.setText("-");
-        jScrollPane2.setViewportView(articleDesc_textArea);
-
-        pwd_lbl11.setText("Article Description");
+        pwd_lbl12.setText("Volume (m3)");
 
         volume_txtbox.setText("0.00");
         volume_txtbox.setName("fname_txtbox"); // NOI18N
 
-        pwd_lbl12.setText("Volume (m3)");
+        pwd_lbl8.setText("Price *");
+
+        price_txtbox.setText("0.00");
+        price_txtbox.setName("fname_txtbox"); // NOI18N
+
+        filler2.setBackground(new java.awt.Color(255, 255, 255));
+        filler2.setOpaque(true);
+
+        pwd_lbl13.setText("Engineering Change");
 
         engChange_textArea.setColumns(20);
         engChange_textArea.setRows(5);
         engChange_textArea.setText("-");
         jScrollPane3.setViewportView(engChange_textArea);
 
-        pwd_lbl13.setText("Engineering Change");
-
-        warehouse_filter.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                warehouse_filterItemStateChanged(evt);
-            }
-        });
-        warehouse_filter.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                warehouse_filterActionPerformed(evt);
-            }
-        });
-
-        login_lbl5.setText("F.G Warehouse");
-
         pwd_lbl14.setText("Change Date");
 
-        destination_txtbox.setName("fname_txtbox"); // NOI18N
+        filler3.setBackground(new java.awt.Color(255, 255, 255));
+        filler3.setOpaque(true);
 
-        login_lbl6.setText("Final Destination");
+        pwd_lbl11.setText("Article Description");
+
+        articleDesc_textArea.setColumns(20);
+        articleDesc_textArea.setRows(5);
+        articleDesc_textArea.setText("-");
+        jScrollPane2.setViewportView(articleDesc_textArea);
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(pwd_lbl10)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(pwd_lbl9))
+                            .addComponent(pwd_lbl12, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(pwd_lbl8, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(23, 23, 23))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(pwd_lbl11)
+                        .addGap(18, 18, 18)))
+                .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, 1, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(netWeight_txtbox)
+                    .addComponent(grossWeight_txtbox)
+                    .addComponent(volume_txtbox)
+                    .addComponent(price_txtbox)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(filler2, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(pwd_lbl14)
+                        .addGap(56, 56, 56))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(pwd_lbl13)
+                        .addGap(18, 18, 18)))
+                .addComponent(filler3, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(engChangeDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(83, 83, 83))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(filler2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(filler1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(pwd_lbl9)
+                            .addComponent(netWeight_txtbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(pwd_lbl10)
+                            .addComponent(grossWeight_txtbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(pwd_lbl12)
+                            .addComponent(volume_txtbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(19, 19, 19)
+                                .addComponent(pwd_lbl8))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(price_txtbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(pwd_lbl11)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(pwd_lbl14)
+                    .addComponent(engChangeDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pwd_lbl13)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(filler3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("Enigeering settings", jPanel3);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -865,256 +1183,32 @@ public class CONFIG_UI0001_STD_PACK_CONFIG extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(pwd_lbl9)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(login_lbl, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(fname_lbl1))
-                            .addComponent(login_lbl4)
-                            .addComponent(login_lbl3))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(order_no_txt, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(segment_filter, javax.swing.GroupLayout.Alignment.TRAILING, 0, 174, Short.MAX_VALUE)
-                            .addComponent(cpn_txtbox, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(netWeight_txtbox, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
-                            .addComponent(project_filter, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(6, 6, 6)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(login_lbl2)
-                                            .addComponent(pwd_lbl)
-                                            .addComponent(lname_lbl)
-                                            .addComponent(pwd_lbl10))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(barcodes_nbre_txtbox, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                                        .addComponent(grossWeight_txtbox, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addGap(18, 18, 18)
-                                                        .addComponent(pwd_lbl12)))
-                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                                        .addGap(18, 18, Short.MAX_VALUE)
-                                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                            .addComponent(pwd_lbl1)
-                                                            .addComponent(pwd_lbl7)
-                                                            .addComponent(login_lbl1)
-                                                            .addComponent(login_lbl6))
-                                                        .addGap(27, 27, 27))
-                                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                        .addComponent(volume_txtbox, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                        .addComponent(pwd_lbl6))))
-                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                .addComponent(workplace_filter, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(lpn_txtbox, javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(warehouse_filter, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(lname_lbl1)
-                                        .addGap(23, 23, 23)
-                                        .addComponent(create_time_txt)
-                                        .addGap(30, 30, 30)
-                                        .addComponent(lname_lbl2)))
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(19, 19, 19)
-                                        .addComponent(write_time_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(stdTime_txtbox, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(pwd_lbl8)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(price_txtbox, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
-                                                .addGap(211, 211, 211))
-                                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(assy_txtbox)
-                                                    .addComponent(harnessType_filter, 0, 185, Short.MAX_VALUE)
-                                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                                        .addComponent(destination_txtbox, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addGap(0, 9, Short.MAX_VALUE))
-                                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                                        .addComponent(index_txtbox, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                        .addComponent(pwd_lbl3, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                                        .addComponent(pwd_lbl2)
-                                                        .addGap(5, 5, 5)
-                                                        .addComponent(active_combobox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                                    .addComponent(pack_type_filter, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                                        .addComponent(pwd_lbl4)
-                                                        .addGap(18, 18, 18)
-                                                        .addComponent(pack_size_txtbox, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                                        .addComponent(pwd_lbl5)
-                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                        .addComponent(lifes_txtbox, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                                .addGap(0, 56, Short.MAX_VALUE)))))
-                                .addGap(207, 207, 207))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(login_lbl5)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(fname_lbl)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(msg_lbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(save_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(duplicate_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(cancel_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(98, 98, 98)
-                                        .addComponent(delete_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(special_order_check)
-                                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(pwd_lbl11)
-                                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(pwd_lbl13)
-                                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(engChangeDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addComponent(pwd_lbl14))))))
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap())
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(77, 77, 77)
-                        .addComponent(id_lbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(1199, 1199, 1199))))
+                                .addComponent(save_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(duplicate_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(cancel_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(57, 57, 57)
+                                .addComponent(delete_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 951, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(616, Short.MAX_VALUE))
+                    .addComponent(msg_lbl, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(msg_lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(fname_lbl1)
-                        .addComponent(id_lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                        .addComponent(create_time_txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lname_lbl2)
-                        .addComponent(write_time_txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lname_lbl1)))
-                .addGap(21, 21, 21)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(project_filter, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(login_lbl3)
-                    .addComponent(warehouse_filter, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(login_lbl5)
-                    .addComponent(login_lbl6)
-                    .addComponent(destination_txtbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(fname_lbl)
-                            .addComponent(cpn_txtbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lname_lbl)
-                            .addComponent(lpn_txtbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(login_lbl)
-                                .addComponent(pwd_lbl)
-                                .addComponent(segment_filter, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(workplace_filter, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(harnessType_filter)
-                                .addComponent(pwd_lbl7))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(2, 2, 2)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(pwd_lbl2)
-                                    .addComponent(active_combobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(pwd_lbl5)
-                                    .addComponent(lifes_txtbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(pwd_lbl1)
-                            .addComponent(index_txtbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(pwd_lbl3)
-                            .addComponent(pack_type_filter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(pwd_lbl4)
-                            .addComponent(pack_size_txtbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(login_lbl4)
-                    .addComponent(order_no_txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(login_lbl2)
-                    .addComponent(barcodes_nbre_txtbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(login_lbl1)
-                    .addComponent(assy_txtbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(pwd_lbl9)
-                        .addComponent(netWeight_txtbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(pwd_lbl10)
-                        .addComponent(grossWeight_txtbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(volume_txtbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(pwd_lbl12)
-                        .addComponent(pwd_lbl6)
-                        .addComponent(stdTime_txtbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                        .addComponent(pwd_lbl8)
-                        .addComponent(price_txtbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(21, 21, 21)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(special_order_check)
-                            .addComponent(pwd_lbl11))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(pwd_lbl13)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(pwd_lbl14)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(engChangeDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(28, 28, 28)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(cancel_btn)
                         .addComponent(delete_btn))
                     .addComponent(duplicate_btn)
                     .addComponent(save_btn))
-                .addGap(18, 22, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(user_list_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -1124,15 +1218,37 @@ public class CONFIG_UI0001_STD_PACK_CONFIG extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 236, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
+        jPanel1.getAccessibleContext().setAccessibleName("Standard Pack Master Data");
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void netWeight_txtboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_netWeight_txtboxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_netWeight_txtboxActionPerformed
+
+    private void label_per_piece_checkboxStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_label_per_piece_checkboxStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_label_per_piece_checkboxStateChanged
+
+    private void special_order_checkStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_special_order_checkStateChanged
+
+    }//GEN-LAST:event_special_order_checkStateChanged
+
+    private void supplier_pn_txtbox_searchKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_supplier_pn_txtbox_searchKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_supplier_pn_txtbox_searchKeyTyped
+
+    private void supplier_pn_txtbox_searchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_supplier_pn_txtbox_searchKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_supplier_pn_txtbox_searchKeyPressed
 
     private void clear_search_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clear_search_btnActionPerformed
         clearSearchFields();
@@ -1165,35 +1281,6 @@ public class CONFIG_UI0001_STD_PACK_CONFIG extends javax.swing.JFrame {
     private void cpn_txtbox_searchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cpn_txtbox_searchKeyPressed
 
     }//GEN-LAST:event_cpn_txtbox_searchKeyPressed
-
-    private void special_order_checkStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_special_order_checkStateChanged
-    }//GEN-LAST:event_special_order_checkStateChanged
-
-    private void workplace_filterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_workplace_filterActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_workplace_filterActionPerformed
-
-    private void workplace_filterItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_workplace_filterItemStateChanged
-
-    }//GEN-LAST:event_workplace_filterItemStateChanged
-
-    private void segment_filterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_segment_filterActionPerformed
-        System.out.println("Selected Segment " + String.valueOf(segment_filter.getSelectedItem()));
-        if ("ALL".equals(String.valueOf(segment_filter.getSelectedItem()).trim())) {
-            this.workplace_filter.setSelectedIndex(0);
-            this.workplace_filter.setEnabled(false);
-        } else {
-            this.workplace_filter.removeAllItems();
-            this.workplace_filter.setEnabled(true);
-            this.setWorkplaceBySegment(String.valueOf(segment_filter.getSelectedItem()));
-        }
-
-        refresh();
-    }//GEN-LAST:event_segment_filterActionPerformed
-
-    private void segment_filterItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_segment_filterItemStateChanged
-
-    }//GEN-LAST:event_segment_filterItemStateChanged
 
     private void duplicate_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_duplicate_btnActionPerformed
         id_lbl.setText("");
@@ -1246,6 +1333,15 @@ public class CONFIG_UI0001_STD_PACK_CONFIG extends javax.swing.JFrame {
         } else {
             special_order_check.setSelected(false);
         }
+        try {
+            if (aux.isLabelPerPiece()) {
+                label_per_piece_checkbox.setSelected(true);
+            } else {
+                label_per_piece_checkbox.setSelected(false);
+            }
+        } catch (NullPointerException ex) {
+            label_per_piece_checkbox.setSelected(false);
+        }
 
         if (String.valueOf(aux.getActive()).equals("1")) {
             active_combobox.setSelectedIndex(0);
@@ -1255,10 +1351,6 @@ public class CONFIG_UI0001_STD_PACK_CONFIG extends javax.swing.JFrame {
         this.aux = null;
         msg_lbl.setText("Element dupliqué !");
     }//GEN-LAST:event_duplicate_btnActionPerformed
-
-    private void stdTime_txtboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stdTime_txtboxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_stdTime_txtboxActionPerformed
 
     private void delete_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_delete_btnActionPerformed
         int confirmed = JOptionPane.showConfirmDialog(this,
@@ -1274,10 +1366,6 @@ public class CONFIG_UI0001_STD_PACK_CONFIG extends javax.swing.JFrame {
             refresh();
         }
     }//GEN-LAST:event_delete_btnActionPerformed
-
-    private void active_comboboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_active_comboboxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_active_comboboxActionPerformed
 
     private void cancel_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancel_btnActionPerformed
         clearFields();
@@ -1476,8 +1564,8 @@ public class CONFIG_UI0001_STD_PACK_CONFIG extends javax.swing.JFrame {
             mu.setProject(project_filter.getSelectedItem().toString());
             mu.setWarehouse(warehouse_filter.getSelectedItem().toString());
             mu.setDestination(destination_txtbox.getText());
-            mu.setArticleDesc((articleDesc_textArea.getText().length()>25) ? articleDesc_textArea.getText().substring(0, 25) : articleDesc_textArea.getText());
-            mu.setEngChange((engChange_textArea.getText().length()>25) ? engChange_textArea.getText().substring(0, 25) : engChange_textArea.getText());
+            mu.setArticleDesc((articleDesc_textArea.getText().length() > 25) ? articleDesc_textArea.getText().substring(0, 25) : articleDesc_textArea.getText());
+            mu.setEngChange((engChange_textArea.getText().length() > 25) ? engChange_textArea.getText().substring(0, 25) : engChange_textArea.getText());
             mu.setGrossWeight(Double.valueOf(grossWeight_txtbox.getText().trim()));
             mu.setVolume(Double.valueOf(volume_txtbox.getText().trim()));
 
@@ -1497,6 +1585,11 @@ public class CONFIG_UI0001_STD_PACK_CONFIG extends javax.swing.JFrame {
             } else {
                 mu.setSpecialOrder(0);
             }
+            if (label_per_piece_checkbox.isSelected()) {
+                mu.setLabelPerPiece(true);
+            } else {
+                mu.setLabelPerPiece(false);
+            }
             System.out.println("FORM validation : " + err);
             System.out.println("New object " + mu.toString());
             if (!err) {
@@ -1506,39 +1599,7 @@ public class CONFIG_UI0001_STD_PACK_CONFIG extends javax.swing.JFrame {
                 refresh();
             }
         } else { // ID Label is filed, then is an update
-            /*
-             aux.setWriteId(PackagingVars.context.getUser().getId());
-             aux.setWriteTime(new Date());
-             aux.setHarnessPart(cpn_txtbox.getText().trim());
-             aux.setSupplierPartNumber(lpn_txtbox.getText().trim());
-             aux.setHarnessIndex(index_txtbox.getText().trim());
-             aux.setPackType(pack_type_filter.getSelectedItem().toString());
-             aux.setPackSize(Integer.valueOf(pack_size_txtbox.getText().trim()));
-             aux.setActive(Integer.valueOf(active_combobox.getSelectedItem().toString()));
-             aux.setSegment(segment_filter.getSelectedItem().toString());
-             aux.setWorkplace(workplace_filter.getSelectedItem().toString());
-             aux.setHarnessType(harnessType_filter.getSelectedItem().toString());
-             aux.setLifes(Integer.valueOf(lifes_txtbox.getText().trim()));
-             aux.setStdTime(Double.valueOf(stdTime_txtbox.getText().trim()));
-             aux.setPrice(Double.valueOf(price_txtbox.getText().trim()));
-             aux.setAdditionalBarcode(Integer.valueOf(barcodes_nbre_txtbox.getText().trim()));
-             aux.setAssyWorkstationName(assy_txtbox.getText().trim());
-             aux.setComment(comment_txt.getText());
-             aux.setOrderNo(order_no_txt.getText());
-             aux.setProject(project_filter.getSelectedItem().toString());
-             aux.setWarehouse(warehouse_filter.getSelectedItem().toString());
-             aux.setArticleDesc(articleDesc_textArea.getText());
-             aux.setEngChange(engChange_textArea.getText());
-             aux.setEngChangeDate(engChangeDatePicker.getDate());
-             aux.setNetWeight(Double.valueOf(netWeight_txtbox.getText().trim()));
-             aux.setGrossWeight(Double.valueOf(grossWeight_txtbox.getText().trim()));
-             aux.setVolume(Double.valueOf(volume_txtbox.getText().trim()));
-             aux.setDestination(destination_txtbox.getText());
-             if (special_order_check.isSelected()) {
-             aux.setSpecialOrder(1);
-             } else {
-             aux.setSpecialOrder(0);
-             }*/
+
             boolean err = false;
 
             if (cpn_txtbox.getText().trim().isEmpty()) {
@@ -1747,6 +1808,11 @@ public class CONFIG_UI0001_STD_PACK_CONFIG extends javax.swing.JFrame {
             } else {
                 aux.setSpecialOrder(0);
             }
+            if (label_per_piece_checkbox.isSelected()) {
+                aux.setLabelPerPiece(true);
+            } else {
+                aux.setLabelPerPiece(false);
+            }
             System.out.println("FORM validation : " + err);
             System.out.println("Object updated" + aux.toString());
             if (!err) {
@@ -1757,24 +1823,49 @@ public class CONFIG_UI0001_STD_PACK_CONFIG extends javax.swing.JFrame {
             }
 
         }
-
     }//GEN-LAST:event_save_btnActionPerformed
 
-    private void supplier_pn_txtbox_searchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_supplier_pn_txtbox_searchKeyPressed
+    private void stdTime_txtboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stdTime_txtboxActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_supplier_pn_txtbox_searchKeyPressed
+    }//GEN-LAST:event_stdTime_txtboxActionPerformed
 
-    private void supplier_pn_txtbox_searchKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_supplier_pn_txtbox_searchKeyTyped
+    private void active_comboboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_active_comboboxActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_supplier_pn_txtbox_searchKeyTyped
+    }//GEN-LAST:event_active_comboboxActionPerformed
 
-    private void netWeight_txtboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_netWeight_txtboxActionPerformed
+    private void workplace_filterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_workplace_filterActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_netWeight_txtboxActionPerformed
+    }//GEN-LAST:event_workplace_filterActionPerformed
 
-    private void project_filterItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_project_filterItemStateChanged
+    private void workplace_filterItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_workplace_filterItemStateChanged
 
-    }//GEN-LAST:event_project_filterItemStateChanged
+    }//GEN-LAST:event_workplace_filterItemStateChanged
+
+    private void segment_filterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_segment_filterActionPerformed
+        System.out.println("Selected Segment " + String.valueOf(segment_filter.getSelectedItem()));
+        if ("ALL".equals(String.valueOf(segment_filter.getSelectedItem()).trim())) {
+            this.workplace_filter.setSelectedIndex(0);
+            this.workplace_filter.setEnabled(false);
+        } else {
+            this.workplace_filter.removeAllItems();
+            this.workplace_filter.setEnabled(true);
+            this.setWorkplaceBySegment(String.valueOf(segment_filter.getSelectedItem()));
+        }
+
+        refresh();
+    }//GEN-LAST:event_segment_filterActionPerformed
+
+    private void segment_filterItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_segment_filterItemStateChanged
+
+    }//GEN-LAST:event_segment_filterItemStateChanged
+
+    private void warehouse_filterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_warehouse_filterActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_warehouse_filterActionPerformed
+
+    private void warehouse_filterItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_warehouse_filterItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_warehouse_filterItemStateChanged
 
     private void project_filterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_project_filterActionPerformed
         System.out.println("Selected Project " + String.valueOf(project_filter.getSelectedItem()));
@@ -1789,13 +1880,9 @@ public class CONFIG_UI0001_STD_PACK_CONFIG extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_project_filterActionPerformed
 
-    private void warehouse_filterItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_warehouse_filterItemStateChanged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_warehouse_filterItemStateChanged
+    private void project_filterItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_project_filterItemStateChanged
 
-    private void warehouse_filterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_warehouse_filterActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_warehouse_filterActionPerformed
+    }//GEN-LAST:event_project_filterItemStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1814,6 +1901,9 @@ public class CONFIG_UI0001_STD_PACK_CONFIG extends javax.swing.JFrame {
     private javax.swing.JButton duplicate_btn;
     private org.jdesktop.swingx.JXDatePicker engChangeDatePicker;
     private javax.swing.JTextArea engChange_textArea;
+    private javax.swing.Box.Filler filler1;
+    private javax.swing.Box.Filler filler2;
+    private javax.swing.Box.Filler filler3;
     private javax.swing.JButton filter_btn;
     private javax.swing.JLabel fname_lbl;
     private javax.swing.JLabel fname_lbl1;
@@ -1823,9 +1913,15 @@ public class CONFIG_UI0001_STD_PACK_CONFIG extends javax.swing.JFrame {
     private javax.swing.JLabel id_lbl;
     private javax.swing.JTextField index_txtbox;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JCheckBox label_per_piece_checkbox;
     private javax.swing.JTextField lifes_txtbox;
     private javax.swing.JLabel llogin_lbl_search;
     private javax.swing.JLabel llogin_lbl_search1;

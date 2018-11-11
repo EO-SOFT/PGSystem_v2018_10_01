@@ -44,6 +44,7 @@ public class BaseContainerTmp implements java.io.Serializable {
     private String warehouse;
     private Date engChangeDate;
     private String destination;
+    private Boolean labelPerPiece;
 
     public BaseContainerTmp() {
     }
@@ -54,6 +55,14 @@ public class BaseContainerTmp implements java.io.Serializable {
 
     public void setDestination(String destination) {
         this.destination = destination;
+    }
+
+    public Boolean isLabelPerPiece() {
+        return labelPerPiece;
+    }
+
+    public void setLabelPerPiece(Boolean labelPerPiece) {
+        this.labelPerPiece = labelPerPiece;
     }
     
     
@@ -337,12 +346,13 @@ public class BaseContainerTmp implements java.io.Serializable {
     public void setEngChangeDate(Date engChangeDate) {
         this.engChangeDate = engChangeDate;
     }
-    
-    
 
     @Override
     public String toString() {
-        return "BaseContainerTmp{" + "palletNumber=" + palletNumber + ", harnessPart=" + harnessPart + ", harnessIndex=" + harnessIndex + ", supplierPartNumber=" + supplierPartNumber + ", qtyExpected=" + qtyExpected + ", qtyRead=" + qtyRead + ", state=" + state + ", packType=" + packType + ", choosen_pack_type=" + choosen_pack_type + ", hernessCounter=" + hernessCounter + ", harnessType=" + harnessType + ", stdTime=" + stdTime + ", price=" + price + ", packWorkstation=" + packWorkstation + ", assyWorkstation=" + assyWorkstation + ", assyWorkstationId=" + assyWorkstationId + ", segment=" + segment + ", workplace=" + workplace + ", order_no=" + order_no + ", special_order=" + special_order + ", ucsLifes=" + ucsLifes + ", ucsId=" + ucsId + ", comment=" + comment + ", dispatchLabelNo=" + dispatchLabelNo + ", dispatchTime=" + dispatchTime + ", consignNo=" + consignNo + ", invoiceNo=" + invoiceNo + '}';
+        return "BaseContainerTmp{" + "palletNumber=" + palletNumber + ", harnessPart=" + harnessPart + ", harnessIndex=" + harnessIndex + ", supplierPartNumber=" + supplierPartNumber + ", qtyExpected=" + qtyExpected + ", qtyRead=" + qtyRead + ", state=" + state + ", packType=" + packType + ", choosen_pack_type=" + choosen_pack_type + ", hernessCounter=" + hernessCounter + ", harnessType=" + harnessType + ", stdTime=" + stdTime + ", price=" + price + ", packWorkstation=" + packWorkstation + ", assyWorkstation=" + assyWorkstation + ", assyWorkstationId=" + assyWorkstationId + ", segment=" + segment + ", workplace=" + workplace + ", order_no=" + order_no + ", special_order=" + special_order + ", ucsLifes=" + ucsLifes + ", ucsId=" + ucsId + ", comment=" + comment + ", dispatchLabelNo=" + dispatchLabelNo + ", dispatchTime=" + dispatchTime + ", consignNo=" + consignNo + ", invoiceNo=" + invoiceNo + ", netWeight=" + netWeight + ", grossWeight=" + grossWeight + ", volume=" + volume + ", engChange=" + engChange + ", articleDesc=" + articleDesc + ", project=" + project + ", warehouse=" + warehouse + ", engChangeDate=" + engChangeDate + ", destination=" + destination + ", labelPerPiece=" + labelPerPiece + '}';
     }
+    
+    
 
+   
 }

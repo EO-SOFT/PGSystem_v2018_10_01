@@ -29,29 +29,31 @@ import org.hibernate.type.StandardBasicTypes;
  *
  * @author Administrator
  */
-public class PACKAGING_WAREHOUSE_UI0002_STOCK extends javax.swing.JDialog {
+public class PACKAGING_WAREHOUSE_UI0002_STOCK extends javax.swing.JFrame {
 
     Vector packaging_stock_result_table_data = new Vector();
     Vector<String> packaging_stock_result_table_header = new Vector<String>();
     private List<Object[]> resultList;
     List<String> table_header = Arrays.asList(
             "PACK ITEM",
-            "STOCK",
-            "ALERT QTY"
+            "STOCK"
+            //,
+            //"ALERT QTY"
     );
 
     /**
      * Creates new form UI0011_ProdStatistics_
      */
     public PACKAGING_WAREHOUSE_UI0002_STOCK(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+        //super(parent, modal);
         initComponents();
         initGui();        
     }
 
     private void initGui() {
         //Center the this dialog in the screen
-        Helper.centerJDialog(this);
+        //Helper.centerJDialog(this);
+        Helper.centerJFrame(this);
 
         //Desable table edition
         disableEditingTables();
@@ -94,7 +96,7 @@ public class PACKAGING_WAREHOUSE_UI0002_STOCK extends javax.swing.JDialog {
             Vector<Object> oneRow = new Vector<Object>();
             oneRow.add(String.valueOf(obj[0])); // PACK ITEM
             oneRow.add(Integer.valueOf(obj[1].toString())); // STOCK
-            oneRow.add(Integer.valueOf(obj[2].toString())); // "Alert Qty"                  
+            //oneRow.add(Integer.valueOf(obj[2].toString())); // "Alert Qty"                  
 
             packaging_stock_result_table_data.add(oneRow);
         }
@@ -114,8 +116,8 @@ public class PACKAGING_WAREHOUSE_UI0002_STOCK extends javax.swing.JDialog {
             Helper.startSession();
             String query_str = "SELECT "
                     + "p.pack_item AS pack_item, "
-                    + "SUM(p.quantity) AS stock, "
-                    + "i.alert_qty AS alert_qty "
+                    + "SUM(p.quantity) AS stock "
+                    //+ ",i.alert_qty AS alert_qty "
                     + "FROM "
                     + "packaging_stock_movement p, "
                     + "packaging_items i "
@@ -127,8 +129,8 @@ public class PACKAGING_WAREHOUSE_UI0002_STOCK extends javax.swing.JDialog {
             SQLQuery query = Helper.sess.createSQLQuery(query_str);
 
             query.addScalar("pack_item", StandardBasicTypes.STRING)
-                    .addScalar("stock", StandardBasicTypes.INTEGER)
-                    .addScalar("alert_qty", StandardBasicTypes.INTEGER);
+                    .addScalar("stock", StandardBasicTypes.INTEGER);
+                    //.addScalar("alert_qty", StandardBasicTypes.INTEGER);
 
             resultList = query.list();
 

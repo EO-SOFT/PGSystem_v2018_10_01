@@ -77,39 +77,43 @@ public class Mode3_S031_PalletChoice implements Mode3_State {
                     bc.setWriteId(PackagingVars.context.getUser().getId());
                     bc.setFifoTime(GlobalMethods.getTimeStamp(null));
                     bc.setHarnessType(context.getBaseContainerTmp().getHarnessType());
-                    
+
                     //#################### SET HARNESS DATA  #######################
                     //- Set harness data from current mode3_context.
                     BaseHarness bh = new BaseHarness().setDefautlVals();
                     bh = saveBaseHarness(bc, bh, barcode, context);
-                    System.out.println("Save Base Harness bh with tmp values "+bh.toString());
+                    System.out.println("Save Base Harness bh with tmp values " + bh.toString());
                     //##############################################################
-                    
+
                     //############### SET & SAVE ALL ENGINE LABELS DATA #################
                     //Si ce part number contient des code à barre pour sachet
                     if (PackagingVars.mode3_context.getBaseHarnessAdditionalBarecodeTmp().getLabelCode().length != 0) {
                         savePlaticBagCodes(bh, PackagingVars.mode3_context.getBaseHarnessAdditionalBarecodeTmp().getLabelCode());
                     }
                     //##############################################################
-                    
+
                     //############## ADD THE HARNESS TO THE CONTAINER ##############
                     //Insert the harness into the container
                     bc.getHarnessList().add(bh);
-                    
+
                     int newQty = bc.getQtyRead() + 1;
                     //Incrémenter la taille du contenaire
                     bc.setQtyRead(bc.getQtyRead() + 1);
                     bc.update(bc);
                     clearScanBox(scan_txtbox);
-                    
+
                     UILog.info("Deletion  counters result %d ", deletePieceFromDropTable(bh));
-                    
+
                     bh.create(bh);
-                    //######################### Print Harness Label ################
-                    PrinterHelper.PrintPieceLabel(bc, bh);
                     
                     //##############################################################
-                    
+                    //Print Harness Label if this option is set to true
+                    //######################### Print Harness Label ################
+                    if (bc.isLabelPerPiece()) {
+                        PrinterHelper.PrintPieceLabel(bc, bh);
+                    }
+
+                    //##############################################################
                     //- Set harness data from drop table
                     //- Remouve it from drop table (use a flag var to drop it in the end
                     // of this condition)
@@ -135,9 +139,9 @@ public class Mode3_S031_PalletChoice implements Mode3_State {
                         PackagingVars.Packaging_Gui_Mode3.setFeedbackTextarea("Scanner le code de fermeture palette N°\n "
                                 + GlobalVars.CLOSING_PALLET_PREFIX + bc.getPalletNumber());
                         context.setState(new Mode3_S040_ClosingPallet());
-                        
+
                     } else { //QtyExpected not reached yet ! Pallet will still open.
-                        
+
                         //Clear session vals in mode3_context
                         clearContextSessionVals();
                         // Change go back to state HarnessPartScan
@@ -147,8 +151,7 @@ public class Mode3_S031_PalletChoice implements Mode3_State {
                 catch (Exception ex) {
                     Logger.getLogger(Mode3_S031_PalletChoice.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            }
-            else {
+            } else {
                 UILog.severe(ErrorMsg.APP_ERR0015[0], barcode, GlobalVars.OPEN_PALLET_KEYWORD);
                 UILog.severeDialog(null, ErrorMsg.APP_ERR0015, barcode, GlobalVars.OPEN_PALLET_KEYWORD);
                 PackagingVars.Packaging_Gui_Mode3.getFeedbackTextarea().setText(UILog.severe(ErrorMsg.APP_ERR0015[0], barcode, GlobalVars.OPEN_PALLET_KEYWORD));
@@ -239,18 +242,19 @@ public class Mode3_S031_PalletChoice implements Mode3_State {
             bel.create(bel);
         }
     }
+
     /**
      * Save a piece in container and return BaseHarness object
+     *
      * @param bc
      * @param bh
      * @param barcode
      * @param context
-     * @return 
+     * @return
      */
-    
     private BaseHarness saveBaseHarness(BaseContainer bc, BaseHarness bh, String barcode, Mode3_Context context) {
-        System.out.println("Save Base Harness bh param "+bh.toString());
-        System.out.println("context.getBaseContainerTmp().getHarnessPart()"+context.getBaseContainerTmp().getHarnessPart());
+        System.out.println("Save Base Harness bh param " + bh.toString());
+        System.out.println("context.getBaseContainerTmp().getHarnessPart()" + context.getBaseContainerTmp().getHarnessPart());
         bh.setHarnessPart(context.getBaseContainerTmp().getHarnessPart());
         bh.setCounter(context.getBaseContainerTmp().getHernessCounter());
         bh.setPalletNumber(barcode);
@@ -261,8 +265,7 @@ public class Mode3_S031_PalletChoice implements Mode3_State {
         bh.setWorkplace(bc.getWorkplace());
         bh.setContainer(bc);
         bh.setProject(bc.getProject());
-        
-        
+
         return bh;
     }
 

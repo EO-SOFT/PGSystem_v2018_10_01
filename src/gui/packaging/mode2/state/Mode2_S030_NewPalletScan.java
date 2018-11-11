@@ -94,6 +94,7 @@ public class Mode2_S030_NewPalletScan implements Mode2_State {
             bc.setEngChange(context.getBaseContainerTmp().getEngChange());
             bc.setEngChangeDate(context.getBaseContainerTmp().getEngChangeDate());
             bc.setArticleDesc(context.getBaseContainerTmp().getArticleDesc());
+            bc.setLabelPerPiece(context.getBaseContainerTmp().isLabelPerPiece());
             bc.create(bc);
             UILog.info(String.format("BaseContainer created %s ", bc.toString()));
             //##############################################################            
