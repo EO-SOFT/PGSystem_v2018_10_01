@@ -228,6 +228,9 @@ public final class WAREHOUSE_DISPATCH_UI0004_NEW_PLAN extends javax.swing.JDialo
                 lp.setPlanState(WarehouseHelper.LOAD_PLAN_STATE_OPEN);
                 lp.setTruckNo((truck_no_text.getText().isEmpty()) ? "" : truck_no_text.getText());
                 lp.setProject(project_filter.getSelectedItem().toString());
+                lp.setFgWarehouse(warehouse_filter.getSelectedItem().toString());
+                String packaging_wh = new ConfigWarehouse().getPackagingWh(project_filter.getSelectedItem().toString());
+                lp.setPackagingWarehouse(packaging_wh);
                 //Save the new plan
                 int planId = lp.create(lp);
 
@@ -244,6 +247,8 @@ public final class WAREHOUSE_DISPATCH_UI0004_NEW_PLAN extends javax.swing.JDialo
                 WarehouseHelper.Dispatch_Gui.loadPlanDataToLabels(lp, selectedDestinations[0]);
                 //Load plans JTable
                 WarehouseHelper.Dispatch_Gui.loadPlanDataInGui();
+                
+                WarehouseHelper.Dispatch_Gui.reloadPlansData();
                 //Auth réussie, Passage à l'état S02 de lecture des fiches Galia               
                 WarehouseHelper.warehouse_reserv_context.setState(new S001_ReservPalletNumberScan());
                 this.dispose();
@@ -299,7 +304,7 @@ public final class WAREHOUSE_DISPATCH_UI0004_NEW_PLAN extends javax.swing.JDialo
     }
     
     private void setWarehouseByProject(String project) {
-        List result = new ConfigWarehouse().selectByProject(project);
+        List result = new ConfigWarehouse().selectByProjectAndType(project, "FINISH_GOODS");
         if (result.isEmpty()) {
             UILog.severeDialog(this, ErrorMsg.APP_ERR0036);
             UILog.severe(ErrorMsg.APP_ERR0036[1]);

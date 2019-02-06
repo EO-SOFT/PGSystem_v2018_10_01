@@ -25,6 +25,7 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import org.hibernate.Query;
 import ui.UILog;
+import ui.error.ErrorMsg;
 import ui.info.InfoMsg;
 
 /**
@@ -34,6 +35,7 @@ import ui.info.InfoMsg;
 public class CONFIG_UI0000_AUTH extends javax.swing.JDialog {
 
     Frame parent;
+    private ManufactureUsers user;
 
     /**
      * Creates new form NewJDialog
@@ -41,14 +43,17 @@ public class CONFIG_UI0000_AUTH extends javax.swing.JDialog {
     public CONFIG_UI0000_AUTH(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        admin_login_txtbox.requestFocus();
+        menus_list.setVisible(false);
     }
 
     public CONFIG_UI0000_AUTH() {
-        menus_list = new JComboBox();
+        //menus_list = new JComboBox();
 
         initComponents();
-
-        initMenusList();
+        menus_list.setVisible(false);
+        //initMenusList();
+        admin_login_txtbox.requestFocus();
         Helper.centerJDialog(this);
         this.setResizable(false);
     }
@@ -75,30 +80,43 @@ public class CONFIG_UI0000_AUTH extends javax.swing.JDialog {
         List result = query.list();
         if (!result.isEmpty()) {
             Helper.startSession();
-            ManufactureUsers user = (ManufactureUsers) result.get(0);
-            user.setLoginTime(new Date());
-            PackagingVars.context.setUser(user);
-            PackagingVars.context.getUser().update(PackagingVars.context.getUser());
+            this.user = (ManufactureUsers) result.get(0);
+            if (user.getAccessLevel() != 9000) {
+                UILog.severeDialog(this, ErrorMsg.APP_ERR0040);
+                UILog.severe(ErrorMsg.APP_ERR0040[1]);
+                admin_login_txtbox.setText("");
+                admin_login_txtbox.requestFocus();
+                admin_password_txtbox.setText("");
+            } else if (user.getActive() != 1) {
+                UILog.severeDialog(this, ErrorMsg.APP_ERR0041);
+                UILog.severe(ErrorMsg.APP_ERR0041[1]);
+                admin_login_txtbox.setText("");
+                admin_login_txtbox.requestFocus();
+                admin_password_txtbox.setText("");
+            } else {
+                user.setLoginTime(new Date());
+                PackagingVars.context.setUser(user);
+                PackagingVars.context.getUser().update(PackagingVars.context.getUser());
 
-            try {
-                GlobalVars.APP_HOSTNAME = InetAddress.getLocalHost().getHostName();
-            } catch (UnknownHostException ex) {
-                Logger.getLogger(Mode2_S010_UserCodeScan.class.getName()).log(Level.SEVERE, null, ex);
-            }
+                try {
+                    GlobalVars.APP_HOSTNAME = InetAddress.getLocalHost().getHostName();
+                } catch (UnknownHostException ex) {
+                    Logger.getLogger(Mode2_S010_UserCodeScan.class.getName()).log(Level.SEVERE, null, ex);
+                }
 //            String str = String.format(Helper.INFO0001_LOGIN_SUCCESS,
 //                    user.getFirstName() + " " + user.getLastName()
 //                    + " / " + user.getLogin(), GlobalVars.APP_HOSTNAME,
 //                    GlobalMethods.getStrTimeStamp() + " Module : Planner");
 //            UILog.info(str);
-            
-            String str = String.format(InfoMsg.APP_INFO0003[1],
-                user.getFirstName() + " " + user.getLastName()
-                + " / " + user.getLogin(), GlobalVars.APP_HOSTNAME,
-                GlobalMethods.getStrTimeStamp() + " Module : Configuration : ");
-        
-            UILog.info(str); 
-            
-            //Save authentication line in HisLogin table
+
+                String str = String.format(InfoMsg.APP_INFO0003[1],
+                        user.getFirstName() + " " + user.getLastName()
+                        + " / " + user.getLogin(), GlobalVars.APP_HOSTNAME,
+                        GlobalMethods.getStrTimeStamp() + " Module : Configuration : ");
+
+                UILog.info(str);
+
+                //Save authentication line in HisLogin table
 //            HisLogin his_login = new HisLogin(
 //                    user.getId(), user.getId(),
 //                    String.format(Helper.INFO0001_LOGIN_SUCCESS,
@@ -108,24 +126,31 @@ public class CONFIG_UI0000_AUTH extends javax.swing.JDialog {
 //            his_login.setWriteId(user.getId());
 //            his_login.setMessage(str);
 //            his_login.create(his_login);
-            return true;
+                return true;
+            }
         }
+        UILog.severeDialog(this, ErrorMsg.APP_ERR0039);
+        UILog.severe(ErrorMsg.APP_ERR0039[1]);
+        admin_login_txtbox.setText("");
+        admin_login_txtbox.requestFocus();
+        admin_password_txtbox.setText("");
         return false;
+
     }
 
     public void select_menu() {
         System.out.println("Selected menu [" + menus_list.getSelectedItem() + "]");
         //"Unités de conditionnement standard (UCS)",
         if (menus_list.getSelectedItem().toString().equals(GlobalVars.CONFIG_MENUS.get(1))) {//
-            new CONFIG_UI0001_STD_PACK_CONFIG(parent, true).setVisible(true);
+            new CONFIG_UI0001_CONFIG_UCS(parent, true).setVisible(true);
             this.dispose();
         } //"Masque code à barre",
         else if (menus_list.getSelectedItem().toString().equals(GlobalVars.CONFIG_MENUS.get(2))) {
-            new CONFIG_UI0001_BARCODE_CONFIG().setVisible(true);
+            new CONFIG_UI0001_CONFIG_BARCODE().setVisible(true);
             this.dispose();
         } //"Utilisateurs"
         else if (menus_list.getSelectedItem().toString().equals(GlobalVars.CONFIG_MENUS.get(3))) {
-            new CONFIG_UI0003_USERS(parent, true).setVisible(true);
+            new CONFIG_UI0003_CONFIG_USERS(parent, true).setVisible(true);
             this.dispose();
 
         } //"Planner"
@@ -139,7 +164,7 @@ public class CONFIG_UI0000_AUTH extends javax.swing.JDialog {
         //        }
         else if (menus_list.getSelectedItem().toString().equals(GlobalVars.CONFIG_MENUS.get(4))) { //packaging config
 //            this.parent.setState(JFrame.ICONIFIED);
-            CONFIG_UI0002_PACKAGING_CONFIG packaging_config = new CONFIG_UI0002_PACKAGING_CONFIG(null, false);
+            CONFIG_UI0002_CONFIG_PACK_MASTERDATA packaging_config = new CONFIG_UI0002_CONFIG_PACK_MASTERDATA(null, false);
             packaging_config.setVisible(true);
             packaging_config.toFront();
             packaging_config.repaint();
@@ -156,18 +181,15 @@ public class CONFIG_UI0000_AUTH extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel3 = new javax.swing.JLabel();
         menus_list = new javax.swing.JComboBox();
         jLabel2 = new javax.swing.JLabel();
         admin_login_txtbox = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         admin_password_txtbox = new javax.swing.JPasswordField();
-        ok_btn1 = new javax.swing.JButton();
+        cancel_btn = new javax.swing.JButton();
         ok_btn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
-        jLabel3.setText("Menu");
 
         menus_list.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -196,10 +218,10 @@ public class CONFIG_UI0000_AUTH extends javax.swing.JDialog {
             }
         });
 
-        ok_btn1.setText("Annuler");
-        ok_btn1.addActionListener(new java.awt.event.ActionListener() {
+        cancel_btn.setText("Annuler");
+        cancel_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ok_btn1ActionPerformed(evt);
+                cancel_btnActionPerformed(evt);
             }
         });
 
@@ -221,11 +243,10 @@ public class CONFIG_UI0000_AUTH extends javax.swing.JDialog {
                         .addComponent(jLabel2)
                         .addGap(113, 113, 113)
                         .addComponent(jLabel1))
-                    .addComponent(jLabel3)
                     .addComponent(menus_list, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(layout.createSequentialGroup()
-                            .addComponent(ok_btn1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cancel_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addComponent(ok_btn))
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
@@ -237,9 +258,7 @@ public class CONFIG_UI0000_AUTH extends javax.swing.JDialog {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addContainerGap(28, Short.MAX_VALUE)
                 .addComponent(menus_list, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -252,7 +271,7 @@ public class CONFIG_UI0000_AUTH extends javax.swing.JDialog {
                 .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ok_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ok_btn1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cancel_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -272,30 +291,48 @@ public class CONFIG_UI0000_AUTH extends javax.swing.JDialog {
     }//GEN-LAST:event_admin_login_txtboxKeyPressed
 
     private void admin_password_txtboxKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_admin_password_txtboxKeyPressed
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+        /*if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+        if (checkLoginAndPass()) {
+        this.select_menu();
+        } else {
+        JOptionPane.showMessageDialog(null, Helper.ERR0001_LOGIN_FAILED, "Login Error", JOptionPane.ERROR_MESSAGE);
+        admin_password_txtbox.setText("");
+        }
+        } else if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
+        this.dispose();
+        }*/
+        //Authentification valide
+        System.out.println("evt.getKeyCode()" + evt.getKeyCode());
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER || evt.getKeyCode() == 10) {
             if (checkLoginAndPass()) {
-                this.select_menu();
-            } else {
-                JOptionPane.showMessageDialog(null, Helper.ERR0001_LOGIN_FAILED, "Login Error", JOptionPane.ERROR_MESSAGE);
-                admin_password_txtbox.setText("");
+                //this.select_menu();
+                new AdminFrame(this.parent, true, this.user).setVisible(true);
+                this.dispose();
             }
+            /*else {
+            JOptionPane.showMessageDialog(null, Helper.ERR0001_LOGIN_FAILED, "Login Error", JOptionPane.ERROR_MESSAGE);
+            admin_password_txtbox.setText("");
+            }*/
         } else if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
             this.dispose();
         }
     }//GEN-LAST:event_admin_password_txtboxKeyPressed
 
-    private void ok_btn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ok_btn1ActionPerformed
+    private void cancel_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancel_btnActionPerformed
         this.dispose();
-    }//GEN-LAST:event_ok_btn1ActionPerformed
+    }//GEN-LAST:event_cancel_btnActionPerformed
 
     private void ok_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ok_btnActionPerformed
         //Authentification valide
         if (checkLoginAndPass()) {
-            this.select_menu();
-        } else {
-            JOptionPane.showMessageDialog(null, Helper.ERR0001_LOGIN_FAILED, "Login Error", JOptionPane.ERROR_MESSAGE);
-            admin_password_txtbox.setText("");
+            //this.select_menu();
+            new AdminFrame(this.parent, true, this.user).setVisible(true);
+            this.dispose();
         }
+        /*else {
+        JOptionPane.showMessageDialog(null, Helper.ERR0001_LOGIN_FAILED, "Login Error", JOptionPane.ERROR_MESSAGE);
+        admin_password_txtbox.setText("");
+        }*/
     }//GEN-LAST:event_ok_btnActionPerformed
 
     private void admin_login_txtboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_admin_login_txtboxActionPerformed
@@ -350,11 +387,10 @@ public class CONFIG_UI0000_AUTH extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField admin_login_txtbox;
     private javax.swing.JPasswordField admin_password_txtbox;
+    private javax.swing.JButton cancel_btn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JComboBox menus_list;
     private javax.swing.JButton ok_btn;
-    private javax.swing.JButton ok_btn1;
     // End of variables declaration//GEN-END:variables
 }

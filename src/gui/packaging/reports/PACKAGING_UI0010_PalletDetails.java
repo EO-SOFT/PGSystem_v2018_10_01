@@ -602,10 +602,10 @@ public final class PACKAGING_UI0010_PalletDetails extends javax.swing.JFrame {
         jLabel27.setForeground(new java.awt.Color(255, 255, 255));
         jLabel27.setText("Create User");
 
+        comment_txt.setEditable(false);
         comment_txt.setColumns(10);
         comment_txt.setRows(3);
         comment_txt.setToolTipText("");
-        comment_txt.setEnabled(false);
         jScrollPane1.setViewportView(comment_txt);
 
         login_lbl3.setForeground(new java.awt.Color(255, 255, 255));
@@ -1694,17 +1694,17 @@ public final class PACKAGING_UI0010_PalletDetails extends javax.swing.JFrame {
                 b.setFifoTime(new Date());
                 b.setWriteId(PackagingVars.context.getUser().getId());
                 try {
-                    switch (PackagingVars.PROJECT.getPackagingMode()) {
-                        case "1":
+                    WIZARD_PACKAGING_MODE_CHOICE wiz = new WIZARD_PACKAGING_MODE_CHOICE(this, true);                    
+                    int mode = wiz.showDialog();
+                    switch (mode) {
+                        case 1:
                             PrinterHelper.saveAndPrintClosingSheetMode1(PackagingVars.mode1_context, b, true);
                             break;
-                        case "2":
+                        case 2:
                             PrinterHelper.saveAndPrintClosingSheetMode2(PackagingVars.mode2_context, b, true);
                             break;
-                        case "3":
+                        case 3:
                             PrinterHelper.saveAndPrintClosingSheetMode3(PackagingVars.mode3_context, b, true);
-                            break;
-                        default:
                             break;
                     }
                 } catch (IOException | DocumentException ex) {

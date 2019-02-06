@@ -325,7 +325,7 @@ public class PrinterHelper {
                     GlobalVars.SUPPLIER_PART_PREFIX + bc.getSupplierPartNumber(),
                     GlobalVars.COMPANY_INFO.getName(),
                     GlobalMethods.getStrTimeStamp(),
-                    GlobalVars.APP_PROP.getProperty("WAREHOUSE_PREFIX") + bc.getWarehouse());
+                    GlobalVars.APP_PROP.getProperty("WAREHOUSE_PREFIX") + bc.getFGwarehouse());
 
             String filePath = closePallet.createPdf(bc.getSpecial_order());
             System.out.println(String.format("Set Closing Pallet item [%d] state to [%s]", hisGalia.getId(), GlobalVars.PALLET_PRINT_INPROCESS));
@@ -394,7 +394,7 @@ public class PrinterHelper {
                     (bc.getArticleDesc().length() > 22) ? bc.getArticleDesc().substring(0, 22) : bc.getArticleDesc(),
                     bc.getProject(),
                     bc.getEngChangeDate(),
-                    bc.getWarehouse());
+                    bc.getFGwarehouse());
 
             Helper.startSession();
             Helper.sess.save(closingSheet);

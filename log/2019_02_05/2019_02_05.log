@@ -1,0 +1,178 @@
+févr. 05, 2019 8:27:19 PM ui.UILog log
+INFOS: File 2019_02_05.log is created!
+
+févr. 05, 2019 8:27:19 PM ui.UILog log
+INFOS: Daily output print directory [.\print\2019_02_05] created !
+open_sheet sub directory [.\print\2019_02_05\open_sheet] created !
+Print sub directory [.\print\2019_02_05\closing_sheet] created !
+Print sub directory [.\print\2019_02_05\picking_label] created !
+Print sub directory [.\print\2019_02_05\dispatch_label] created !
+
+févr. 05, 2019 8:29:02 PM ui.UILog log
+INFOS: APP_INFO0003 : User EZZIOURI Oussama / p connected to host Oussama-PC at 2019-02-05 20:29:02 Module : Configuration : .
+févr. 05, 2019 8:58:46 PM ui.UILog log
+INFOS: APP_INFO0003 : User EZZIOURI Oussama / p connected to host Oussama-PC at 2019-02-05 20:58:46 Project : DUCATI.
+févr. 05, 2019 8:58:46 PM ui.UILog log
+INFOS: APP_CONFIG0002   : Chargement de la liste des formats QR dans la variable DATAMATRIX_PATTERN_LIST ...
+févr. 05, 2019 8:58:46 PM ui.UILog log
+INFOS: FROM ConfigBarcode cb WHERE cb.keyWord = :keyWord AND cb.harness_type = :harnessType ORDER BY id ASC
+févr. 05, 2019 8:58:46 PM ui.UILog log
+INFOS: ^[P]{1}\w{9}[;]{1}\d{2}[.]{1}\d{2}[.]{1}\d{4}[;]{1}\d{2}[:]{1}\d{2}[:]{1}\d{2}
+^\w{9}[;]{1}\d{2}[.]{1}\d{2}[.]{1}\d{4}[;]{1}\d{2}[:]{1}\d{2}[:]{1}\d{2}
+^\b{9}[;]{1}\d{2}[.]{1}\d{2}[.]{1}\d{4}[;]{1}\d{2}[:]{1}\d{2}[:]{1}\d{2}
+^\w{9}[;]{1}\d{2}[:]{1}\d{2}[:]{1}\d{4}[;]{1}\d{2}[:]{1}\d{2}[:]{1}\d{2}
+
+févr. 05, 2019 8:58:46 PM ui.UILog log
+INFOS: APP_CONFIG0003   : 4 formats possible du QR pour le projet DUCATI ont été chargés avec succès !
+févr. 05, 2019 8:58:46 PM ui.UILog log
+INFOS: FROM ConfigBarcode cb WHERE cb.keyWord = :keyWord AND cb.harness_type = :harnessType ORDER BY id ASC
+févr. 05, 2019 8:58:46 PM ui.UILog log
+INFOS: ^[P]\w{9}
+^\w{9}
+^\b{9}
+
+févr. 05, 2019 8:58:46 PM ui.UILog log
+INFOS: APP_CONFIG0004   : 3 formats de référence possibles pour le projet DUCATI ont été chargés avec succès.
+févr. 05, 2019 8:59:59 PM ui.UILog log
+INFOS: APP_INFO0003 : User EZZIOURI Oussama / p connected to host Oussama-PC at 2019-02-05 20:59:59 Dispatch interface : .
+févr. 05, 2019 9:01:35 PM ui.UILog log
+INFOS: APP_INFO0003 : User EZZIOURI Oussama / p connected to host Oussama-PC at 2019-02-05 21:01:35 Module : Configuration : .
+févr. 05, 2019 9:36:49 PM ui.UILog log
+INFOS: File 2019_02_05.log already exists.
+
+févr. 05, 2019 9:36:49 PM ui.UILog log
+INFOS: Daily output print directory [.\print\2019_02_05] already exist!
+open_sheet sub directory [.\print\2019_02_05\open_sheet] already exist!
+Print sub directory [.\print\2019_02_05\closing_sheet] already exist!
+Print sub directory [.\print\2019_02_05\picking_label] already exist!
+Print sub directory [.\print\2019_02_05\dispatch_label] already exist!
+
+févr. 05, 2019 9:38:02 PM ui.UILog log
+INFOS: APP_INFO0003 : User EZZIOURI Oussama / p connected to host Oussama-PC at 2019-02-05 21:38:02 Module : Configuration : .
+févr. 05, 2019 9:49:27 PM ui.UILog log
+INFOS: File 2019_02_05.log already exists.
+
+févr. 05, 2019 9:49:27 PM ui.UILog log
+INFOS: Daily output print directory [.\print\2019_02_05] already exist!
+open_sheet sub directory [.\print\2019_02_05\open_sheet] already exist!
+Print sub directory [.\print\2019_02_05\closing_sheet] already exist!
+Print sub directory [.\print\2019_02_05\picking_label] already exist!
+Print sub directory [.\print\2019_02_05\dispatch_label] already exist!
+
+févr. 05, 2019 9:49:40 PM ui.UILog log
+INFOS: APP_INFO0003 : User EZZIOURI Oussama / p connected to host Oussama-PC at 2019-02-05 21:49:40 Module : Configuration : .
+févr. 05, 2019 10:17:51 PM ui.UILog log
+INFOS: File 2019_02_05.log already exists.
+
+févr. 05, 2019 10:17:51 PM ui.UILog log
+INFOS: Daily output print directory [.\print\2019_02_05] already exist!
+open_sheet sub directory [.\print\2019_02_05\open_sheet] already exist!
+Print sub directory [.\print\2019_02_05\closing_sheet] already exist!
+Print sub directory [.\print\2019_02_05\picking_label] already exist!
+Print sub directory [.\print\2019_02_05\dispatch_label] already exist!
+
+févr. 05, 2019 10:17:56 PM ui.UILog log
+INFOS: APP_INFO0003 : User EZZIOURI Oussama / p connected to host Oussama-PC at 2019-02-05 22:17:56 Module : Configuration : .
+févr. 05, 2019 10:18:39 PM ui.UILog log
+INFOS: Daily output print directory [.\print\2019_02_05] already exist!
+open_sheet sub directory [.\print\2019_02_05\open_sheet] already exist!
+Print sub directory [.\print\2019_02_05\closing_sheet] already exist!
+Print sub directory [.\print\2019_02_05\picking_label] already exist!
+Print sub directory [.\print\2019_02_05\dispatch_label] already exist!
+
+févr. 05, 2019 10:18:40 PM ui.UILog log
+INFOS: Sending [.\print\2019_02_05\closing_sheet\PrintClosingPallet_A5_431-6226_2019_02_05_22_18_39.pdf] to the default printer...
+févr. 05, 2019 10:18:41 PM ui.UILog log
+INFOS: File [%s] has been printed.
+févr. 05, 2019 10:21:41 PM ui.UILog log
+INFOS: File 2019_02_05.log already exists.
+
+févr. 05, 2019 10:21:41 PM ui.UILog log
+INFOS: Daily output print directory [.\print\2019_02_05] already exist!
+open_sheet sub directory [.\print\2019_02_05\open_sheet] already exist!
+Print sub directory [.\print\2019_02_05\closing_sheet] already exist!
+Print sub directory [.\print\2019_02_05\picking_label] already exist!
+Print sub directory [.\print\2019_02_05\dispatch_label] already exist!
+
+févr. 05, 2019 10:21:45 PM ui.UILog log
+INFOS: APP_INFO0003 : User EZZIOURI Oussama / p connected to host Oussama-PC at 2019-02-05 22:21:45 Module : Configuration : .
+févr. 05, 2019 10:28:13 PM ui.UILog log
+INFOS: File 2019_02_05.log already exists.
+
+févr. 05, 2019 10:28:13 PM ui.UILog log
+INFOS: Daily output print directory [.\print\2019_02_05] already exist!
+open_sheet sub directory [.\print\2019_02_05\open_sheet] already exist!
+Print sub directory [.\print\2019_02_05\closing_sheet] already exist!
+Print sub directory [.\print\2019_02_05\picking_label] already exist!
+Print sub directory [.\print\2019_02_05\dispatch_label] already exist!
+
+févr. 05, 2019 10:28:16 PM ui.UILog log
+INFOS: APP_INFO0003 : User EZZIOURI Oussama / p connected to host Oussama-PC at 2019-02-05 22:28:16 Module : Configuration : .
+févr. 05, 2019 10:28:44 PM ui.UILog log
+INFOS: Daily output print directory [.\print\2019_02_05] already exist!
+open_sheet sub directory [.\print\2019_02_05\open_sheet] already exist!
+Print sub directory [.\print\2019_02_05\closing_sheet] already exist!
+Print sub directory [.\print\2019_02_05\picking_label] already exist!
+Print sub directory [.\print\2019_02_05\dispatch_label] already exist!
+
+févr. 05, 2019 10:28:45 PM ui.UILog log
+INFOS: Sending [.\print\2019_02_05\closing_sheet\PrintClosingPallet_A5_431-6226_2019_02_05_22_28_44.pdf] to the default printer...
+févr. 05, 2019 10:28:45 PM ui.UILog log
+INFOS: File [%s] has been printed.
+févr. 05, 2019 10:32:00 PM ui.UILog log
+INFOS: File 2019_02_05.log already exists.
+
+févr. 05, 2019 10:32:00 PM ui.UILog log
+INFOS: Daily output print directory [.\print\2019_02_05] already exist!
+open_sheet sub directory [.\print\2019_02_05\open_sheet] already exist!
+Print sub directory [.\print\2019_02_05\closing_sheet] already exist!
+Print sub directory [.\print\2019_02_05\picking_label] already exist!
+Print sub directory [.\print\2019_02_05\dispatch_label] already exist!
+
+févr. 05, 2019 10:32:03 PM ui.UILog log
+INFOS: APP_INFO0003 : User EZZIOURI Oussama / p connected to host Oussama-PC at 2019-02-05 22:32:03 Module : Configuration : .
+févr. 05, 2019 10:32:18 PM ui.UILog log
+INFOS: Daily output print directory [.\print\2019_02_05] already exist!
+open_sheet sub directory [.\print\2019_02_05\open_sheet] already exist!
+Print sub directory [.\print\2019_02_05\closing_sheet] already exist!
+Print sub directory [.\print\2019_02_05\picking_label] already exist!
+Print sub directory [.\print\2019_02_05\dispatch_label] already exist!
+
+févr. 05, 2019 10:32:19 PM ui.UILog log
+INFOS: Sending [.\print\2019_02_05\closing_sheet\PrintClosingPallet_A5_431-6226_2019_02_05_22_32_18.pdf] to the default printer...
+févr. 05, 2019 10:32:19 PM ui.UILog log
+INFOS: File [%s] has been printed.
+févr. 05, 2019 10:32:26 PM ui.UILog log
+INFOS: Daily output print directory [.\print\2019_02_05] already exist!
+open_sheet sub directory [.\print\2019_02_05\open_sheet] already exist!
+Print sub directory [.\print\2019_02_05\closing_sheet] already exist!
+Print sub directory [.\print\2019_02_05\picking_label] already exist!
+Print sub directory [.\print\2019_02_05\dispatch_label] already exist!
+
+févr. 05, 2019 10:32:27 PM ui.UILog log
+INFOS: Sending [.\print\2019_02_05\closing_sheet\PrintClosingPallet_A5_431-6226_2019_02_05_22_32_26.pdf] to the default printer...
+févr. 05, 2019 10:32:27 PM ui.UILog log
+INFOS: File [%s] has been printed.
+févr. 05, 2019 10:33:27 PM ui.UILog log
+INFOS: File 2019_02_05.log already exists.
+
+févr. 05, 2019 10:33:27 PM ui.UILog log
+INFOS: Daily output print directory [.\print\2019_02_05] already exist!
+open_sheet sub directory [.\print\2019_02_05\open_sheet] already exist!
+Print sub directory [.\print\2019_02_05\closing_sheet] already exist!
+Print sub directory [.\print\2019_02_05\picking_label] already exist!
+Print sub directory [.\print\2019_02_05\dispatch_label] already exist!
+
+févr. 05, 2019 10:33:32 PM ui.UILog log
+INFOS: APP_INFO0003 : User EZZIOURI Oussama / p connected to host Oussama-PC at 2019-02-05 22:33:32 Module : Configuration : .
+févr. 05, 2019 10:33:47 PM ui.UILog log
+INFOS: Daily output print directory [.\print\2019_02_05] already exist!
+open_sheet sub directory [.\print\2019_02_05\open_sheet] already exist!
+Print sub directory [.\print\2019_02_05\closing_sheet] already exist!
+Print sub directory [.\print\2019_02_05\picking_label] already exist!
+Print sub directory [.\print\2019_02_05\dispatch_label] already exist!
+
+févr. 05, 2019 10:33:47 PM ui.UILog log
+INFOS: Sending [.\print\2019_02_05\closing_sheet\PrintClosingPallet_A5_431-6226_2019_02_05_22_33_47.pdf] to the default printer...
+févr. 05, 2019 10:33:47 PM ui.UILog log
+INFOS: File [%s] has been printed.

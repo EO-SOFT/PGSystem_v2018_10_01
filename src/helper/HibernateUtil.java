@@ -59,6 +59,7 @@ public class HibernateUtil {
                 JOptionPane.showMessageDialog(null, ex.getMessage(), "Database properties error !", ERROR_MESSAGE);
                 JOptionPane.showMessageDialog(null, "Properties file must be in the same as the path as the application.", "Database properties error !", WARNING_MESSAGE);
                 ex.printStackTrace();
+                System.exit(0);
             } finally {
                 if (input != null) {
                     try {

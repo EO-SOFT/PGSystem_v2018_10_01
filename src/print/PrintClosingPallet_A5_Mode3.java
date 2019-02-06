@@ -54,7 +54,7 @@ public final class PrintClosingPallet_A5_Mode3 {
             /*12*/ {"Eng. Change Date", GlobalMethods.convertDateToStringFormat(bc.getEngChangeDate(), "yy.MM.dd"), ""},
             /*13*/ {"Pack Type", bc.getPackType(), ""},
             /*14*/ {"Project", bc.getProject(), ""},
-            /*15*/ {"Warehouse (" + GlobalVars.WAREHOUSE_PREFIX + ")", bc.getWarehouse(), GlobalVars.WAREHOUSE_PREFIX + bc.getWarehouse()}
+            /*15*/ {"Warehouse (" + GlobalVars.WAREHOUSE_PREFIX + ")", bc.getFGwarehouse(), GlobalVars.WAREHOUSE_PREFIX + bc.getFGwarehouse()}
         };
     }
 
@@ -164,6 +164,13 @@ public final class PrintClosingPallet_A5_Mode3 {
                 .add((String) DATA[1][2]).setMarginBottom(0));
 
         //-------- LINE 2 ---------------------------------
+        
+        //Customer Part no. (P) Barcode + Data
+        table.addCell(new Cell(0, 2)//.setBorder(Border.NO_BORDER)
+                .add(h.h3((String) DATA[0][0]))
+                .add(createBarcode((String) DATA[0][2], pdfDoc, false, 1, 20))
+                .add(h.h((String) DATA[0][1], true, 36)
+                ).setMarginBottom(0).setPaddingLeft(10));
         //Supplier Part no
         table.addCell(new Cell()//.setBorder(Border.NO_BORDER)
                 .add(
@@ -173,15 +180,6 @@ public final class PrintClosingPallet_A5_Mode3 {
                 .add(
                         h.h2Bold((String) DATA[2][1])
                 ).setMarginBottom(1).setPaddingLeft(10).setPaddingRight(10));
-        //Pack Type
-        table.addCell(new Cell()//.setBorder(Border.NO_BORDER)
-                .add(
-                        h.h3((String) DATA[13][0]))
-                .add(
-                        h.h(((String) DATA[13][1]), true, 26))
-                .add(
-                        (String) DATA[13][2]
-                ).setMarginBottom(1));
         //Article description
         table.addCell(new Cell(0, 2)//.setBorder(Border.NO_BORDER)
                 .add(
@@ -238,7 +236,7 @@ public final class PrintClosingPallet_A5_Mode3 {
                 .add(
                         createBarcode((String) DATA[15][2], pdfDoc, false, 1, 20))
                 .add(
-                        h.h((String) DATA[15][1], true, 32)
+                        h.h((String) DATA[15][1], true, 16)
                 ).setMarginBottom(1).setMarginTop(0).setPaddingLeft(15));
         //Gross weight
 //        table.addCell(new Cell()//.setBorder(Border.NO_BORDER)
@@ -259,12 +257,6 @@ public final class PrintClosingPallet_A5_Mode3 {
                         h.h2Bold((String) DATA[10][1])
                 ).setMarginBottom(1).setMarginTop(0));
         //-------- LINE 5 ---------------------------------
-        //Customer Part no. (P) Barcode + Data
-        table.addCell(new Cell(0, 2)//.setBorder(Border.NO_BORDER)
-                .add(h.h3((String) DATA[0][0]))
-                .add(createBarcode((String) DATA[0][2], pdfDoc, false, 1, 20))
-                .add(h.h((String) DATA[0][1], true, 36)
-                ).setMarginBottom(0).setPaddingLeft(10));
         //Container no.
         table.addCell(new Cell(0, 2)//.setBorder(Border.NO_BORDER)
                 .add(
@@ -272,8 +264,17 @@ public final class PrintClosingPallet_A5_Mode3 {
                 .add(
                         createBarcode((String) DATA[8][2], pdfDoc, false, 1, 20))
                 .add(
-                        h.h((String) DATA[8][1], true, 32)
+                        h.h((String) DATA[8][1], true, 24)
                 ).setMarginBottom(1).setMarginTop(0).setPaddingLeft(15));
+        //Pack Type
+        table.addCell(new Cell(0, 2)//.setBorder(Border.NO_BORDER)
+                .add(
+                        h.h3((String) DATA[13][0]))
+                .add(
+                        h.h(((String) DATA[13][1]), true, 24))
+                .add(
+                        (String) DATA[13][2]
+                ).setMarginBottom(1));
         //Eng.Change
 //        table.addCell(new Cell(0, 2)//.setBorder(Border.NO_BORDER)
 //                .add(

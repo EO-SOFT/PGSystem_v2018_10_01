@@ -336,9 +336,10 @@ public class PACKAGING_UI0011_ProdStatistics extends javax.swing.JFrame {
                 //Clear all tables
                 this.reset_tables_content();
                 String query_str = "";
-                //################# Declared Harness Data ####################        
                 Helper.startSession();
                 SQLQuery query;
+
+                //###############################################
                 if (radio_filled_ucs.isSelected()) { // UCS Complet
                     //Request 1
                     query_str = "(SELECT bc.harness_part AS harness_part,"
@@ -433,6 +434,7 @@ public class PACKAGING_UI0011_ProdStatistics extends javax.swing.JFrame {
                     }
 
                 }
+                System.out.println("query haha " + query.toString());
 
                 this.declaredResultList = query.list();
 
@@ -541,6 +543,8 @@ public class PACKAGING_UI0011_ProdStatistics extends javax.swing.JFrame {
 
             }
         ));
+        declared_result_table.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        declared_result_table.setUpdateSelectionOnSort(false);
         result_table_scroll.setViewportView(declared_result_table);
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -559,11 +563,16 @@ public class PACKAGING_UI0011_ProdStatistics extends javax.swing.JFrame {
         });
 
         radio_filled_ucs.setForeground(new java.awt.Color(255, 255, 255));
-        radio_filled_ucs.setText("Total palettes STORED");
+        radio_filled_ucs.setText("Total palettes complètes (CLOSED)");
         radio_filled_ucs.setToolTipText("Calcul la quantité des palettes avec UCS Complet.");
         radio_filled_ucs.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 radio_filled_ucsItemStateChanged(evt);
+            }
+        });
+        radio_filled_ucs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radio_filled_ucsActionPerformed(evt);
             }
         });
 
@@ -843,7 +852,12 @@ public class PACKAGING_UI0011_ProdStatistics extends javax.swing.JFrame {
 
         //Create the excel workbook
         Workbook wb = new HSSFWorkbook();
-        Sheet sheet = wb.createSheet("PROD_STATISTICS");
+        Sheet sheet = null;
+        if (radio_all_harness.isSelected()) {
+            sheet = wb.createSheet("SCANNED");
+        } else {
+            sheet = wb.createSheet("CLOSED");
+        }
         CreationHelper createHelper = wb.getCreationHelper();
         int total_produced = 0;
         double total_produced_hours = 0.00;
@@ -865,13 +879,13 @@ public class PACKAGING_UI0011_ProdStatistics extends javax.swing.JFrame {
 
         for (Object[] obj : this.declaredResultList) {
             row = sheet.createRow(sheetPointer);
-            row.createCell(0).setCellValue(String.valueOf(obj[0])); //PN
-            row.createCell(1).setCellValue(Double.valueOf(obj[1].toString())); //QTY
-            if (String.valueOf(obj[2].toString()).startsWith("P")) {
-                row.createCell(2).setCellValue(String.valueOf(obj[2]).substring(1));//SEGMENT
+            if (String.valueOf(obj[0].toString()).startsWith("P")) {
+                row.createCell(0).setCellValue(String.valueOf(obj[0]).substring(1));//PN
             } else {
-                row.createCell(2).setCellValue(String.valueOf(obj[2]));//SEGMENT
+                row.createCell(0).setCellValue(String.valueOf(obj[0])); //PN
             }
+            row.createCell(1).setCellValue(Double.valueOf(obj[1].toString())); //QTY
+            row.createCell(2).setCellValue(String.valueOf(obj[2]));//SEGMENT
             row.createCell(3).setCellValue(obj[3].toString());//WORKPLACE
             row.createCell(4).setCellValue(Double.valueOf(obj[4].toString()));//STD TIME
             row.createCell(5).setCellValue(Double.valueOf(obj[5].toString()));//PRODUCED HOURS
@@ -970,6 +984,10 @@ public class PACKAGING_UI0011_ProdStatistics extends javax.swing.JFrame {
             //refresh();
         }
     }//GEN-LAST:event_project_filterActionPerformed
+
+    private void radio_filled_ucsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radio_filled_ucsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_radio_filled_ucsActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

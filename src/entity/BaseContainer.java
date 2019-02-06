@@ -742,11 +742,11 @@ public class BaseContainer extends DAO implements java.io.Serializable {
         this.project = project;
     }
 
-    public String getWarehouse() {
+    public String getFGwarehouse() {
         return warehouse;
     }
 
-    public void setWarehouse(String warehouse) {
+    public void setFGwarehouse(String warehouse) {
         this.warehouse = warehouse;
     }
 

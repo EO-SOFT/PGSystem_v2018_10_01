@@ -35,14 +35,25 @@ public class ConfigWarehouse extends DAO implements java.io.Serializable {
     
     @Column(name = "project")
     private String project;
+    
+    /**
+     * PACKAGING
+        FINISH_GOODS
+        TRANSIT
+        SCRAP
+        BLOQUED';
+     */
+    @Column(name = "wh_type")
+    private String whType;
 
     public ConfigWarehouse() {
     }
 
-    public ConfigWarehouse(String warehouse, String description, String project) {
+    public ConfigWarehouse(String warehouse, String description, String project, String type) {
         this.warehouse = warehouse;
         this.description = description;
         this.project = project;
+        this.whType = type;
     }
 
     
@@ -78,12 +89,31 @@ public class ConfigWarehouse extends DAO implements java.io.Serializable {
     public void setProject(String project) {
         this.project = project;
     }
+
+    public String getWhType() {
+        return whType;
+    }
+
+    public void setWhType(String whType) {
+        this.whType = whType;
+    }
     
     public List<String[]> selectAllWarehouses() {
         Helper.startSession();
         
         SQLQuery query = Helper.sess.createSQLQuery(HQLHelper.GET_All_WAREHOUSES);        
         
+        Helper.sess.getTransaction().commit();
+        return query.list();
+    }
+    
+    public List<String[]> selectWarehousesByType(String wh_type) {
+        Helper.startSession();
+        
+        Query query = Helper.sess.createQuery(HQLHelper.GET_WAREHOUSE_BY_TYPE);        
+        
+        query.setParameter("wh_type", wh_type);
+        System.out.println("query wh_type "+query.getQueryString());
         Helper.sess.getTransaction().commit();
         return query.list();
     }
@@ -106,6 +136,25 @@ public class ConfigWarehouse extends DAO implements java.io.Serializable {
         Helper.sess.getTransaction().commit();
         return query.list();
     }        
+
+    public List selectByProjectAndType(String project, String type) {
+        Helper.startSession();
+        
+        Query query = Helper.sess.createQuery(HQLHelper.GET_WAREHOUSE_BY_PROJECT_AND_TYPE);
+        query.setParameter("project", project);
+        query.setParameter("wh_type", type);
+        
+        Helper.sess.getTransaction().commit();
+        return query.list();
+    }
+    
+    public String getPackagingWh(String project) {
+        ConfigWarehouse cw = new ConfigWarehouse();
+        List result = cw.selectByProjectAndType(project, "PACKAGING");
+
+        cw = (ConfigWarehouse) result.get(0);
+        return (String) cw.getWarehouse();
+    }
     
     
 }

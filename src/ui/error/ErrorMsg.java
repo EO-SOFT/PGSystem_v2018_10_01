@@ -121,11 +121,13 @@ public class ErrorMsg {
      */
     public static String[] APP_ERR0023 = {"APP_ERR0023", "APP_ERR0023 DISPATCH : Load plan not empty.\nPlease delete all items before deleting the plan."};
     /**
-     * APP_ERR0024 DISPATCH : Destination %s not empty.\nRemove associated items before delete the destination.
+     * APP_ERR0024 DISPATCH : Destination %s not empty.\nRemove associated items
+     * before delete the destination.
      */
     public static String[] APP_ERR0024 = {"APP_ERR0024", "APP_ERR0024 DISPATCH : Destination %s not empty.\nRemove associated items before delete the destination."};
     /**
-     * APP_ERR0025 DISPATCH : No destination found for the dispatch module. Create destinations in the table 'load_plan_destination'.
+     * APP_ERR0025 DISPATCH : No destination found for the dispatch module.
+     * Create destinations in the table 'load_plan_destination'.
      */
     public static String[] APP_ERR0025 = {"APP_ERR0025", "APP_ERR0025 DISPATCH : No destination found for the dispatch module. Create destinations in the table 'load_plan_destination'."};
     /**
@@ -141,14 +143,15 @@ public class ErrorMsg {
      */
     public static String[] APP_ERR0028 = {"APP_ERR0028", "APP_ERR0028 DISPATCH : Invalid date format."};
     /**
-     * APP_ERR0029 DISPATCH : No pallets/positions found for this destination %s.
+     * APP_ERR0029 DISPATCH : No pallets/positions found for this destination
+     * %s.
      */
     public static String[] APP_ERR0029 = {"APP_ERR0029", "APP_ERR0029 DISPATCH : No pallets/positions found for this destination %s."};
     /**
      * APP_ERR0030 DISPATCH : No items associated with this load plan %s.
      */
     public static String[] APP_ERR0030 = {"APP_ERR0030", "APP_ERR0030 DISPATCH : No items associated with this load plan %s."};
-    
+
     /**
      * APP_ERR0031 DISPATCH : No loading plan selected.
      */
@@ -180,6 +183,22 @@ public class ErrorMsg {
     /**
      * APP_ERR0038 CONFIG : No Workplace associated with selected Segment.
      */
-    public static String[] APP_ERR0038 = {"APP_ERR0038", "APP_ERR0038 CONFIG : No Workplace associated with selected Segment."};
+    public static String[] APP_ERR0038 = {"APP_ERR0038", "APP_ERR0038 CONFIG : No Workplace associated with selected Segment."};    
+    /**
+     * APP_ERR0039 CONFIG : Invalid login/password.
+     */
+    public static String[] APP_ERR0039 = {"APP_ERR0039", "APP_ERR0039 CONFIG : Invalid login/password."};
 
+    /**
+     * APP_ERR0040 CONFIG : APP_ERR0040 CONFIG : You don't have enaugh access rights to this section.\nContact your admin for support.
+     */
+    public static String[] APP_ERR0040 = {"APP_ERR0040", "APP_ERR0040 CONFIG : You don't have enaugh access rights to this section.\nContact your admin for support."};
+    /**
+     * APP_ERR0041 CONFIG : Your account has been locked.\nContact your admin for support.
+     */
+    public static String[] APP_ERR0041 = {"APP_ERR0041", "APP_ERR0041 CONFIG : Your account has been locked.\nContact your admin for support."};
+    /**
+     * APP_ERR0042 CONFIG : No packaging warehouse found for the selected project.
+     */
+    public static String[] APP_ERR0042 = {"APP_ERR0042", "APP_ERR0042 CONFIG : No packaging warehouse found for the selected project."};
 }

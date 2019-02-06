@@ -47,7 +47,7 @@ import ui.error.ErrorMsg;
  *
  * @author Administrator
  */
-public class PACKAGING_UI0019_EfficiencyCalculation extends javax.swing.JDialog {
+public class PACKAGING_UI0019_EfficiencyCalculation extends javax.swing.JFrame {
 
     Vector<String> declared_result_table_header = new Vector<String>();
     Vector declared_result_table_data = new Vector();
@@ -84,7 +84,7 @@ public class PACKAGING_UI0019_EfficiencyCalculation extends javax.swing.JDialog 
      * Creates new form UI0011_ProdStatistics_
      */
     public PACKAGING_UI0019_EfficiencyCalculation(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+        //super(parent, modal);
         initComponents();
         initTimeSpinners();
         //initFamillyFilter();
@@ -97,7 +97,7 @@ public class PACKAGING_UI0019_EfficiencyCalculation extends javax.swing.JDialog 
         //initWorkplaceFilter();
         this.reset_tables_content();
         this.refresh();
-        Helper.centerJDialog(this);
+        Helper.centerJFrame(this);
     }
 
     private void initProjectFilter() {
@@ -224,7 +224,7 @@ public class PACKAGING_UI0019_EfficiencyCalculation extends javax.swing.JDialog 
     @SuppressWarnings("empty-statement")
     public void reload_declared_result_table_data(List<Object[]> resultList) {
 
-        int total_produced_qty = 0;
+        double total_produced_qty = 0;
         //Set declared hours labels values
         produced_hours = 0.00;
         this.produced_hours_txt.setText("" + produced_hours);
@@ -238,10 +238,10 @@ public class PACKAGING_UI0019_EfficiencyCalculation extends javax.swing.JDialog 
             } else {
                 oneRow.add(String.valueOf(obj[2])); //harness_part
             }
-            oneRow.add(String.valueOf(obj[3])); //std_time            
-            oneRow.add(String.valueOf(obj[4])); //produced_qty;
+            oneRow.add(String.valueOf(String.format("%1$,.2f", obj[3]))); //std_time            
+            oneRow.add(String.valueOf(String.format("%1$,.2f", obj[4]))); //produced_qty;
             oneRow.add(decimForm.format(Double.valueOf(String.valueOf(obj[5])))); //produced_hours
-            total_produced_qty = total_produced_qty + Integer.valueOf(String.valueOf(obj[4]));
+            total_produced_qty = total_produced_qty + Double.valueOf(String.valueOf(obj[4]));
             produced_hours = produced_hours + Double.valueOf(obj[5].toString());
             declared_result_table_data.add(oneRow);
         }
@@ -392,7 +392,7 @@ public class PACKAGING_UI0019_EfficiencyCalculation extends javax.swing.JDialog 
                     .addScalar("workplace", StandardBasicTypes.STRING)
                     .addScalar("harness_part", StandardBasicTypes.STRING)
                     .addScalar("std_time", StandardBasicTypes.DOUBLE)
-                    .addScalar("produced_qty", StandardBasicTypes.INTEGER)
+                    .addScalar("produced_qty", StandardBasicTypes.DOUBLE)
                     .addScalar("produced_hours", StandardBasicTypes.DOUBLE);
 
             if (!projects.isEmpty()) {
@@ -416,6 +416,7 @@ public class PACKAGING_UI0019_EfficiencyCalculation extends javax.swing.JDialog 
             //Calculate efficiency                
             operators = Integer.valueOf(operators_txt.getValue().toString());
             worked_hours = Double.valueOf(worked_hours_txt.getText().toString().replace(",", "."));
+            //worked_hours = Double.valueOf(String.valueOf(String.format("%1$,.2f", worked_hours_txt.getText())));
             posted_hours = operators * worked_hours;
             //Efficiency                    
             efficiency = (produced_hours / posted_hours) * 100;
@@ -487,7 +488,7 @@ public class PACKAGING_UI0019_EfficiencyCalculation extends javax.swing.JDialog 
         jLabel23 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Production statistics");
+        setTitle("Efficiency");
         addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 formKeyPressed(evt);
@@ -648,7 +649,6 @@ public class PACKAGING_UI0019_EfficiencyCalculation extends javax.swing.JDialog 
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
         jLabel14.setText("Heures travailées");
 
-        worked_hours_txt.setBackground(new java.awt.Color(255, 255, 255));
         worked_hours_txt.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         worked_hours_txt.setText("7.5");
 
@@ -769,15 +769,7 @@ public class PACKAGING_UI0019_EfficiencyCalculation extends javax.swing.JDialog 
                                                 .addGap(18, 18, 18)
                                                 .addComponent(jLabel8))))
                                     .addComponent(produced_qty_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel18)
-                                    .addGroup(north_panelLayout.createSequentialGroup()
-                                        .addComponent(jLabel23)
-                                        .addGap(96, 96, 96)
-                                        .addComponent(jLabel20))
-                                    .addGroup(north_panelLayout.createSequentialGroup()
-                                        .addComponent(project_filter, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(20, 20, 20)
-                                        .addComponent(segment_filter, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jLabel18))
                                 .addGroup(north_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(north_panelLayout.createSequentialGroup()
                                         .addGroup(north_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -795,7 +787,21 @@ public class PACKAGING_UI0019_EfficiencyCalculation extends javax.swing.JDialog 
                                             .addComponent(jLabel21)))
                                     .addGroup(north_panelLayout.createSequentialGroup()
                                         .addGap(197, 197, 197)
-                                        .addComponent(jLabel10)))))
+                                        .addComponent(jLabel10))))
+                            .addGroup(north_panelLayout.createSequentialGroup()
+                                .addGroup(north_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(north_panelLayout.createSequentialGroup()
+                                        .addComponent(jLabel23)
+                                        .addGap(96, 96, 96)
+                                        .addComponent(jLabel20))
+                                    .addGroup(north_panelLayout.createSequentialGroup()
+                                        .addComponent(project_filter, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(20, 20, 20)
+                                        .addComponent(segment_filter, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(north_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(workplace_filter, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel22))))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(north_panelLayout.createSequentialGroup()
                         .addGap(174, 174, 174)
@@ -826,19 +832,14 @@ public class PACKAGING_UI0019_EfficiencyCalculation extends javax.swing.JDialog 
                                             .addComponent(efficiency_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(north_panelLayout.createSequentialGroup()
-                                .addGap(51, 51, 51)
-                                .addGroup(north_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(workplace_filter, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel22))
-                                .addGap(18, 18, 18)
+                                .addGap(51, 272, Short.MAX_VALUE)
                                 .addComponent(refresh_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(export_btn)
                                 .addGap(172, 172, 172))))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, north_panelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(north_panelLayout.createSequentialGroup()
                 .addComponent(result_table_scroll, javax.swing.GroupLayout.PREFERRED_SIZE, 1067, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         north_panelLayout.setVerticalGroup(
             north_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -887,14 +888,15 @@ public class PACKAGING_UI0019_EfficiencyCalculation extends javax.swing.JDialog 
                         .addGap(29, 29, 29))
                     .addGroup(north_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(project_filter, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(segment_filter, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(workplace_filter, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(north_panelLayout.createSequentialGroup()
-                        .addComponent(jLabel22)
-                        .addGap(27, 27, 27))
+                        .addComponent(segment_filter, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(north_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                         .addComponent(refresh_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(export_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(export_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(north_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(workplace_filter, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(north_panelLayout.createSequentialGroup()
+                                .addComponent(jLabel22)
+                                .addGap(26, 26, 26)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(north_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(north_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -916,9 +918,9 @@ public class PACKAGING_UI0019_EfficiencyCalculation extends javax.swing.JDialog 
                     .addGroup(north_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                         .addComponent(radio_all_harness)
                         .addComponent(radio_filled_ucs)))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(result_table_scroll, javax.swing.GroupLayout.PREFERRED_SIZE, 482, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(333, 333, 333))
+                .addGap(339, 339, 339))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -996,7 +998,7 @@ public class PACKAGING_UI0019_EfficiencyCalculation extends javax.swing.JDialog 
             Workbook wb = new HSSFWorkbook();
             Sheet sheet = wb.createSheet("PROD_EFFICIENCY");
             CreationHelper createHelper = wb.getCreationHelper();
-            int total_qty = 0;
+            double total_qty = 0;
 
             //######################################################################
             //##################### SHEET 1 : PILES DETAILS ########################
@@ -1026,7 +1028,7 @@ public class PACKAGING_UI0019_EfficiencyCalculation extends javax.swing.JDialog 
                 row.createCell(4).setCellValue(Double.valueOf(obj[4].toString()));//PRODUCED QTY
                 row.createCell(5).setCellValue(Double.valueOf(obj[5].toString()));//PRODUCED HOURS
 
-                total_qty = total_qty + Integer.valueOf(String.valueOf(obj[4]));
+                total_qty = total_qty + Double.valueOf(String.valueOf(obj[4]));
 
                 sheetPointer++;
             }

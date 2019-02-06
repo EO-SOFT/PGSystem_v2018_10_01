@@ -283,7 +283,7 @@ public class Helper {
     /**
      *
      */
-    public static String ERR0001_LOGIN_FAILED = "Invalid matricule number or account locked !";
+    public static String ERR0001_LOGIN_FAILED = "Invalid login/password combination or account locked !";
 
     /**
      *

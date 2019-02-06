@@ -90,11 +90,12 @@ public final class WAREHOUSE_DISPATCH_UI0002_DISPATCH_SCAN extends javax.swing.J
     Vector load_plan_table_data = new Vector();
     Vector total_per_dest_table_data = new Vector();
     Vector total_per_dest_table_data_header = new Vector<String>();
-    
+
     //Used in tab 3
     Vector total_packages_data = new Vector();
-    Vector<String> total_packages_header = new Vector<String>() {};
-    
+    Vector<String> total_packages_header = new Vector<String>() {
+    };
+
     @SuppressWarnings("UseOfObsoleteCollectionType")
     Vector load_plan_lines_data = new Vector();
     @SuppressWarnings("UseOfObsoleteCollectionType")
@@ -199,6 +200,7 @@ public final class WAREHOUSE_DISPATCH_UI0002_DISPATCH_SCAN extends javax.swing.J
                 if (destIndex == 0) {
                     radioButtonList[destIndex].setSelected(true);
                     selectedDestination = radioButtonList[destIndex].getText();
+                    
                 }
 
                 radioButtonList[destIndex].addChangeListener(new ChangeListener() {
@@ -208,11 +210,14 @@ public final class WAREHOUSE_DISPATCH_UI0002_DISPATCH_SCAN extends javax.swing.J
                         if (null != button && button.isSelected()) {
                             // do something with the button
                             selectedDestination = button.getText();
-                            destination_label_help.setText(selectedDestination);
+                            
                         }
                         filterPlanLines(false);
                     }
                 });
+                
+                destination_label_help.setText(this.selectedDestination);
+                
                 System.out.println("Add " + radioButtonList[destIndex] + " to group.");
                 group.add(radioButtonList[destIndex]);
                 jpanel_destinations.add(radioButtonList[destIndex]);
@@ -229,88 +234,91 @@ public final class WAREHOUSE_DISPATCH_UI0002_DISPATCH_SCAN extends javax.swing.J
 
         this.load_plan_lines_table.addMouseListener(
                 new MouseAdapter() {
-                    public void mouseClicked(MouseEvent e) {
-                        if (e.getClickCount() == 2) {
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
 
-                            new PACKAGING_UI0010_PalletDetails(null,
-                                    rootPaneCheckingEnabled,
-                                    String.valueOf(
-                                            load_plan_lines_table.getValueAt(
-                                                    load_plan_lines_table.getSelectedRow(),
-                                                    PALLET_NUM_COLUMN)), "", 1, true, true, true
-                            ).setVisible(true);
+                    new PACKAGING_UI0010_PalletDetails(null,
+                            rootPaneCheckingEnabled,
+                            String.valueOf(
+                                    load_plan_lines_table.getValueAt(
+                                            load_plan_lines_table.getSelectedRow(),
+                                            PALLET_NUM_COLUMN)), "", 1, true, true, true
+                    ).setVisible(true);
 
-                        }
-                    }
                 }
+            }
+        }
         );
 
         this.load_plan_table.addMouseListener(
                 new MouseAdapter() {
-                    public void mouseClicked(MouseEvent e) {
-                        if (e.getClickCount() == 2) {
-                            loadPlanDataInGui();
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    loadPlanDataInGui();
+                }
+            }
+
+            public void loadPlanDataInGui() {
+                String id = String.valueOf(load_plan_table.getValueAt(load_plan_table.getSelectedRow(), 1));
+                Helper.startSession();
+                Query query = Helper.sess.createQuery(HQLHelper.GET_LOAD_PLAN_BY_ID);
+                query.setParameter("id", Integer.valueOf(id));
+
+                Helper.sess.getTransaction().commit();
+                List result = query.list();
+                LoadPlan plan = (LoadPlan) result.get(0);
+                WarehouseHelper.temp_load_plan = plan;
+
+                //Load destinations of the plan
+                //if (loadDestinations(Integer.valueOf(id))) {
+                if (loadDestinationsRadioGroup(Integer.valueOf(id))) {
+                    loadPlanDataToLabels(plan, radioButtonList[0].getText());
+                    reloadPlanLinesData(Integer.valueOf(id), radioButtonList[0].getText());
+
+                    plan_id_filter.setText(id);
+                    //Disable delete button if the plan is CLOSED
+                    if (WarehouseHelper.LOAD_PLAN_STATE_CLOSED.equals(plan.getPlanState())) {
+                        delete_plan_submenu.setEnabled(false);
+                        close_plan_menu.setEnabled(false);
+                        export_plan_menu.setEnabled(true);
+                        edit_plan_menu.setEnabled(false);
+                        control_dispatch_menu.setEnabled(false);
+                        set_packaging_pile_btn.setEnabled(true);
+                        piles_box.setEnabled(true);
+                        scan_txt.setEnabled(false);
+                        txt_filter_part.setEnabled(true);
+                        radio_btn_20.setEnabled(false);
+                        radio_btn_40.setEnabled(false);
+                    } else { // The plan still Open
+                        export_plan_menu.setEnabled(true);
+                        edit_plan_menu.setEnabled(true);
+                        control_dispatch_menu.setEnabled(true);
+                        set_packaging_pile_btn.setEnabled(true);
+                        piles_box.setEnabled(true);
+                        scan_txt.setEnabled(true);
+                        radio_btn_20.setEnabled(true);
+                        radio_btn_40.setEnabled(true);
+                        txt_filter_part.setEnabled(true);
+
+                        if (WarehouseHelper.warehouse_reserv_context.getUser().getAccessLevel() == GlobalVars.PROFIL_WAREHOUSE_AGENT
+                                || WarehouseHelper.warehouse_reserv_context.getUser().getAccessLevel() == GlobalVars.PROFIL_ADMIN) {
+                            close_plan_menu.setEnabled(true);
+                        } else {
+                            close_plan_menu.setEnabled(false);
                         }
-                    }
-
-                    public void loadPlanDataInGui() {
-                        String id = String.valueOf(load_plan_table.getValueAt(load_plan_table.getSelectedRow(), 1));
-                        Helper.startSession();
-                        Query query = Helper.sess.createQuery(HQLHelper.GET_LOAD_PLAN_BY_ID);
-                        query.setParameter("id", Integer.valueOf(id));
-
-                        Helper.sess.getTransaction().commit();
-                        List result = query.list();
-                        LoadPlan plan = (LoadPlan) result.get(0);
-                        WarehouseHelper.temp_load_plan = plan;
-
-                        //Load destinations of the plan
-                        //if (loadDestinations(Integer.valueOf(id))) {
-                        if (loadDestinationsRadioGroup(Integer.valueOf(id))) {
-                            loadPlanDataToLabels(plan, radioButtonList[0].getText());
-                            reloadPlanLinesData(Integer.valueOf(id), radioButtonList[0].getText());
-
-                            plan_id_filter.setText(id);
-                            //Disable delete button if the plan is CLOSED
-                            if (WarehouseHelper.LOAD_PLAN_STATE_CLOSED.equals(plan.getPlanState())) {
-                                delete_plan_submenu.setEnabled(false);
-                                close_plan_menu.setEnabled(false);
-                                export_plan_menu.setEnabled(true);
-                                edit_plan_menu.setEnabled(false);
-                                control_dispatch_menu.setEnabled(false);
-                                set_packaging_pile_btn.setEnabled(true);
-                                piles_box.setEnabled(true);
-                                scan_txt.setEnabled(false);
-                                txt_filter_part.setEnabled(true);
-                                radio_btn_20.setEnabled(false);
-                                radio_btn_40.setEnabled(false);
-                            } else { // The plan still Open
-                                export_plan_menu.setEnabled(true);
-                                edit_plan_menu.setEnabled(true);
-                                control_dispatch_menu.setEnabled(true);
-                                set_packaging_pile_btn.setEnabled(true);
-                                piles_box.setEnabled(true);
-                                scan_txt.setEnabled(true);
-                                radio_btn_20.setEnabled(true);
-                                radio_btn_40.setEnabled(true);
-                                txt_filter_part.setEnabled(true);
-
-                                if (WarehouseHelper.warehouse_reserv_context.getUser().getAccessLevel() == GlobalVars.PROFIL_WAREHOUSE_AGENT) {
-                                    delete_plan_menu.setEnabled(false);
-                                    close_plan_menu.setEnabled(false);
-                                }
-                                if (WarehouseHelper.warehouse_reserv_context.getUser().getAccessLevel() == GlobalVars.PROFIL_ADMIN) {
-                                    delete_plan_menu.setEnabled(true);
-                                    close_plan_menu.setEnabled(true);
-                                }
-
-                            }
+                        if (WarehouseHelper.warehouse_reserv_context.getUser().getAccessLevel() == GlobalVars.PROFIL_ADMIN) {
+                            delete_plan_menu.setEnabled(true);
+                        } else {
+                            delete_plan_menu.setEnabled(false);
                         }
 
-                        filterPlanLines(false);
-                        current_plan_jpanel.setSelectedIndex(1);
                     }
                 }
+
+                filterPlanLines(false);
+                current_plan_jpanel.setSelectedIndex(1);
+            }
+        }
         );
     }
 
@@ -409,7 +417,7 @@ public final class WAREHOUSE_DISPATCH_UI0002_DISPATCH_SCAN extends javax.swing.J
      */
     public void reloadPackagingContainerTab3(int planId) {
         System.out.println("reloadPackagingContainerTab3 ");
-        
+
         Helper.startSession();
         String query_str = String.format(
                 HQLHelper.GET_LOAD_PLAN_EXT_PACKAGING_AND_CONTAINER,
@@ -422,16 +430,17 @@ public final class WAREHOUSE_DISPATCH_UI0002_DISPATCH_SCAN extends javax.swing.J
 
         List<Object[]> result = query.list();
         Helper.sess.getTransaction().commit();
-        
-        System.out.println("result lines "+result.size());
-        
+
+        System.out.println("result lines " + result.size());
+
         //Reset table content
         total_packages_data = new Vector();
-        total_packages_header = new Vector<String>() {};
+        total_packages_header = new Vector<String>() {
+        };
         total_packages_header.add("Destination");
         total_packages_header.add("Pack Item");
         total_packages_header.add("Quantity");
-        
+
         jtable_total_packages.setModel(new DefaultTableModel(total_packages_data, total_packages_header));
 
         //Populate jtable rows
@@ -440,11 +449,11 @@ public final class WAREHOUSE_DISPATCH_UI0002_DISPATCH_SCAN extends javax.swing.J
             oneRow.add((String) o[0]);
             oneRow.add((String) o[1]);
             oneRow.add(String.valueOf(String.format("%1$,.2f", Double.valueOf(o[2].toString()))));
-            System.out.println("one row "+oneRow.toString());
+            System.out.println("one row " + oneRow.toString());
             total_packages_data.add(oneRow);
         }
-        
-        System.out.println("reloadPackagingContainerTab3 query Total packaging \n\n"+query_str);
+
+        System.out.println("reloadPackagingContainerTab3 query Total packaging \n\n" + query_str);
         jtable_total_packages.setModel(new DefaultTableModel(total_packages_data, total_packages_header));
         setTotalPackagingTableRowsStyle();
 
@@ -470,8 +479,10 @@ public final class WAREHOUSE_DISPATCH_UI0002_DISPATCH_SCAN extends javax.swing.J
         }
         this.project_label.setText(p.getProject());
         this.state_label.setText(p.getPlanState());
-        this.destination_label_help.setText("");
+        
+        this.destination_label_help.setText(selectedDestination);
         this.truck_no_txt1.setText(p.getTruckNo());
+        this.fg_warehouse_label.setText(p.getFgWarehouse());
         //Select the last pile of the plan
         Helper.startSession();
         String query_str = String.format(HQLHelper.GET_PILES_OF_PLAN, Integer.valueOf(p.getId()));
@@ -507,6 +518,7 @@ public final class WAREHOUSE_DISPATCH_UI0002_DISPATCH_SCAN extends javax.swing.J
         this.state_label.setText("-----");
         this.destination_label_help.setText("#");
         this.pile_label_help.setText("0");
+        this.fg_warehouse_label.setText(".");
     }
 
     public void setDestinationHelpLabel(String dest) {
@@ -764,6 +776,8 @@ public final class WAREHOUSE_DISPATCH_UI0002_DISPATCH_SCAN extends javax.swing.J
         this.reloadPackagingContainerTab3(planId);
 
         this.reloadTruckTotals(planId);
+
+        Helper.sess.clear();
     }
 
     /**
@@ -931,17 +945,23 @@ public final class WAREHOUSE_DISPATCH_UI0002_DISPATCH_SCAN extends javax.swing.J
                 super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col);
 
                 String dispatchLabelNo = (String) table.getModel().getValueAt(row, 6);
-                //############### DISPATCH LABEL CONTROLLED ?
-                if (isSelected) {
-                    setBackground(new Color(51, 204, 255));
-                    setForeground(Color.BLACK);
-                } else if (!"".equals(dispatchLabelNo)) {
-                    setBackground(new Color(146, 255, 167));
-                    setForeground(Color.BLACK);
-                } else {
+                try {
+                    //############### DISPATCH LABEL CONTROLLED ?
+                    if (isSelected) {
+                        setBackground(new Color(51, 204, 255));
+                        setForeground(Color.BLACK);
+                    } else if (!"".equals(dispatchLabelNo) && dispatchLabelNo.length() != 0) {
+                        setBackground(new Color(146, 255, 167)); //BACKGROUND WITH GREEN
+                        setForeground(Color.BLACK);
+                    } else {
+                        setBackground(Color.WHITE);
+                        setForeground(Color.BLACK);
+                    }
+                } catch (NullPointerException e) {
                     setBackground(Color.WHITE);
                     setForeground(Color.BLACK);
                 }
+
                 setHorizontalAlignment(JLabel.LEFT);
                 return this;
             }
@@ -1136,6 +1156,8 @@ public final class WAREHOUSE_DISPATCH_UI0002_DISPATCH_SCAN extends javax.swing.J
         time_label9 = new javax.swing.JLabel();
         project_label = new javax.swing.JLabel();
         truck_no_txt1 = new javax.swing.JTextField();
+        time_label10 = new javax.swing.JLabel();
+        fg_warehouse_label = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         new_plan_menu = new javax.swing.JMenu();
@@ -1409,7 +1431,7 @@ public final class WAREHOUSE_DISPATCH_UI0002_DISPATCH_SCAN extends javax.swing.J
         );
         jpanel_destinationsLayout.setVerticalGroup(
             jpanel_destinationsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 26, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         jLabel3.setText("Destination");
@@ -1431,7 +1453,7 @@ public final class WAREHOUSE_DISPATCH_UI0002_DISPATCH_SCAN extends javax.swing.J
         });
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel6.setText("Lines");
+        jLabel6.setText("Total Packs");
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel7.setText("Total Qty");
@@ -1558,6 +1580,21 @@ public final class WAREHOUSE_DISPATCH_UI0002_DISPATCH_SCAN extends javax.swing.J
 
         current_plan_jpanel.addTab("Plan detail 1/3", jPanel3);
 
+        jPanel1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jPanel1FocusGained(evt);
+            }
+        });
+        jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel1MouseClicked(evt);
+            }
+        });
+        jPanel1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jPanel1PropertyChange(evt);
+            }
+        });
         jPanel1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jPanel1KeyTyped(evt);
@@ -1570,14 +1607,14 @@ public final class WAREHOUSE_DISPATCH_UI0002_DISPATCH_SCAN extends javax.swing.J
 
             },
             new String [] {
-                "CPN", "LPN", "PACK TYPE", "TOTAL QTY", "TOTAL PACK", "DESTINATION"
+                "CPN", "LPN", "PACK TYPE", "TOTAL QTY", "UCS", "TOTAL PACK", "DESTINATION"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -1692,7 +1729,7 @@ public final class WAREHOUSE_DISPATCH_UI0002_DISPATCH_SCAN extends javax.swing.J
                         .addComponent(tab2_refresh)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addGap(1, 1, 1)
-                            .addComponent(tab2_packtype, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
+                            .addComponent(tab2_packtype)
                             .addGap(2, 2, 2)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1722,6 +1759,11 @@ public final class WAREHOUSE_DISPATCH_UI0002_DISPATCH_SCAN extends javax.swing.J
         current_plan_jpanel.addTab("Plan detail 2/3", jPanel1);
 
         jPanel2.setAutoscrolls(true);
+        jPanel2.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                jPanel2ComponentShown(evt);
+            }
+        });
 
         jLabel10.setText("Total hours");
 
@@ -1883,6 +1925,12 @@ public final class WAREHOUSE_DISPATCH_UI0002_DISPATCH_SCAN extends javax.swing.J
             }
         });
 
+        time_label10.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        time_label10.setText("F.G Warehouse :");
+
+        fg_warehouse_label.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        fg_warehouse_label.setText(".");
+
         javax.swing.GroupLayout details_jpanelLayout = new javax.swing.GroupLayout(details_jpanel);
         details_jpanel.setLayout(details_jpanelLayout);
         details_jpanelLayout.setHorizontalGroup(
@@ -1917,7 +1965,11 @@ public final class WAREHOUSE_DISPATCH_UI0002_DISPATCH_SCAN extends javax.swing.J
                         .addComponent(time_label9)
                         .addGap(18, 18, 18)
                         .addComponent(project_label, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(details_jpanelLayout.createSequentialGroup()
+                        .addComponent(time_label10)
+                        .addGap(18, 18, 18)
+                        .addComponent(fg_warehouse_label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         details_jpanelLayout.setVerticalGroup(
@@ -1955,7 +2007,11 @@ public final class WAREHOUSE_DISPATCH_UI0002_DISPATCH_SCAN extends javax.swing.J
                 .addGroup(details_jpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(time_label7)
                     .addComponent(release_date_label))
-                .addContainerGap(1444, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(details_jpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(time_label10)
+                    .addComponent(fg_warehouse_label))
+                .addContainerGap(1402, Short.MAX_VALUE))
         );
 
         jSplitPane2.setLeftComponent(details_jpanel);
@@ -2189,7 +2245,10 @@ public final class WAREHOUSE_DISPATCH_UI0002_DISPATCH_SCAN extends javax.swing.J
                     "Are you sure you want to logoff ?", "Logoff confirmation",
                     JOptionPane.YES_NO_OPTION);
             if (confirmed == 0) {
-                logout();
+                //logout();
+                state = new S001_ReservPalletNumberScan();
+
+                this.dispose();
 
             }
         }
@@ -2263,7 +2322,10 @@ public final class WAREHOUSE_DISPATCH_UI0002_DISPATCH_SCAN extends javax.swing.J
                 JOptionPane.YES_NO_OPTION);
         if (confirmed == 0) {
             //clearGui();
-            logout();
+            //logout();
+            state = new S001_ReservPalletNumberScan();
+
+            this.dispose();
 
         } else {
             setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);//no
@@ -2321,6 +2383,7 @@ public final class WAREHOUSE_DISPATCH_UI0002_DISPATCH_SCAN extends javax.swing.J
                     radio_btn_40.setEnabled(false);
 
                 } else { // The plan still Open
+                    /*
                     if (WarehouseHelper.warehouse_reserv_context.getUser().getAccessLevel() == GlobalVars.PROFIL_WAREHOUSE_AGENT) {
                         delete_plan_menu.setEnabled(false);
                         close_plan_menu.setEnabled(false);
@@ -2328,6 +2391,18 @@ public final class WAREHOUSE_DISPATCH_UI0002_DISPATCH_SCAN extends javax.swing.J
                     if (WarehouseHelper.warehouse_reserv_context.getUser().getAccessLevel() == GlobalVars.PROFIL_ADMIN) {
                         delete_plan_menu.setEnabled(true);
                         close_plan_menu.setEnabled(true);
+                    }
+                     */
+                    if (WarehouseHelper.warehouse_reserv_context.getUser().getAccessLevel() == GlobalVars.PROFIL_WAREHOUSE_AGENT
+                            || WarehouseHelper.warehouse_reserv_context.getUser().getAccessLevel() == GlobalVars.PROFIL_ADMIN) {
+                        close_plan_menu.setEnabled(true);
+                    } else {
+                        close_plan_menu.setEnabled(false);
+                    }
+                    if (WarehouseHelper.warehouse_reserv_context.getUser().getAccessLevel() == GlobalVars.PROFIL_ADMIN) {
+                        delete_plan_menu.setEnabled(true);
+                    } else {
+                        delete_plan_menu.setEnabled(false);
                     }
                     export_plan_menu.setEnabled(true);
                     edit_plan_menu.setEnabled(true);
@@ -2451,7 +2526,7 @@ public final class WAREHOUSE_DISPATCH_UI0002_DISPATCH_SCAN extends javax.swing.J
         } else {
 
             int confirmed = JOptionPane.showConfirmDialog(null,
-                    "Confirmez-vous la fin du chargement N° " + plan_num_label.getText() + " ?", "Fin du chargement",
+                    "Confirmez-vous la fin du chargement N° " + plan_num_label.getText() + " avec date dispatch " + WarehouseHelper.temp_load_plan.getDeliveryTime() + " ?", "Fin du chargement",
                     JOptionPane.YES_NO_OPTION);
             if (confirmed == 0) {
                 Helper.startSession();
@@ -2466,60 +2541,21 @@ public final class WAREHOUSE_DISPATCH_UI0002_DISPATCH_SCAN extends javax.swing.J
                     setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     for (Object obj : result) {
                         LoadPlanLine line = (LoadPlanLine) obj;
-                        
+
                         BaseContainer bc = new BaseContainer().getBaseContainer(line.getPalletNumber());
                         bc.setContainerState(GlobalVars.PALLET_DISPATCHED);
                         bc.setContainerStateCode(GlobalVars.PALLET_DISPATCHED_CODE);
+                        //bc.setDispatchTime(WarehouseHelper.temp_load_plan.getDeliveryTime());
+                        //bc.setFifoTime(WarehouseHelper.temp_load_plan.getDeliveryTime());
                         bc.setDispatchTime(new Date());
                         bc.setFifoTime(new Date());
                         bc.setDestination(line.getDestinationWh());
                         bc.update(bc);
 
-                        if (GlobalVars.APP_PROP.getProperty("BOOK_PACKAGING") == null || "".equals(GlobalVars.APP_PROP.getProperty("BOOK_PACKAGING").toString())) {
-                            JOptionPane.showMessageDialog(null, "Propriété BOOK_PACKAGING non spécifiée dans le "
-                                    + "fichier des propriétées !", "Erreur propriétés", JOptionPane.ERROR_MESSAGE);
-                        } else if (bc.getWarehouse() == null || "".equals(bc.getWarehouse().toString())) {
-                            JOptionPane.showMessageDialog(null, "Finish good warehouse non spécifié pour cette pallete " + bc.getPalletNumber(), "Erreur propriétés", JOptionPane.ERROR_MESSAGE);
-                        } else if ("1".equals(GlobalVars.APP_PROP.getProperty("BOOK_PACKAGING").toString())) {
-                            //Book packaging items                    
-                            PackagingStockMovement pm = new PackagingStockMovement();
-                            pm.bookMasterPack(
-                                    WarehouseHelper.warehouse_reserv_context.getUser().getFirstName() + " " + WarehouseHelper.warehouse_reserv_context.getUser().getLastName(),
-                                    bc.getPackType(),
-                                    1,
-                                    "OUT",
-                                    bc.getWarehouse(),
-                                    line.getDestinationWh(),
-                                    "Dispatch in plan " + plan_num_label.getText(),
-                                    line.getPalletNumber()
-                            );
-                        }
+                        line.setTruckNo(WarehouseHelper.temp_load_plan.getTruckNo());
+
                     }
-                    //Loop on packaging supplementaire et déduire les quantitées.
-                    
-                    if ("1".equals(GlobalVars.APP_PROP.getProperty("BOOK_PACKAGING").toString())) {
-                        Helper.startSession();
-                        query = Helper.sess.createQuery(HQLHelper.GET_LOAD_PLAN_PACKAGING_BY_PLAN_ID);
-                        query.setParameter("loadPlanId", Integer.valueOf(plan_num_label.getText()));
-                        Helper.sess.getTransaction().commit();
-                        result = query.list();
-                        for (Object obj : result) {
-                            LoadPlanLinePackaging line = (LoadPlanLinePackaging) obj;
-                            PackagingStockMovement transaction
-                                    = new PackagingStockMovement(
-                                            line.getPackItem(),
-                                            "",
-                                            plan_num_label.getText(),
-                                            WarehouseHelper.warehouse_reserv_context.getUser().getFirstName() + " "
-                                            + WarehouseHelper.warehouse_reserv_context.getUser().getLastName(),
-                                            new Date(),
-                                            //@TODO : WarehouseHelper.temp_load_plan.getFgWarehouse();
-                                            GlobalVars.APP_PROP.getProperty("WH_PACKAGING"),
-                                            -Float.valueOf(line.getQty()),
-                                            "Packaging Supplementaire. " + line.getComment());
-                            transaction.create(transaction);
-                        }
-                    }
+
                     Helper.startSession();
                     WarehouseHelper.temp_load_plan.setPlanState(WarehouseHelper.LOAD_PLAN_STATE_CLOSED);
                     WarehouseHelper.temp_load_plan.setEndTime(new Date());
@@ -2566,6 +2602,15 @@ public final class WAREHOUSE_DISPATCH_UI0002_DISPATCH_SCAN extends javax.swing.J
     }//GEN-LAST:event_message_labelActionPerformed
 
     private void btn_filter_okActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_filter_okActionPerformed
+        load_plan_lines_table.setAutoCreateRowSorter(true);
+        load_plan_lines_table.setModel(new javax.swing.table.DefaultTableModel(
+                new Object[][]{},
+                new String[]{
+                    "PILE NUM", "PALLET NUM", "CPN", "INTERNAL PN", "PACK TYPE", "PACK SIZE", "DESTINATION", "LINE ID", "FAMILY", "FIFO"
+                }
+        ));
+        this.reloadPlansData();
+        //this.loadPlanDataInGui();
         filterPlanLines(false);
     }//GEN-LAST:event_btn_filter_okActionPerformed
 
@@ -2645,8 +2690,7 @@ public final class WAREHOUSE_DISPATCH_UI0002_DISPATCH_SCAN extends javax.swing.J
      * @param lineState
      */
     public void total_per_part_and_destination(String destination, String pn, String pack_type, int lineState) {
-        
-        
+
         tab2_txt_nbreLigne.setText("0");
         tab2_txt_totalQty.setText("0");
         total_per_dest_table_data = new Vector();
@@ -2655,8 +2699,8 @@ public final class WAREHOUSE_DISPATCH_UI0002_DISPATCH_SCAN extends javax.swing.J
         total_per_dest_table_data_header.add("CPN");
         total_per_dest_table_data_header.add("SPN");
         total_per_dest_table_data_header.add("PACK TYPE");
-        total_per_dest_table_data_header.add("UCS");
         total_per_dest_table_data_header.add("TOTAL QTY");
+        total_per_dest_table_data_header.add("UCS");
         total_per_dest_table_data_header.add("TOTAL PACKS");
         total_per_dest_table_data_header.add("DESTINATION");
 
@@ -2669,42 +2713,42 @@ public final class WAREHOUSE_DISPATCH_UI0002_DISPATCH_SCAN extends javax.swing.J
                 + "line.harness_part AS harness_part,\n"
                 + "line.supplier_part AS supplier_part,\n"
                 + "line.pack_type AS pack_type,\n"
-                + "line.qty AS qty,\n"
                 + "SUM(line.qty) AS total_qty,    \n"
+                + "line.qty AS qty,\n"
                 + "COUNT(*) AS total_pack, \n"
                 + "line.destination_wh AS destination_wh \n"
                 + "FROM load_plan_line line\n"
-                + "WHERE load_plan_id = '"+plan_num_label.getText()+"' \n";
-        if(destination != null && !destination.isEmpty()){
-            query_str += " AND destination_wh LIKE '%"+destination.toUpperCase()+"%'";
+                + "WHERE load_plan_id = '" + plan_num_label.getText() + "' \n";
+        if (destination != null && !destination.isEmpty()) {
+            query_str += " AND destination_wh LIKE '%" + destination.toUpperCase() + "%'";
         }
-        if(pn != null && !pn.isEmpty()){
-            query_str += " AND harness_part LIKE '%"+pn+"%'";
+        if (pn != null && !pn.isEmpty()) {
+            query_str += " AND harness_part LIKE '%" + pn + "%'";
         }
-        if(pack_type != null && !pack_type.isEmpty()){
-            query_str += " AND pack_type LIKE '%"+pack_type.toUpperCase()+"%'";
+        if (pack_type != null && !pack_type.isEmpty()) {
+            query_str += " AND pack_type LIKE '%" + pack_type.toUpperCase() + "%'";
         }
-        
+
         if (lineState == 1) {
             query_str += " AND line.dispatch_label_no != '' ";
         }
         if (lineState == 2) {
             query_str += " AND line.dispatch_label_no = '' ";
         }
-        
+
         query_str += " GROUP BY destination_wh, harness_part, pack_type, qty, supplier_part\n"
                 + "ORDER BY destination_wh ASC, pack_type DESC;";
 
         SQLQuery query = Helper.sess.createSQLQuery(query_str);
-        
-        System.out.println("Query "+query_str);
-        
+
+        System.out.println("Query " + query_str);
+
         query
                 .addScalar("harness_part", StandardBasicTypes.STRING)
                 .addScalar("supplier_part", StandardBasicTypes.STRING)
                 .addScalar("pack_type", StandardBasicTypes.STRING)
-                .addScalar("qty", StandardBasicTypes.DOUBLE)
                 .addScalar("total_qty", StandardBasicTypes.DOUBLE)
+                .addScalar("qty", StandardBasicTypes.DOUBLE)
                 .addScalar("total_pack", StandardBasicTypes.INTEGER)
                 .addScalar("destination_wh", StandardBasicTypes.STRING);
 
@@ -2712,7 +2756,7 @@ public final class WAREHOUSE_DISPATCH_UI0002_DISPATCH_SCAN extends javax.swing.J
         Helper.sess.getTransaction().commit();
         float total_packs = 0;
         float total_qty = 0;
-        
+
         for (Object[] obj : result) {
             Vector<Object> oneRow = new Vector<Object>();
             oneRow.add((String) obj[0]);
@@ -2722,22 +2766,22 @@ public final class WAREHOUSE_DISPATCH_UI0002_DISPATCH_SCAN extends javax.swing.J
             oneRow.add(String.format("%1$,.2f", obj[4]));
             oneRow.add(String.format("%d", obj[5]));
             oneRow.add((String) obj[6]);
-            
-            System.out.println("one row "+oneRow.toString());
-            
+
+            System.out.println("one row " + oneRow.toString());
+
             total_per_dest_table_data.add(oneRow);
-            
-            total_qty += Float.valueOf(obj[5].toString());
+
+            total_qty += Float.valueOf(obj[3].toString());
             total_packs += Float.valueOf(String.format("%d", obj[5]));
         }
-        tab2_txt_nbreLigne.setText(total_packs+"");
-        tab2_txt_totalQty.setText(total_qty+"");
+        tab2_txt_nbreLigne.setText(total_packs + "");
+        tab2_txt_totalQty.setText(total_qty + "");
         total_per_pn_table.setModel(new DefaultTableModel(total_per_dest_table_data, total_per_dest_table_data_header));
 
     }
 
     private void tab2_refreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tab2_refreshActionPerformed
-       
+
         total_per_part_and_destination(tab2_destination.getText().trim(), tab2_cpn.getText().trim(), tab2_packtype.getText().trim(), controlled_combobox_tab_2.getSelectedIndex());
     }//GEN-LAST:event_tab2_refreshActionPerformed
 
@@ -2746,7 +2790,7 @@ public final class WAREHOUSE_DISPATCH_UI0002_DISPATCH_SCAN extends javax.swing.J
     }//GEN-LAST:event_export_plan_menuMouseEntered
 
     private void current_plan_jpanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_current_plan_jpanelMouseClicked
-        
+
     }//GEN-LAST:event_current_plan_jpanelMouseClicked
 
     private void tab2_destinationKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tab2_destinationKeyTyped
@@ -2754,16 +2798,16 @@ public final class WAREHOUSE_DISPATCH_UI0002_DISPATCH_SCAN extends javax.swing.J
     }//GEN-LAST:event_tab2_destinationKeyTyped
 
     private void tab2_cpnKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tab2_cpnKeyTyped
-        total_per_part_and_destination(tab2_destination.getText().trim(), tab2_cpn.getText().trim(), tab2_packtype.getText().trim(),controlled_combobox_tab_2.getSelectedIndex());
+        total_per_part_and_destination(tab2_destination.getText().trim(), tab2_cpn.getText().trim(), tab2_packtype.getText().trim(), controlled_combobox_tab_2.getSelectedIndex());
 
     }//GEN-LAST:event_tab2_cpnKeyTyped
 
     private void jPanel1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPanel1KeyTyped
-        total_per_part_and_destination(tab2_destination.getText().trim(), tab2_cpn.getText().trim(), tab2_packtype.getText().trim(),controlled_combobox_tab_2.getSelectedIndex());
+        total_per_part_and_destination(tab2_destination.getText().trim(), tab2_cpn.getText().trim(), tab2_packtype.getText().trim(), controlled_combobox_tab_2.getSelectedIndex());
     }//GEN-LAST:event_jPanel1KeyTyped
 
     private void tab2_packtypeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tab2_packtypeKeyTyped
-        total_per_part_and_destination(tab2_destination.getText().trim(), tab2_cpn.getText().trim(), tab2_packtype.getText().trim(),controlled_combobox_tab_2.getSelectedIndex());
+        total_per_part_and_destination(tab2_destination.getText().trim(), tab2_cpn.getText().trim(), tab2_packtype.getText().trim(), controlled_combobox_tab_2.getSelectedIndex());
     }//GEN-LAST:event_tab2_packtypeKeyTyped
 
     private void tab3_refreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tab3_refreshActionPerformed
@@ -2788,12 +2832,28 @@ public final class WAREHOUSE_DISPATCH_UI0002_DISPATCH_SCAN extends javax.swing.J
     }//GEN-LAST:event_scan_txtFocusGained
 
     private void scan_txtFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_scan_txtFocusLost
-        scan_txt.setBackground(Color.WHITE);        
+        scan_txt.setBackground(Color.WHITE);
     }//GEN-LAST:event_scan_txtFocusLost
 
     private void controlled_combobox_tab_2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_controlled_combobox_tab_2ItemStateChanged
         // TODO add your handling code here:
     }//GEN-LAST:event_controlled_combobox_tab_2ItemStateChanged
+
+    private void jPanel2ComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jPanel2ComponentShown
+        this.reloadPackagingContainerTab3(Integer.valueOf(plan_num_label.getText()));
+    }//GEN-LAST:event_jPanel2ComponentShown
+
+    private void jPanel1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPanel1FocusGained
+        total_per_part_and_destination(tab2_destination.getText().trim(), tab2_cpn.getText().trim(), tab2_packtype.getText().trim(), controlled_combobox_tab_2.getSelectedIndex());
+    }//GEN-LAST:event_jPanel1FocusGained
+
+    private void jPanel1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jPanel1PropertyChange
+        
+    }//GEN-LAST:event_jPanel1PropertyChange
+
+    private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
+        total_per_part_and_destination(tab2_destination.getText().trim(), tab2_cpn.getText().trim(), tab2_packtype.getText().trim(), controlled_combobox_tab_2.getSelectedIndex());
+    }//GEN-LAST:event_jPanel1MouseClicked
 
     private void clearGui() {
 
@@ -2844,6 +2904,7 @@ public final class WAREHOUSE_DISPATCH_UI0002_DISPATCH_SCAN extends javax.swing.J
     private javax.swing.JLabel dispatch_date_label;
     private javax.swing.JMenu edit_plan_menu;
     private javax.swing.JMenu export_plan_menu;
+    private javax.swing.JLabel fg_warehouse_label;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -2907,6 +2968,7 @@ public final class WAREHOUSE_DISPATCH_UI0002_DISPATCH_SCAN extends javax.swing.J
     private javax.swing.JLabel tab2_txt_totalQty;
     private javax.swing.JButton tab3_refresh;
     private javax.swing.JLabel time_label1;
+    private javax.swing.JLabel time_label10;
     private javax.swing.JLabel time_label2;
     private javax.swing.JLabel time_label3;
     private javax.swing.JLabel time_label4;
@@ -2939,10 +3001,11 @@ public final class WAREHOUSE_DISPATCH_UI0002_DISPATCH_SCAN extends javax.swing.J
         List result = query.list();
         LoadPlan plan = (LoadPlan) result.get(0);
         WarehouseHelper.temp_load_plan = plan;
+        loadDestinationsRadioGroup(plan.getId());
+        destination_label_help.setText("HIHI");
         loadPlanDataToLabels(plan, "");
         reloadPlanLinesData(Integer.valueOf(id), null);
         //loadDestinations(Integer.valueOf(id));
-        loadDestinationsRadioGroup(Integer.valueOf(id));
         //Disable delete button if the plan is CLOSED
         if (WarehouseHelper.LOAD_PLAN_STATE_CLOSED.equals(plan.getPlanState())) {
             delete_plan_menu.setEnabled(false);
@@ -2953,15 +3016,18 @@ public final class WAREHOUSE_DISPATCH_UI0002_DISPATCH_SCAN extends javax.swing.J
             piles_box.setEnabled(false);
             set_packaging_pile_btn.setEnabled(false);
         } else {
-
-            if (WarehouseHelper.warehouse_reserv_context.getUser().getAccessLevel() == GlobalVars.PROFIL_WAREHOUSE_AGENT) {
-                delete_plan_menu.setEnabled(false);
+            if (WarehouseHelper.warehouse_reserv_context.getUser().getAccessLevel() == GlobalVars.PROFIL_WAREHOUSE_AGENT
+                    || WarehouseHelper.warehouse_reserv_context.getUser().getAccessLevel() == GlobalVars.PROFIL_ADMIN) {
+                close_plan_menu.setEnabled(true);
+            } else {
                 close_plan_menu.setEnabled(false);
             }
             if (WarehouseHelper.warehouse_reserv_context.getUser().getAccessLevel() == GlobalVars.PROFIL_ADMIN) {
                 delete_plan_menu.setEnabled(true);
-                close_plan_menu.setEnabled(true);
+            } else {
+                delete_plan_menu.setEnabled(false);
             }
+            
             control_dispatch_menu.setEnabled(true);
             export_plan_menu.setEnabled(true);
             edit_plan_menu.setEnabled(true);
@@ -3010,12 +3076,6 @@ public final class WAREHOUSE_DISPATCH_UI0002_DISPATCH_SCAN extends javax.swing.J
                         txt_filter_part.getText().trim(), 0, controlled_combobox.getSelectedIndex(),
                         txt_filter_pal_number.getText().trim(),
                         txt_filter_dispatchl_number.getText().trim());
-//                filterPlanLines(
-//                        Integer.valueOf(plan_num_label.getText()),
-//                        selectedDestination,
-//                        txt_filter_part.getText(), 0, controlled_combobox.getSelectedIndex(),
-//                        txt_filter_pal_number.getText().trim(),
-//                        txt_filter_dispatchl_number.getText().trim());
             }
         }
     }

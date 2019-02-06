@@ -150,7 +150,7 @@ public class WAREHOUSE_DISPATCH_UI0005_EDIT_PLAN extends javax.swing.JDialog {
     }
     
     private void setWarehouseByProject(String project) {
-        List result = new ConfigWarehouse().selectByProject(project);
+        List result = new ConfigWarehouse().selectByProjectAndType(project, "FINISH_GOODS");
         if (result.isEmpty()) {
             UILog.severeDialog(this, ErrorMsg.APP_ERR0036);
             UILog.severe(ErrorMsg.APP_ERR0036[1]);
@@ -522,6 +522,9 @@ public class WAREHOUSE_DISPATCH_UI0005_EDIT_PLAN extends javax.swing.JDialog {
 
                 this.lp.setTruckNo((truck_no_text.getText().isEmpty()) ? "" : truck_no_text.getText());
                 this.lp.setProject(project_filter.getSelectedItem().toString());
+                this.lp.setFgWarehouse(warehouse_filter.getSelectedItem()+"");
+                String packaging_wh = new ConfigWarehouse().getPackagingWh(project_filter.getSelectedItem().toString());
+                lp.setPackagingWarehouse(packaging_wh);
                 this.lp.update(this.lp);
                 this.parent.reloadPlansData();
                 this.parent.loadPlanDataInGui();

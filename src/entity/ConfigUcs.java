@@ -96,9 +96,14 @@ public class ConfigUcs extends DAO implements java.io.Serializable {
 
     @Column(name = "project")
     private String project;
-
+    
+    //finish goods warehouse
     @Column(name = "warehouse")
     private String warehouse;
+    
+    //packaging warehouse
+    @Column(name = "packaging_warehouse")
+    private String packaging_warehouse;
 
     @Column(name = "destination")
     private String destination;
@@ -402,6 +407,16 @@ public class ConfigUcs extends DAO implements java.io.Serializable {
     public void setWarehouse(String warehouse) {
         this.warehouse = warehouse;
     }
+
+    public String getPackaging_warehouse() {
+        return packaging_warehouse;
+    }
+
+    public void setPackaging_warehouse(String packaging_warehouse) {
+        this.packaging_warehouse = packaging_warehouse;
+    }
+    
+    
 
     public String getProject() {
         return project;

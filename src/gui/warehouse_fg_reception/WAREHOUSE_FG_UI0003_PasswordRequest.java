@@ -66,7 +66,6 @@ public class WAREHOUSE_FG_UI0003_PasswordRequest extends javax.swing.JDialog {
         admin_login_txtbox = new javax.swing.JTextField();
         cancel_btn = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Password");
         setType(java.awt.Window.Type.UTILITY);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -74,6 +73,8 @@ public class WAREHOUSE_FG_UI0003_PasswordRequest extends javax.swing.JDialog {
                 formWindowClosing(evt);
             }
         });
+
+        jPanel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         ok_btn.setText("OK");
         ok_btn.addActionListener(new java.awt.event.ActionListener() {
@@ -258,7 +259,7 @@ public class WAREHOUSE_FG_UI0003_PasswordRequest extends javax.swing.JDialog {
     }//GEN-LAST:event_formWindowClosing
 
     private void cancel_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancel_btnActionPerformed
-        this.dispose();
+        this.setVisible(false);
     }//GEN-LAST:event_cancel_btnActionPerformed
 
 

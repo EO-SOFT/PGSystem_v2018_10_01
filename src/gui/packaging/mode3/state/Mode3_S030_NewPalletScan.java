@@ -91,7 +91,7 @@ public class Mode3_S030_NewPalletScan implements Mode3_State {
                 bc.setVolume(context.getBaseContainerTmp().getVolume());
                 bc.setGrossWeight(context.getBaseContainerTmp().getGrossWeight());
                 bc.setNetWeight(context.getBaseContainerTmp().getNetWeight());
-                bc.setWarehouse(context.getBaseContainerTmp().getWarehouse());
+                bc.setFGwarehouse(context.getBaseContainerTmp().getWarehouse());
                 bc.setDestination(context.getBaseContainerTmp().getDestination());
                 bc.setProject(context.getBaseContainerTmp().getProject());
                 bc.setEngChange(context.getBaseContainerTmp().getEngChange());

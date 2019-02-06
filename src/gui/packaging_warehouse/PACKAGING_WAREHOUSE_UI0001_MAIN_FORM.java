@@ -33,7 +33,7 @@ import org.hibernate.type.StandardBasicTypes;
  */
 public class PACKAGING_WAREHOUSE_UI0001_MAIN_FORM extends javax.swing.JFrame {
 
-    private StartFrame parent;
+    private JFrame parent;
     Vector<String> transactions_table_header = new Vector<String>();
 
     List<String> header_columns = Arrays.asList(
@@ -60,7 +60,7 @@ public class PACKAGING_WAREHOUSE_UI0001_MAIN_FORM extends javax.swing.JFrame {
         this.parent = parent;
     }
 
-    PACKAGING_WAREHOUSE_UI0001_MAIN_FORM(Object object, StartFrame parent) {
+    public PACKAGING_WAREHOUSE_UI0001_MAIN_FORM(Object object, JFrame parent) {
         this.parent = parent;
         initComponents();
         initGui();
@@ -82,11 +82,13 @@ public class PACKAGING_WAREHOUSE_UI0001_MAIN_FORM extends javax.swing.JFrame {
         warehouse_box.removeAllItems();
         warehouse_box_filter.removeAllItems();
         warehouse_box_filter.addItem(new ComboItem("", ""));
-        List result = new ConfigWarehouse().selectAllWarehouses();
+        
+        List result = new ConfigWarehouse().selectWarehousesByType("PACKAGING");
 
         for (Object o : result) {
-            warehouse_box.addItem(new ComboItem(o.toString(), o.toString()));
-            warehouse_box_filter.addItem(new ComboItem(o.toString(), o.toString()));
+            ConfigWarehouse wh = (ConfigWarehouse) o;
+            warehouse_box.addItem(new ComboItem(wh.getWarehouse(), wh.getWarehouse()));
+            warehouse_box_filter.addItem(new ComboItem(wh.getWarehouse(), wh.getWarehouse()));
         }
 
         /*//Map project data in the list
@@ -219,12 +221,15 @@ public class PACKAGING_WAREHOUSE_UI0001_MAIN_FORM extends javax.swing.JFrame {
         String query_str = "SELECT id, create_user, warehouse, document_id, "
                 + "fifo_time, quantity, pack_item, pack_master, comment "
                 + "FROM packaging_stock_movement p "
-                + "WHERE fifo_time BETWEEN '%s 00:00:00' AND '%s 23:59:59' AND warehouse LIKE '%s' ";
-        if (!warehouse_box_filter.getSelectedItem().toString().equals("")) {
-            warehouse = warehouse_box_filter.getSelectedItem() + "";
-        }
+                + "WHERE fifo_time BETWEEN '%s 00:00:00' AND '%s 23:59:59'";
+        if(!warehouse_box_filter.getSelectedItem().toString().equals(""))
+            query_str += " AND warehouse LIKE '"+warehouse_box_filter.getSelectedItem()+"' ";
+        
+//        if (!warehouse_box_filter.getSelectedItem().toString().equals("")) {
+//            warehouse = warehouse_box_filter.getSelectedItem() + "";
+//        }
         query_str += " ORDER BY fifo_time DESC";
-        query_str = String.format(query_str, fifoStartDate, fifoEndDate, warehouse);
+        query_str = String.format(query_str, fifoStartDate, fifoEndDate);
 
         Helper.startSession();
         //Select only harness parts with UCS completed.                                
@@ -346,17 +351,13 @@ public class PACKAGING_WAREHOUSE_UI0001_MAIN_FORM extends javax.swing.JFrame {
             }
         });
 
-        fifoDateStartFilter.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-
         warehouse_box_filter.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
 
         fname_lbl14.setText("Warehouse");
 
         fname_lbl15.setText("FIFO Date du");
 
-        fifoDateEndFilter.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-
-        warehouse_box.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        warehouse_box.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         fname_lbl13.setText("Warehouse");
 
@@ -373,7 +374,12 @@ public class PACKAGING_WAREHOUSE_UI0001_MAIN_FORM extends javax.swing.JFrame {
 
         fname_lbl11.setText("Pack Item");
 
-        pack_items_box.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        pack_items_box.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        pack_items_box.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pack_items_boxActionPerformed(evt);
+            }
+        });
 
         comment_txt.setColumns(20);
         comment_txt.setRows(5);
@@ -414,24 +420,28 @@ public class PACKAGING_WAREHOUSE_UI0001_MAIN_FORM extends javax.swing.JFrame {
                             .addComponent(fname_lbl13, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))
+                                .addGap(0, 22, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jScrollPane2)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(warehouse_box, 0, 116, Short.MAX_VALUE)
-                            .addComponent(qty_txt))
-                        .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 442, Short.MAX_VALUE)
+                        .addComponent(document_id_txt))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(fname_lbl11)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(1, 1, 1)
+                            .addComponent(qty_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(warehouse_box, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(pack_items_box, 0, 235, Short.MAX_VALUE)
-                            .addComponent(pack_master_txt)))
-                    .addComponent(document_id_txt))
-                .addContainerGap(142, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(pack_master_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(31, 31, 31)
+                                .addComponent(fname_lbl11)
+                                .addGap(18, 18, 18)
+                                .addComponent(pack_items_box, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                .addContainerGap(137, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -487,7 +497,7 @@ public class PACKAGING_WAREHOUSE_UI0001_MAIN_FORM extends javax.swing.JFrame {
                                         .addComponent(ok_btn)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(ok_and_close_btn)))))
-                        .addGap(0, 192, Short.MAX_VALUE)))
+                        .addGap(0, 102, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -581,6 +591,10 @@ public class PACKAGING_WAREHOUSE_UI0001_MAIN_FORM extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         PACKAGING_WAREHOUSE_UI0002_STOCK packaging_warehouse_uI0002_STOCK = new PACKAGING_WAREHOUSE_UI0002_STOCK(this, true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void pack_items_boxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pack_items_boxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pack_items_boxActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -84,6 +84,8 @@ public class HQLHelper {
     public final static String GET_All_WAREHOUSES = "SELECT DISTINCT warehouse FROM config_warehouse cw";
     public final static String GET_WAREHOUSE = "FROM ConfigWarehouse cw WHERE cw.warehouse = :warehouse";
     public final static String GET_WAREHOUSE_BY_PROJECT = "FROM ConfigWarehouse cw WHERE cw.project = :project";
+    public final static String GET_WAREHOUSE_BY_TYPE = "FROM ConfigWarehouse cw WHERE cw.whType = :wh_type";
+    public final static String GET_WAREHOUSE_BY_PROJECT_AND_TYPE = "FROM ConfigWarehouse cw WHERE cw.project = :project AND cw.whType = :wh_type";
 
     //PackagingConfig
     public final static String GET_ALL_CONFIGS = "FROM PackagingConfig pc ORDER BY packMaster ASC";

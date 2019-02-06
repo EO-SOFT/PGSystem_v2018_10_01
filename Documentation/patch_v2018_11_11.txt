@@ -12,3 +12,14 @@ ALTER TABLE public.base_container
 COMMENT ON COLUMN public.base_container.label_per_piece
     IS 'Print an A5 label for each scanned piece.
 This label is different from open and closing sheet labels, If set to true, it will be printed once the user scan the QR code of a harness.';
+
+ALTER TABLE public.config_warehouse
+    ADD COLUMN type character varying(255);
+
+COMMENT ON COLUMN public.config_warehouse.type
+    IS 'The type of the warehouse
+PACKAGING
+FINISH_GOODS
+TRANSIT
+SCRAP
+BLOQUED';

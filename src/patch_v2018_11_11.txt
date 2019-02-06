@@ -1,0 +1,14 @@
+ALTER TABLE public.config_ucs
+    ADD COLUMN label_per_piece boolean;
+
+COMMENT ON COLUMN public.config_ucs.label_per_piece
+    IS 'Print an A5 label for each scanned piece.
+This label is different from open and closing sheet labels, If set to true, it will be printed once the user scan the QR code of a harness.';
+
+
+ALTER TABLE public.base_container
+    ADD COLUMN label_per_piece boolean;
+
+COMMENT ON COLUMN public.base_container.label_per_piece
+    IS 'Print an A5 label for each scanned piece.
+This label is different from open and closing sheet labels, If set to true, it will be printed once the user scan the QR code of a harness.';

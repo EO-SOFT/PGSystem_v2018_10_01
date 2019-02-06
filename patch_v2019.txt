@@ -1,0 +1,77 @@
+ALTER TABLE public.config_ucs
+    ADD COLUMN label_per_piece boolean;
+
+COMMENT ON COLUMN public.config_ucs.label_per_piece
+    IS 'Print an A5 label for each scanned piece.
+This label is different from open and closing sheet labels, If set to true, it will be printed once the user scan the QR code of a harness.';
+
+ALTER TABLE public.base_container
+    ADD COLUMN label_per_piece boolean;
+
+COMMENT ON COLUMN public.base_container.label_per_piece
+    IS 'Print an A5 label for each scanned piece.
+This label is different from open and closing sheet labels, If set to true, it will be printed once the user scan the QR code of a harness.';
+
+ALTER TABLE public.base_container
+    ADD COLUMN packaging_warehouse character varying(255) COLLATE pg_catalog."default";
+
+COMMENT ON COLUMN public.base_container.packaging_warehouse
+    IS 'Packaging warehouse for this part number.';
+
+-- Column: public.config_ucs.packaging_warehouse
+
+-- ALTER TABLE public.config_ucs DROP COLUMN packaging_warehouse;
+
+ALTER TABLE public.config_ucs
+    ADD COLUMN packaging_warehouse character varying(255) COLLATE pg_catalog."default";
+
+COMMENT ON COLUMN public.config_ucs.packaging_warehouse
+    IS 'Packaging warehouse for this part number.';
+
+
+ALTER TABLE public.config_warehouse
+    ADD COLUMN wh_type character varying(255);
+
+COMMENT ON COLUMN public.config_warehouse.wh_type
+    IS 'The type of the warehouse
+PACKAGING
+FINISH_GOODS
+TRANSIT
+SCRAP
+BLOQUED';
+
+
+ALTER TABLE public.load_plan
+    ADD COLUMN fg_warehouse character varying(255) COLLATE pg_catalog."default";
+
+COMMENT ON COLUMN public.load_plan.fg_warehouse
+    IS 'Finish good warehouse to get the quantities from';
+
+ALTER TABLE public.load_plan
+    ADD COLUMN packaging_warehouse character varying(255) COLLATE pg_catalog."default";
+
+COMMENT ON COLUMN public.load_plan.packaging_warehouse
+    IS 'Packaging warehouse'
+
+UPDATE config_warehouse SET wh_type = 'FINISH_GOODS' WHERE id in (2,5,6);
+UPDATE config_warehouse SET wh_type = 'PACKAGING' WHERE id in (1,7);
+UPDATE config_warehouse SET wh_type = 'SCRAP' WHERE id in (4);
+UPDATE config_warehouse SET warehouse = 'W64-PM-VOLVO' WHERE id in (1);
+UPDATE config_warehouse SET warehouse = 'W64-PM-PERKINS' WHERE id in (7);
+UPDATE config_warehouse SET wh_type = 'TRANSIT' WHERE id in (3,8,9);
+
+INSERT INTO public.config_warehouse(
+	id, description, warehouse, project, wh_type)
+	VALUES (10, 'PACKAGING WAREHOUSE', 'W64-PM-DUCATI', 'DUCATI', 'PACKAGING');
+
+UPDATE base_container SET packaging_warehouse = 'W64-PM-VOLVO' WHERE project = 'VOLVO';
+UPDATE base_container SET packaging_warehouse = 'W64-PM-DUCATI' WHERE project = 'DUCATI';
+UPDATE base_container SET packaging_warehouse = 'W64-PM-PERKINS' WHERE project = 'PERKINS';
+
+UPDATE load_plan SET packaging_warehouse = 'W64-PM-VOLVO' WHERE project = 'VOLVO';
+UPDATE load_plan SET packaging_warehouse = 'W64-PM-DUCATI' WHERE project = 'DUCATI';
+UPDATE load_plan SET packaging_warehouse = 'W64-PM-PERKINS' WHERE project = 'PERKINS';
+
+UPDATE config_ucs SET packaging_warehouse = 'W64-PM-VOLVO' WHERE project = 'VOLVO';
+UPDATE config_ucs SET packaging_warehouse = 'W64-PM-DUCATI' WHERE project = 'DUCATI';
+UPDATE config_ucs SET packaging_warehouse = 'W64-PM-PERKINS' WHERE project = 'PERKINS';

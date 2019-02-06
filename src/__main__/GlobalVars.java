@@ -6,7 +6,6 @@
 package __main__;
 
 import entity.ConfigCompany;
-import entity.ConfigProject;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
@@ -25,7 +24,7 @@ public class GlobalVars {
     /**
      *
      */
-    public static String APP_VERSION = "v2018.11.09";
+    public static String APP_VERSION = "v2019.01";
 
     /**
      *

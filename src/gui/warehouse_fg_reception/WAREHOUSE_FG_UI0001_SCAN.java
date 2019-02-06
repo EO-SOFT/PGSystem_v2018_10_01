@@ -11,6 +11,7 @@ import helper.Helper;
 import helper.HQLHelper;
 import entity.BaseContainer;
 import entity.BaseHarness;
+import entity.ConfigWarehouse;
 import entity.HisBaseContainer;
 import entity.HisLogin;
 import entity.ManufactureUsers;
@@ -789,16 +790,17 @@ public class WAREHOUSE_FG_UI0001_SCAN extends javax.swing.JFrame {
                 bc.setStoredTime(fifoTime);
                 bc.update(bc);
                 Helper.sess.beginTransaction();
-                Helper.sess.getTransaction().commit();               
+                Helper.sess.getTransaction().commit();
                 showMsg("Statut palette modifié !", 1);
                 System.out.println("Book pack " + GlobalVars.APP_PROP.getProperty("BOOK_PACKAGING"));
                 if ("1".equals(GlobalVars.APP_PROP.getProperty("BOOK_PACKAGING"))) {
                     //Book packaging items
                     PackagingStockMovement pm = new PackagingStockMovement();
                     pm.bookMasterPack(bc.getCreateUser(),
-                            this.bc.getPackType(), 1, "IN", GlobalVars.APP_PROP.getProperty("WH_PACKAGING"),
-                            bc.getWarehouse(),
-                            "Finish goods storage in " + bc.getWarehouse() + " warehouse", this.bc.getPalletNumber());
+                            this.bc.getPackType(), 1, "IN",                            
+                            getPackagingWh(bc.getProject()),
+                            bc.getFGwarehouse(),
+                            "Finish goods storage in " + bc.getFGwarehouse() + " warehouse", this.bc.getPalletNumber());
                 }
 
                 return true;
@@ -1041,5 +1043,13 @@ public class WAREHOUSE_FG_UI0001_SCAN extends javax.swing.JFrame {
     private javax.swing.JTextField workingTime_txtbox;
     private javax.swing.JTextField writeTime_txtbox;
     // End of variables declaration//GEN-END:variables
+
+    private String getPackagingWh(String project) {
+        ConfigWarehouse cw = new ConfigWarehouse();
+        List result = cw.selectByProjectAndType(project, "PACKAGING");
+
+        cw = (ConfigWarehouse) result.get(0);
+        return (String) cw.getWarehouse();
+    }
 
 }

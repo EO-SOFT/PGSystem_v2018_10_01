@@ -1,0 +1,373 @@
+déc. 16, 2018 12:32:38 PM ui.UILog log
+INFOS: File 2018_12_16.log is created!
+
+déc. 16, 2018 12:32:38 PM ui.UILog log
+INFOS: Daily output print directory [.\print\2018_12_16] created !
+open_sheet sub directory [.\print\2018_12_16\open_sheet] created !
+Print sub directory [.\print\2018_12_16\closing_sheet] created !
+Print sub directory [.\print\2018_12_16\picking_label] created !
+Print sub directory [.\print\2018_12_16\dispatch_label] created !
+
+déc. 16, 2018 12:32:47 PM ui.UILog log
+INFOS: APP_INFO0003 : User EZZIOURI Oussama / p connected to host Oussama-PC at 2018-12-16 12:32:47 Module : Configuration : .
+déc. 16, 2018 12:33:02 PM ui.UILog log
+INFOS: APP_INFO0003 : User EZZIOURI Oussama / p connected to host Oussama-PC at 2018-12-16 12:33:02 Dispatch interface : .
+déc. 16, 2018 12:41:39 PM ui.UILog log
+INFOS: File 2018_12_16.log already exists.
+
+déc. 16, 2018 12:41:39 PM ui.UILog log
+INFOS: Daily output print directory [.\print\2018_12_16] already exist!
+open_sheet sub directory [.\print\2018_12_16\open_sheet] already exist!
+Print sub directory [.\print\2018_12_16\closing_sheet] already exist!
+Print sub directory [.\print\2018_12_16\picking_label] already exist!
+Print sub directory [.\print\2018_12_16\dispatch_label] already exist!
+
+déc. 16, 2018 12:43:24 PM ui.UILog log
+INFOS: File 2018_12_16.log already exists.
+
+déc. 16, 2018 12:43:24 PM ui.UILog log
+INFOS: Daily output print directory [.\print\2018_12_16] already exist!
+open_sheet sub directory [.\print\2018_12_16\open_sheet] already exist!
+Print sub directory [.\print\2018_12_16\closing_sheet] already exist!
+Print sub directory [.\print\2018_12_16\picking_label] already exist!
+Print sub directory [.\print\2018_12_16\dispatch_label] already exist!
+
+déc. 16, 2018 12:45:48 PM ui.UILog log
+INFOS: File 2018_12_16.log already exists.
+
+déc. 16, 2018 12:45:48 PM ui.UILog log
+INFOS: Daily output print directory [.\print\2018_12_16] already exist!
+open_sheet sub directory [.\print\2018_12_16\open_sheet] already exist!
+Print sub directory [.\print\2018_12_16\closing_sheet] already exist!
+Print sub directory [.\print\2018_12_16\picking_label] already exist!
+Print sub directory [.\print\2018_12_16\dispatch_label] already exist!
+
+déc. 16, 2018 12:47:31 PM ui.UILog log
+INFOS: APP_INFO0003 : User EZZIOURI Oussama / p connected to host Oussama-PC at 2018-12-16 12:47:31 Dispatch interface : .
+déc. 16, 2018 1:08:57 PM ui.UILog log
+INFOS: File 2018_12_16.log already exists.
+
+déc. 16, 2018 1:08:57 PM ui.UILog log
+INFOS: Daily output print directory [.\print\2018_12_16] already exist!
+open_sheet sub directory [.\print\2018_12_16\open_sheet] already exist!
+Print sub directory [.\print\2018_12_16\closing_sheet] already exist!
+Print sub directory [.\print\2018_12_16\picking_label] already exist!
+Print sub directory [.\print\2018_12_16\dispatch_label] already exist!
+
+déc. 16, 2018 1:09:01 PM ui.UILog log
+INFOS: APP_INFO0003 : User EZZIOURI Oussama / p connected to host Oussama-PC at 2018-12-16 13:09:01 Dispatch interface : .
+déc. 16, 2018 1:09:33 PM ui.UILog log
+INFOS: APP_INFO0003 : User EZZIOURI Oussama / p connected to host Oussama-PC at 2018-12-16 13:09:33 Dispatch interface : .
+déc. 16, 2018 1:11:13 PM ui.UILog log
+INFOS: File 2018_12_16.log already exists.
+
+déc. 16, 2018 1:11:13 PM ui.UILog log
+INFOS: Daily output print directory [.\print\2018_12_16] already exist!
+open_sheet sub directory [.\print\2018_12_16\open_sheet] already exist!
+Print sub directory [.\print\2018_12_16\closing_sheet] already exist!
+Print sub directory [.\print\2018_12_16\picking_label] already exist!
+Print sub directory [.\print\2018_12_16\dispatch_label] already exist!
+
+déc. 16, 2018 1:11:16 PM ui.UILog log
+INFOS: APP_INFO0003 : User EZZIOURI Oussama / p connected to host Oussama-PC at 2018-12-16 13:11:16 Dispatch interface : .
+déc. 16, 2018 1:11:20 PM ui.UILog log
+GRAVE: APP_ERR0032 DISPATCH : Numero / Matricule du tracteur non saisi.
+ Editer le plan puis saisir un numéro tracteur.
+déc. 16, 2018 1:13:18 PM ui.UILog log
+INFOS: File 2018_12_16.log already exists.
+
+déc. 16, 2018 1:13:18 PM ui.UILog log
+INFOS: Daily output print directory [.\print\2018_12_16] already exist!
+open_sheet sub directory [.\print\2018_12_16\open_sheet] already exist!
+Print sub directory [.\print\2018_12_16\closing_sheet] already exist!
+Print sub directory [.\print\2018_12_16\picking_label] already exist!
+Print sub directory [.\print\2018_12_16\dispatch_label] already exist!
+
+déc. 16, 2018 1:13:21 PM ui.UILog log
+INFOS: APP_INFO0003 : User EZZIOURI Oussama / p connected to host Oussama-PC at 2018-12-16 13:13:21 Dispatch interface : .
+déc. 16, 2018 1:13:40 PM ui.UILog log
+GRAVE: APP_ERR0026 DISPATCH : Aucune destination finale n'est selectionée.
+déc. 16, 2018 1:14:49 PM ui.UILog log
+INFOS: APP_INFO0003 : User EZZIOURI Oussama / p connected to host Oussama-PC at 2018-12-16 13:14:49 Packaging warehouse interface : .
+déc. 16, 2018 1:16:40 PM ui.UILog log
+INFOS: APP_INFO0003 : User EZZIOURI Oussama / p connected to host Oussama-PC at 2018-12-16 13:16:40 Packaging warehouse interface : .
+déc. 16, 2018 1:21:21 PM ui.UILog log
+INFOS: File 2018_12_16.log already exists.
+
+déc. 16, 2018 1:21:21 PM ui.UILog log
+INFOS: Daily output print directory [.\print\2018_12_16] already exist!
+open_sheet sub directory [.\print\2018_12_16\open_sheet] already exist!
+Print sub directory [.\print\2018_12_16\closing_sheet] already exist!
+Print sub directory [.\print\2018_12_16\picking_label] already exist!
+Print sub directory [.\print\2018_12_16\dispatch_label] already exist!
+
+déc. 16, 2018 1:21:39 PM ui.UILog log
+INFOS: APP_INFO0003 : User EZZIOURI Oussama / p connected to host Oussama-PC at 2018-12-16 13:21:39 Packaging warehouse interface : .
+déc. 16, 2018 1:23:55 PM ui.UILog log
+INFOS: File 2018_12_16.log already exists.
+
+déc. 16, 2018 1:23:55 PM ui.UILog log
+INFOS: Daily output print directory [.\print\2018_12_16] already exist!
+open_sheet sub directory [.\print\2018_12_16\open_sheet] already exist!
+Print sub directory [.\print\2018_12_16\closing_sheet] already exist!
+Print sub directory [.\print\2018_12_16\picking_label] already exist!
+Print sub directory [.\print\2018_12_16\dispatch_label] already exist!
+
+déc. 16, 2018 1:24:00 PM ui.UILog log
+INFOS: APP_INFO0003 : User EZZIOURI Oussama / p connected to host Oussama-PC at 2018-12-16 13:24:00 Packaging warehouse interface : .
+déc. 16, 2018 1:28:27 PM ui.UILog log
+INFOS: APP_INFO0003 : User EZZIOURI Oussama / p connected to host Oussama-PC at 2018-12-16 13:28:27 Module : Configuration : .
+déc. 16, 2018 1:28:29 PM ui.UILog log
+INFOS: APP_INFO0003 : User EZZIOURI Oussama / p connected to host Oussama-PC at 2018-12-16 13:28:29 Packaging warehouse interface : .
+déc. 16, 2018 1:28:41 PM ui.UILog log
+INFOS: APP_INFO0003 : User EZZIOURI Oussama / p connected to host Oussama-PC at 2018-12-16 13:28:41 Packaging warehouse interface : .
+déc. 16, 2018 1:32:15 PM ui.UILog log
+INFOS: File 2018_12_16.log already exists.
+
+déc. 16, 2018 1:32:15 PM ui.UILog log
+INFOS: Daily output print directory [.\print\2018_12_16] already exist!
+open_sheet sub directory [.\print\2018_12_16\open_sheet] already exist!
+Print sub directory [.\print\2018_12_16\closing_sheet] already exist!
+Print sub directory [.\print\2018_12_16\picking_label] already exist!
+Print sub directory [.\print\2018_12_16\dispatch_label] already exist!
+
+déc. 16, 2018 1:32:22 PM ui.UILog log
+INFOS: APP_INFO0003 : User EZZIOURI Oussama / p connected to host Oussama-PC at 2018-12-16 13:32:22 Dispatch interface : .
+déc. 16, 2018 1:32:29 PM ui.UILog log
+INFOS: APP_INFO0003 : User EZZIOURI Oussama / p connected to host Oussama-PC at 2018-12-16 13:32:29 Packaging warehouse interface : .
+déc. 16, 2018 1:37:55 PM ui.UILog log
+INFOS: File 2018_12_16.log already exists.
+
+déc. 16, 2018 1:37:55 PM ui.UILog log
+INFOS: Daily output print directory [.\print\2018_12_16] already exist!
+open_sheet sub directory [.\print\2018_12_16\open_sheet] already exist!
+Print sub directory [.\print\2018_12_16\closing_sheet] already exist!
+Print sub directory [.\print\2018_12_16\picking_label] already exist!
+Print sub directory [.\print\2018_12_16\dispatch_label] already exist!
+
+déc. 16, 2018 1:37:59 PM ui.UILog log
+INFOS: APP_INFO0003 : User EZZIOURI Oussama / p connected to host Oussama-PC at 2018-12-16 13:37:59 Packaging warehouse interface : .
+déc. 16, 2018 1:38:32 PM ui.UILog log
+INFOS: APP_INFO0003 : User EZZIOURI Oussama / p connected to host Oussama-PC at 2018-12-16 13:38:32 Dispatch interface : .
+déc. 16, 2018 1:42:22 PM ui.UILog log
+INFOS: File 2018_12_16.log already exists.
+
+déc. 16, 2018 1:42:22 PM ui.UILog log
+INFOS: Daily output print directory [.\print\2018_12_16] already exist!
+open_sheet sub directory [.\print\2018_12_16\open_sheet] already exist!
+Print sub directory [.\print\2018_12_16\closing_sheet] already exist!
+Print sub directory [.\print\2018_12_16\picking_label] already exist!
+Print sub directory [.\print\2018_12_16\dispatch_label] already exist!
+
+déc. 16, 2018 1:42:29 PM ui.UILog log
+INFOS: APP_INFO0003 : User EZZIOURI Oussama / p connected to host Oussama-PC at 2018-12-16 13:42:29 Dispatch interface : .
+déc. 16, 2018 1:43:37 PM ui.UILog log
+GRAVE: APP_ERR0032 DISPATCH : Numero / Matricule du tracteur non saisi.
+ Editer le plan puis saisir un numéro tracteur.
+déc. 16, 2018 1:43:45 PM ui.UILog log
+GRAVE: APP_ERR0028 DISPATCH : Format de date invalid.
+déc. 16, 2018 1:43:56 PM ui.UILog log
+GRAVE: APP_ERR0028 DISPATCH : Format de date invalid.
+déc. 16, 2018 1:44:05 PM ui.UILog log
+GRAVE: APP_ERR0028 DISPATCH : Format de date invalid.
+déc. 16, 2018 1:44:17 PM ui.UILog log
+GRAVE: APP_ERR0028 DISPATCH : Format de date invalid.
+déc. 16, 2018 1:44:56 PM ui.UILog log
+INFOS: APP_INFO0003 : User EZZIOURI Oussama / p connected to host Oussama-PC at 2018-12-16 13:44:56 Packaging warehouse interface : .
+déc. 16, 2018 1:47:36 PM ui.UILog log
+INFOS: APP_INFO0003 : User EZZIOURI Oussama / p connected to host Oussama-PC at 2018-12-16 13:47:36 Packaging warehouse interface : .
+déc. 16, 2018 1:47:55 PM ui.UILog log
+INFOS: APP_INFO0003 : User EZZIOURI Oussama / p connected to host Oussama-PC at 2018-12-16 13:47:55 Packaging warehouse interface : .
+déc. 16, 2018 2:37:53 PM ui.UILog log
+INFOS: File 2018_12_16.log already exists.
+
+déc. 16, 2018 2:37:53 PM ui.UILog log
+INFOS: Daily output print directory [.\print\2018_12_16] already exist!
+open_sheet sub directory [.\print\2018_12_16\open_sheet] already exist!
+Print sub directory [.\print\2018_12_16\closing_sheet] already exist!
+Print sub directory [.\print\2018_12_16\picking_label] already exist!
+Print sub directory [.\print\2018_12_16\dispatch_label] already exist!
+
+déc. 16, 2018 2:38:08 PM ui.UILog log
+INFOS: APP_INFO0003 : User EZZIOURI Oussama / p connected to host Oussama-PC at 2018-12-16 14:38:08 Packaging warehouse interface : .
+déc. 16, 2018 3:04:48 PM ui.UILog log
+INFOS: APP_INFO0003 : User EZZIOURI Oussama / p connected to host Oussama-PC at 2018-12-16 15:04:48 Module : Configuration : .
+déc. 16, 2018 3:05:34 PM ui.UILog log
+INFOS: APP_INFO0003 : User EZZIOURI Oussama / p connected to host Oussama-PC at 2018-12-16 15:05:34 Dispatch interface : .
+déc. 16, 2018 3:05:55 PM ui.UILog log
+INFOS: APP_ERR0029 DISPATCH : Aucune palette/position n'est associée à cette destination %s.
+déc. 16, 2018 4:02:36 PM ui.UILog log
+INFOS: File 2018_12_16.log already exists.
+
+déc. 16, 2018 4:02:36 PM ui.UILog log
+INFOS: Daily output print directory [.\print\2018_12_16] already exist!
+open_sheet sub directory [.\print\2018_12_16\open_sheet] already exist!
+Print sub directory [.\print\2018_12_16\closing_sheet] already exist!
+Print sub directory [.\print\2018_12_16\picking_label] already exist!
+Print sub directory [.\print\2018_12_16\dispatch_label] already exist!
+
+déc. 16, 2018 4:02:50 PM ui.UILog log
+INFOS: APP_INFO0003 : User EZZIOURI Oussama / p connected to host Oussama-PC at 2018-12-16 16:02:50 Project : DUCATI.
+déc. 16, 2018 4:02:50 PM ui.UILog log
+INFOS: APP_CONFIG0002   : Chargement de la liste des formats QR dans la variable DATAMATRIX_PATTERN_LIST ...
+déc. 16, 2018 4:02:50 PM ui.UILog log
+INFOS: FROM ConfigBarcode cb WHERE cb.keyWord = :keyWord AND cb.harness_type = :harnessType ORDER BY id ASC
+déc. 16, 2018 4:02:50 PM ui.UILog log
+INFOS: ^[P]{1}\w{9}[;]{1}\d{2}[.]{1}\d{2}[.]{1}\d{4}[;]{1}\d{2}[:]{1}\d{2}[:]{1}\d{2}
+^\w{9}[;]{1}\d{2}[.]{1}\d{2}[.]{1}\d{4}[;]{1}\d{2}[:]{1}\d{2}[:]{1}\d{2}
+^\b{9}[;]{1}\d{2}[.]{1}\d{2}[.]{1}\d{4}[;]{1}\d{2}[:]{1}\d{2}[:]{1}\d{2}
+^\w{9}[;]{1}\d{2}[:]{1}\d{2}[:]{1}\d{4}[;]{1}\d{2}[:]{1}\d{2}[:]{1}\d{2}
+
+déc. 16, 2018 4:02:50 PM ui.UILog log
+INFOS: APP_CONFIG0003   : 4 formats possible du QR pour le projet DUCATI ont été chargés avec succès !
+déc. 16, 2018 4:02:50 PM ui.UILog log
+INFOS: FROM ConfigBarcode cb WHERE cb.keyWord = :keyWord AND cb.harness_type = :harnessType ORDER BY id ASC
+déc. 16, 2018 4:02:50 PM ui.UILog log
+INFOS: ^[P]\w{9}
+^\w{9}
+^\b{9}
+
+déc. 16, 2018 4:02:50 PM ui.UILog log
+INFOS: APP_CONFIG0004   : 3 formats de référence possibles pour le projet DUCATI ont été chargés avec succès.
+déc. 16, 2018 4:03:24 PM ui.UILog log
+INFOS: Droping harness list...{0}
+déc. 16, 2018 4:03:34 PM ui.UILog log
+INFOS: APP_INFO0003 : User EZZIOURI Oussama / p connected to host Oussama-PC at 2018-12-16 16:03:34 Packaging warehouse interface : .
+déc. 16, 2018 5:49:08 PM ui.UILog log
+INFOS: File 2018_12_16.log already exists.
+
+déc. 16, 2018 5:49:08 PM ui.UILog log
+INFOS: Daily output print directory [.\print\2018_12_16] already exist!
+open_sheet sub directory [.\print\2018_12_16\open_sheet] already exist!
+Print sub directory [.\print\2018_12_16\closing_sheet] already exist!
+Print sub directory [.\print\2018_12_16\picking_label] already exist!
+Print sub directory [.\print\2018_12_16\dispatch_label] already exist!
+
+déc. 16, 2018 5:49:12 PM ui.UILog log
+INFOS: APP_INFO0003 : User EZZIOURI Oussama / p connected to host Oussama-PC at 2018-12-16 17:49:12 Dispatch interface : .
+déc. 16, 2018 5:49:35 PM ui.UILog log
+INFOS: APP_INFO0003 : User EZZIOURI Oussama / p connected to host Oussama-PC at 2018-12-16 17:49:35 Packaging warehouse interface : .
+déc. 16, 2018 5:55:24 PM ui.UILog log
+INFOS: File 2018_12_16.log already exists.
+
+déc. 16, 2018 5:55:24 PM ui.UILog log
+INFOS: Daily output print directory [.\print\2018_12_16] already exist!
+open_sheet sub directory [.\print\2018_12_16\open_sheet] already exist!
+Print sub directory [.\print\2018_12_16\closing_sheet] already exist!
+Print sub directory [.\print\2018_12_16\picking_label] already exist!
+Print sub directory [.\print\2018_12_16\dispatch_label] already exist!
+
+déc. 16, 2018 5:56:02 PM ui.UILog log
+INFOS: APP_INFO0003 : User EZZIOURI Oussama / p connected to host Oussama-PC at 2018-12-16 17:56:02 Dispatch interface : .
+déc. 16, 2018 5:57:28 PM ui.UILog log
+INFOS: File 2018_12_16.log already exists.
+
+déc. 16, 2018 5:57:28 PM ui.UILog log
+INFOS: Daily output print directory [.\print\2018_12_16] already exist!
+open_sheet sub directory [.\print\2018_12_16\open_sheet] already exist!
+Print sub directory [.\print\2018_12_16\closing_sheet] already exist!
+Print sub directory [.\print\2018_12_16\picking_label] already exist!
+Print sub directory [.\print\2018_12_16\dispatch_label] already exist!
+
+déc. 16, 2018 5:57:38 PM ui.UILog log
+INFOS: APP_INFO0003 : User EZZIOURI Oussama / p connected to host Oussama-PC at 2018-12-16 17:57:38 Dispatch interface : .
+déc. 16, 2018 5:58:22 PM ui.UILog log
+INFOS: APP_INFO0003 : User EZZIOURI Oussama / p connected to host Oussama-PC at 2018-12-16 17:58:22 Packaging warehouse interface : .
+déc. 16, 2018 5:59:01 PM ui.UILog log
+INFOS: APP_INFO0003 : User EZZIOURI Oussama / p connected to host Oussama-PC at 2018-12-16 17:59:01 Packaging warehouse interface : .
+déc. 16, 2018 6:04:36 PM ui.UILog log
+INFOS: File 2018_12_16.log already exists.
+
+déc. 16, 2018 6:04:36 PM ui.UILog log
+INFOS: Daily output print directory [.\print\2018_12_16] already exist!
+open_sheet sub directory [.\print\2018_12_16\open_sheet] already exist!
+Print sub directory [.\print\2018_12_16\closing_sheet] already exist!
+Print sub directory [.\print\2018_12_16\picking_label] already exist!
+Print sub directory [.\print\2018_12_16\dispatch_label] already exist!
+
+déc. 16, 2018 6:04:41 PM ui.UILog log
+INFOS: APP_INFO0003 : User EZZIOURI Oussama / p connected to host Oussama-PC at 2018-12-16 18:04:41 Dispatch interface : .
+déc. 16, 2018 6:09:39 PM ui.UILog log
+INFOS: File 2018_12_16.log already exists.
+
+déc. 16, 2018 6:09:39 PM ui.UILog log
+INFOS: Daily output print directory [.\print\2018_12_16] already exist!
+open_sheet sub directory [.\print\2018_12_16\open_sheet] already exist!
+Print sub directory [.\print\2018_12_16\closing_sheet] already exist!
+Print sub directory [.\print\2018_12_16\picking_label] already exist!
+Print sub directory [.\print\2018_12_16\dispatch_label] already exist!
+
+déc. 16, 2018 6:09:42 PM ui.UILog log
+INFOS: APP_INFO0003 : User EZZIOURI Oussama / p connected to host Oussama-PC at 2018-12-16 18:09:42 Dispatch interface : .
+déc. 16, 2018 6:12:45 PM ui.UILog log
+INFOS: File 2018_12_16.log already exists.
+
+déc. 16, 2018 6:12:45 PM ui.UILog log
+INFOS: Daily output print directory [.\print\2018_12_16] already exist!
+open_sheet sub directory [.\print\2018_12_16\open_sheet] already exist!
+Print sub directory [.\print\2018_12_16\closing_sheet] already exist!
+Print sub directory [.\print\2018_12_16\picking_label] already exist!
+Print sub directory [.\print\2018_12_16\dispatch_label] already exist!
+
+déc. 16, 2018 6:12:47 PM ui.UILog log
+INFOS: APP_INFO0003 : User EZZIOURI Oussama / p connected to host Oussama-PC at 2018-12-16 18:12:47 Dispatch interface : .
+déc. 16, 2018 6:15:03 PM ui.UILog log
+INFOS: File 2018_12_16.log already exists.
+
+déc. 16, 2018 6:15:03 PM ui.UILog log
+INFOS: Daily output print directory [.\print\2018_12_16] already exist!
+open_sheet sub directory [.\print\2018_12_16\open_sheet] already exist!
+Print sub directory [.\print\2018_12_16\closing_sheet] already exist!
+Print sub directory [.\print\2018_12_16\picking_label] already exist!
+Print sub directory [.\print\2018_12_16\dispatch_label] already exist!
+
+déc. 16, 2018 6:15:06 PM ui.UILog log
+INFOS: APP_INFO0003 : User EZZIOURI Oussama / p connected to host Oussama-PC at 2018-12-16 18:15:06 Dispatch interface : .
+déc. 16, 2018 6:29:02 PM ui.UILog log
+INFOS: APP_INFO0003 : User EZZIOURI Oussama / p connected to host Oussama-PC at 2018-12-16 18:29:02 Packaging warehouse interface : .
+déc. 16, 2018 6:30:38 PM ui.UILog log
+INFOS: File 2018_12_16.log already exists.
+
+déc. 16, 2018 6:30:38 PM ui.UILog log
+INFOS: Daily output print directory [.\print\2018_12_16] already exist!
+open_sheet sub directory [.\print\2018_12_16\open_sheet] already exist!
+Print sub directory [.\print\2018_12_16\closing_sheet] already exist!
+Print sub directory [.\print\2018_12_16\picking_label] already exist!
+Print sub directory [.\print\2018_12_16\dispatch_label] already exist!
+
+déc. 16, 2018 6:30:41 PM ui.UILog log
+INFOS: APP_INFO0003 : User EZZIOURI Oussama / p connected to host Oussama-PC at 2018-12-16 18:30:41 Dispatch interface : .
+déc. 16, 2018 6:30:45 PM ui.UILog log
+INFOS: APP_ERR0029 DISPATCH : Aucune palette/position n'est associée à cette destination %s.
+déc. 16, 2018 6:32:01 PM ui.UILog log
+INFOS: APP_INFO0003 : User EZZIOURI Oussama / p connected to host Oussama-PC at 2018-12-16 18:32:01 Packaging warehouse interface : .
+déc. 16, 2018 6:35:22 PM ui.UILog log
+INFOS: File 2018_12_16.log already exists.
+
+déc. 16, 2018 6:35:22 PM ui.UILog log
+INFOS: Daily output print directory [.\print\2018_12_16] already exist!
+open_sheet sub directory [.\print\2018_12_16\open_sheet] already exist!
+Print sub directory [.\print\2018_12_16\closing_sheet] already exist!
+Print sub directory [.\print\2018_12_16\picking_label] already exist!
+Print sub directory [.\print\2018_12_16\dispatch_label] already exist!
+
+déc. 16, 2018 6:35:52 PM ui.UILog log
+INFOS: APP_INFO0003 : User EZZIOURI Oussama / p connected to host Oussama-PC at 2018-12-16 18:35:52 Dispatch interface : .
+déc. 16, 2018 6:40:09 PM ui.UILog log
+INFOS: File 2018_12_16.log already exists.
+
+déc. 16, 2018 6:40:09 PM ui.UILog log
+INFOS: Daily output print directory [.\print\2018_12_16] already exist!
+open_sheet sub directory [.\print\2018_12_16\open_sheet] already exist!
+Print sub directory [.\print\2018_12_16\closing_sheet] already exist!
+Print sub directory [.\print\2018_12_16\picking_label] already exist!
+Print sub directory [.\print\2018_12_16\dispatch_label] already exist!
+
+déc. 16, 2018 6:40:13 PM ui.UILog log
+INFOS: APP_INFO0003 : User EZZIOURI Oussama / p connected to host Oussama-PC at 2018-12-16 18:40:13 Dispatch interface : .
+déc. 16, 2018 6:40:28 PM ui.UILog log
+INFOS: APP_ERR0029 DISPATCH : Aucune palette/position n'est associée à cette destination %s.
+déc. 16, 2018 6:40:53 PM ui.UILog log
+INFOS: APP_ERR0029 DISPATCH : Aucune palette/position n'est associée à cette destination %s.
+déc. 16, 2018 6:43:40 PM ui.UILog log
+INFOS: APP_INFO0003 : User EZZIOURI Oussama / p connected to host Oussama-PC at 2018-12-16 18:43:40 Packaging warehouse interface : .

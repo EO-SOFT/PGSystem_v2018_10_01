@@ -39,11 +39,11 @@ public class LoadPlan extends DAO implements java.io.Serializable {
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     @Column(name = "create_time")
     private Date createTime;
-    
+
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     @Column(name = "end_time")
     private Date endTime;
-    
+
     @Temporal(javax.persistence.TemporalType.DATE)
     @Column(name = "delivery_time")
     private Date deliveryTime;
@@ -53,22 +53,25 @@ public class LoadPlan extends DAO implements java.io.Serializable {
 
     @Column(name = "m_user")
     private String user;
-    
+
     @Column(name = "plan_state")
-    private String planState;     
-    
+    private String planState;
+
     @Column(name = "truck_no")
-    private String truckNo;      
-    
+    private String truckNo;
+
     @Column(name = "project")
     private String project;
+
+    @Column(name = "fg_warehouse")
+    private String fgWarehouse;
     
-    //@Column(name = "fg_warehouse")
-    //private String fgWarehouse;
-    
+    @Column(name = "packaging_warehouse")
+    private String packagingWarehouse;
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "loadPlan", cascade = CascadeType.ALL)
     private final Set<LoadPlanLine> lines = new HashSet<LoadPlanLine>(0);
-    
+
     public LoadPlan() {
     }
 
@@ -87,7 +90,6 @@ public class LoadPlan extends DAO implements java.io.Serializable {
     public void setTruckNo(String truckNo) {
         this.truckNo = truckNo;
     }
-    
 
     public Date getCreateTime() {
         return createTime;
@@ -96,7 +98,7 @@ public class LoadPlan extends DAO implements java.io.Serializable {
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
-    
+
     public Date getDeliveryTime() {
         return deliveryTime;
     }
@@ -111,7 +113,7 @@ public class LoadPlan extends DAO implements java.io.Serializable {
 
     public void setEndTime(Date endTime) {
         this.endTime = endTime;
-    }        
+    }
 
     public int getCreateId() {
         return createId;
@@ -135,8 +137,8 @@ public class LoadPlan extends DAO implements java.io.Serializable {
 
     public void setPlanState(String planState) {
         this.planState = planState;
-    }       
-    
+    }
+
     public String getCreateTimeString(String format) {
         if (format == null) {
             format = "yyyy-MM-dd HH:mm:ss";
@@ -154,13 +156,22 @@ public class LoadPlan extends DAO implements java.io.Serializable {
     }
 
     public String getFgWarehouse() {
-        //return fgWarehouse;
-        return "";
+        return fgWarehouse;
+
     }
 
     public void setFgWarehouse(String fgWarehouse) {
-        //this.fgWarehouse = fgWarehouse;
+        this.fgWarehouse = fgWarehouse;
+    }
+
+    public String getPackagingWarehouse() {
+        return packagingWarehouse;
+    }
+
+    public void setPackagingWarehouse(String packagingWarehouse) {
+        this.packagingWarehouse = packagingWarehouse;
     }
     
     
+
 }

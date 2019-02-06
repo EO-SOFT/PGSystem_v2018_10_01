@@ -116,7 +116,10 @@ public class PrintHarnessLabel_A5 {
             {"Quantity ("+GlobalVars.QUANTITY_PREFIX+")", "1", GlobalVars.QUANTITY_PREFIX+"1"},
             {"Supplier Part no. (" + GlobalVars.SUPPLIER_PART_PREFIX + ")", bc.getSupplierPartNumber(), GlobalVars.SUPPLIER_PART_PREFIX + bc.getSupplierPartNumber()},
             {"FIFO Date. (" + GlobalVars.FIFO_DATE_PREFIX + ")", GlobalMethods.convertDateToStringFormat(new Date(), "yy.MM.dd"), GlobalVars.FIFO_DATE_PREFIX + GlobalMethods.convertDateToStringFormat(new Date(), "yy.MM.dd")},
-            {"QRCode ID", bh.getCounter(), ""},};
+            {"QRCode ID", bh.getCounter(), ""},
+            {"Pallet Num", bh.getPalletNumber(), bh.getPalletNumber()},
+        
+        };
     }
 
     public static Cell createBarcode(String code, PdfDocument pdfDoc, boolean displayText, float barWidth, float barHeight) {
@@ -194,7 +197,7 @@ public class PrintHarnessLabel_A5 {
             table.addCell(new Cell(0, 2).setBorder(Border.NO_BORDER)
                     .add(h.h3((String) DATA[4][0]))
                     .add(createBarcode((String) DATA[4][2], pdfDoc, false, 1, 30))
-                    .add(h.h((String) DATA[4][1], true, 36)
+                    .add(h.h((String) DATA[4][1], true, 24)
                     ));
             
             //FIFO Date
@@ -204,20 +207,31 @@ public class PrintHarnessLabel_A5 {
                     .add(
                             createBarcode((String) DATA[5][2], pdfDoc, false, 1, 30))
                     .add(
-                            h.h((String) DATA[5][1], true, 36)
+                            h.h((String) DATA[5][1], true, 24)
                     ));
             
             //QR
-            table.addCell(new Cell(0, 4).setBorder(Border.NO_BORDER)
+            table.addCell(new Cell(0, 2).setBorder(Border.NO_BORDER)
                     .add(
                             h.h3((String) DATA[6][0]))
                     .add(
                             createQRcode((String) DATA[6][1], pdfDoc))
                     .add(
-                            ""
+                             ""
+                    ));                        
+            
+            //Pallet Number
+            table.addCell(new Cell(0, 2).setBorder(Border.NO_BORDER)
+                    .add(
+                            h.h3((String) DATA[7][0]))
+                    .add(
+                            createBarcode((String) DATA[7][1], pdfDoc, false, 1, 24))
+                    .add(
+                            h.h((String) DATA[7][1], true, 24)
                     ));
             
             doc.add(table);
+            
             return DEST;
         }
     }

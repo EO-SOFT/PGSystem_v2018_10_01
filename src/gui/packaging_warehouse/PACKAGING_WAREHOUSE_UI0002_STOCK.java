@@ -6,6 +6,8 @@
 package gui.packaging_warehouse;
 
 import __main__.GlobalVars;
+import entity.ConfigWarehouse;
+import helper.ComboItem;
 import helper.Helper;
 import helper.JDialogExcelFileChooser;
 import java.awt.Font;
@@ -24,6 +26,8 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.hibernate.HibernateException;
 import org.hibernate.SQLQuery;
 import org.hibernate.type.StandardBasicTypes;
+import ui.UILog;
+import ui.error.ErrorMsg;
 
 /**
  *
@@ -35,10 +39,9 @@ public class PACKAGING_WAREHOUSE_UI0002_STOCK extends javax.swing.JFrame {
     Vector<String> packaging_stock_result_table_header = new Vector<String>();
     private List<Object[]> resultList;
     List<String> table_header = Arrays.asList(
-            "PACK ITEM",
-            "STOCK"
-            //,
-            //"ALERT QTY"
+            "WAREHOUSE",
+            "PART",
+            "QTY"
     );
 
     /**
@@ -47,7 +50,7 @@ public class PACKAGING_WAREHOUSE_UI0002_STOCK extends javax.swing.JFrame {
     public PACKAGING_WAREHOUSE_UI0002_STOCK(java.awt.Frame parent, boolean modal) {
         //super(parent, modal);
         initComponents();
-        initGui();        
+        initGui();
     }
 
     private void initGui() {
@@ -60,8 +63,10 @@ public class PACKAGING_WAREHOUSE_UI0002_STOCK extends javax.swing.JFrame {
 
         //Load table header
         load_table_header();
-        
-        this.setVisible(true);      
+
+        initPackagingWarehouse();
+
+        this.setVisible(true);
 
     }
 
@@ -88,16 +93,30 @@ public class PACKAGING_WAREHOUSE_UI0002_STOCK extends javax.swing.JFrame {
 
     }
 
+    private void initPackagingWarehouse() {
+        List result = new ConfigWarehouse().selectWarehousesByType("PACKAGING");
+        if (result.isEmpty()) {
+            UILog.severeDialog(this, ErrorMsg.APP_ERR0042);
+            UILog.severe(ErrorMsg.APP_ERR0042[1]);
+        } else { //Map project data in the list
+            packaging_wh_box.removeAllItems();
+            packaging_wh_box.addItem(new ComboItem("", ""));
+            for (Object o : result) {
+                ConfigWarehouse cp = (ConfigWarehouse) o;
+                packaging_wh_box.addItem(new ComboItem(cp.getWarehouse(), cp.getWarehouse()));
+            }
+        }
+    }
+
     @SuppressWarnings("empty-statement")
     public void reload_result_table_data(List<Object[]> resultList) {
 
         for (Object[] obj : resultList) {
 
             Vector<Object> oneRow = new Vector<Object>();
-            oneRow.add(String.valueOf(obj[0])); // PACK ITEM
-            oneRow.add(Integer.valueOf(obj[1].toString())); // STOCK
-            //oneRow.add(Integer.valueOf(obj[2].toString())); // "Alert Qty"                  
-
+            oneRow.add(String.valueOf(obj[0])); // WAREHOUSE
+            oneRow.add(String.valueOf(obj[1])); // PART
+            oneRow.add(String.format("%1$,.2f", obj[2])); // STOCK
             packaging_stock_result_table_data.add(oneRow);
         }
         packaging_stock_table.setModel(new DefaultTableModel(packaging_stock_result_table_data, packaging_stock_result_table_header));
@@ -112,26 +131,32 @@ public class PACKAGING_WAREHOUSE_UI0002_STOCK extends javax.swing.JFrame {
 
         try {
 
-            //################# Dropped Harness Data #################### 
+            //#################  #################### 
             Helper.startSession();
             String query_str = "SELECT "
-                    + "p.pack_item AS pack_item, "
-                    + "SUM(p.quantity) AS stock "
-                    //+ ",i.alert_qty AS alert_qty "
+                    + "warehouse AS warehouse, "
+                    + "pack_item AS pack_item, "
+                    + "SUM(qty) AS qty "
                     + "FROM "
-                    + "packaging_stock_movement p, "
-                    + "packaging_items i "
-                    + "WHERE p.pack_item = i.pack_item "
-                    + "AND p.warehouse = '"+GlobalVars.APP_PROP.getProperty("WH_PACKAGING")+"' "
-                    + "GROUP BY p.pack_item, i.alert_qty "
-                    + "ORDER BY pack_item ASC;";
-
+                    + "("
+                    + "SELECT "
+                    + "p.warehouse AS warehouse, "
+                    + "p.pack_item AS pack_item, "
+                    + "p.quantity AS qty "
+                    + "FROM "
+                    + "packaging_stock_movement p ";
+            if (!packaging_wh_box.getSelectedItem().toString().equals("")) {
+                query_str += "WHERE warehouse IN ('" + packaging_wh_box.getSelectedItem().toString() + "') ";
+            }
+            query_str += ") AS Q1 ";
+            query_str += "GROUP BY warehouse, pack_item ";
+            query_str += "ORDER BY warehouse, pack_item; ";
+            
             SQLQuery query = Helper.sess.createSQLQuery(query_str);
 
-            query.addScalar("pack_item", StandardBasicTypes.STRING)
-                    .addScalar("stock", StandardBasicTypes.INTEGER);
-                    //.addScalar("alert_qty", StandardBasicTypes.INTEGER);
-
+            query.addScalar("warehouse", StandardBasicTypes.STRING)
+                    .addScalar("pack_item", StandardBasicTypes.STRING)
+                    .addScalar("qty", StandardBasicTypes.DOUBLE);
             resultList = query.list();
 
             Helper.sess.getTransaction().commit();
@@ -164,6 +189,8 @@ public class PACKAGING_WAREHOUSE_UI0002_STOCK extends javax.swing.JFrame {
         packaging_stock_table = new javax.swing.JTable();
         refresh_btn1 = new javax.swing.JButton();
         export_btn = new javax.swing.JButton();
+        packaging_wh_box = new javax.swing.JComboBox();
+        fname_lbl14 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Stock Packaging");
@@ -211,6 +238,15 @@ public class PACKAGING_WAREHOUSE_UI0002_STOCK extends javax.swing.JFrame {
             }
         });
 
+        packaging_wh_box.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        packaging_wh_box.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                packaging_wh_boxActionPerformed(evt);
+            }
+        });
+
+        fname_lbl14.setText("Warehouse");
+
         javax.swing.GroupLayout north_panelLayout = new javax.swing.GroupLayout(north_panel);
         north_panel.setLayout(north_panelLayout);
         north_panelLayout.setHorizontalGroup(
@@ -219,12 +255,18 @@ public class PACKAGING_WAREHOUSE_UI0002_STOCK extends javax.swing.JFrame {
             .addGroup(north_panelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(north_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6)
                     .addGroup(north_panelLayout.createSequentialGroup()
-                        .addComponent(refresh_btn1, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel6)
+                        .addContainerGap(809, Short.MAX_VALUE))
+                    .addGroup(north_panelLayout.createSequentialGroup()
+                        .addComponent(fname_lbl14)
                         .addGap(18, 18, 18)
-                        .addComponent(export_btn)))
-                .addContainerGap(720, Short.MAX_VALUE))
+                        .addComponent(packaging_wh_box, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(refresh_btn1, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(225, 225, 225)
+                        .addComponent(export_btn)
+                        .addGap(220, 220, 220))))
             .addComponent(jScrollPane1)
         );
         north_panelLayout.setVerticalGroup(
@@ -233,8 +275,11 @@ public class PACKAGING_WAREHOUSE_UI0002_STOCK extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel6)
                 .addGap(18, 18, 18)
-                .addGroup(north_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(refresh_btn1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(north_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(packaging_wh_box, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(north_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(fname_lbl14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(refresh_btn1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(export_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 797, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -286,31 +331,38 @@ public class PACKAGING_WAREHOUSE_UI0002_STOCK extends javax.swing.JFrame {
         // Create a row and put some cells in it. Rows are 0 based.
         Row row = sheet.createRow((short) 0);
 
-        row.createCell(0).setCellValue("PACK ITEM");
-        row.createCell(1).setCellValue("STOCK");
-        row.createCell(2).setCellValue("ALERT QTY");
+        row.createCell(0).setCellValue("WAREHOUSE");
+        row.createCell(1).setCellValue("PART");
+        row.createCell(2).setCellValue("QTY");
 
         short sheetPointer = 1;
 
         for (Object[] obj : this.resultList) {
             row = sheet.createRow(sheetPointer);
             row.createCell(0).setCellValue(String.valueOf(obj[0]));
-            row.createCell(1).setCellValue(Integer.valueOf(obj[1].toString()));
-            row.createCell(2).setCellValue(Integer.valueOf(obj[2].toString()));
+            row.createCell(1).setCellValue(String.valueOf(obj[1]));
+            row.createCell(2).setCellValue(String.format("%1$,.2f", obj[2]));
+//            row.createCell(2).setCellValue(Integer.valueOf(obj[2].toString()));
             sheetPointer++;
         }
         //Past the workbook to the file chooser
         new JDialogExcelFileChooser((Frame) super.getParent(), true, wb).setVisible(true);
     }//GEN-LAST:event_export_btnActionPerformed
 
+    private void packaging_wh_boxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_packaging_wh_boxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_packaging_wh_boxActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton export_btn;
+    private javax.swing.JLabel fname_lbl14;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JPanel north_panel;
     private javax.swing.JTable packaging_stock_table;
+    private javax.swing.JComboBox packaging_wh_box;
     private javax.swing.JButton refresh_btn1;
     // End of variables declaration//GEN-END:variables
 }

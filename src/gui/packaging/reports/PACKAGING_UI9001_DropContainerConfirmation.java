@@ -8,13 +8,16 @@ package gui.packaging.reports;
 import __main__.GlobalVars;
 import entity.BaseContainer;
 import entity.BaseHarness;
+import entity.ConfigWarehouse;
 import entity.DropBaseContainer;
 import entity.DropBaseHarness;
 import entity.PackagingStockMovement;
 import gui.packaging.PackagingVars;
+import helper.ComboItem;
 import helper.HQLHelper;
 import helper.Helper;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 import javax.swing.JOptionPane;
 import org.hibernate.Query;
@@ -27,7 +30,7 @@ import ui.UILog;
 public final class PACKAGING_UI9001_DropContainerConfirmation extends javax.swing.JFrame {
 
     private BaseContainer bc;
-    private int scanMode;    
+    private int scanMode;
     private final String MSG_DROP_SUCCESS = "Pallet [%s] successfully dropped !";
     private PACKAGING_UI0010_PalletDetails parent;
 
@@ -38,9 +41,9 @@ public final class PACKAGING_UI9001_DropContainerConfirmation extends javax.swin
      * @param modal
      * @param bc
      * @param scanMode
-     * 
+     *
      */
-    public PACKAGING_UI9001_DropContainerConfirmation(javax.swing.JFrame parent, boolean modal, BaseContainer bc, int scanMode ) {
+    public PACKAGING_UI9001_DropContainerConfirmation(javax.swing.JFrame parent, boolean modal, BaseContainer bc, int scanMode) {
         //super(parent, modal);
         initComponents();
         initGui(parent);
@@ -219,35 +222,32 @@ public final class PACKAGING_UI9001_DropContainerConfirmation extends javax.swin
                     System.out.println(String.format("Labels removed for harness %s ", result, bh.getId()));
 
                     //############ REMOVE THE HARNESS FROM CONTAINER ###############
-                    
                     query = Helper.sess.createQuery(HQLHelper.DEL_HP_BY_COUNTER);
                     query.setParameter("counter", bh.getCounter());
                     int id = query.executeUpdate();
-                    
+
                     System.out.println(String.format("Harness [%s] removed from pallet %s ", id, bh.getCounter(), bc.getPalletNumber()));
-                    
+
                     //Helper.sess.delete(bh);
                     //Helper.sess.clear();
                     Helper.sess.getTransaction().commit();
                 }
 
-                //Delete the container from the BaseContainer
-
+                //Delete the container from the 
                 //Book back the packaging items only for stored pallets
                 if (bc.getContainerState().equals(GlobalVars.PALLET_STORED)) {
                     if ("1".equals(GlobalVars.APP_PROP.getProperty("BOOK_PACKAGING").toString())) {
                         PackagingStockMovement pm = new PackagingStockMovement();
                         pm.bookMasterPack(PackagingVars.context.getUser().getFirstName() + " " + PackagingVars.context.getUser().getLastName(),
                                 this.bc.getPackType(), 1, "IN",
-                                GlobalVars.APP_PROP.getProperty("WH_FINISH_GOODS"),
-                                GlobalVars.APP_PROP.getProperty("WH_PACKAGING").toString(),
+                                getPackagingWh(bc.getProject()),
+                                bc.getFGwarehouse(),                                
                                 "Pallet dropped : " + this.dropFeedback_txtbox.getText(),
                                 bc.getPalletNumber());
                     }
                 }
-                
+
                 //bc = (BaseContainer) Helper.sess.get(bc.getClass(), bc.getId());
-                
                 //bc.delete(this.bc);
                 Query query = Helper.sess.createQuery(HQLHelper.DEL_CONTAINER_BY_ID);
                 query.setParameter("id", bc.getId());
@@ -263,27 +263,28 @@ public final class PACKAGING_UI9001_DropContainerConfirmation extends javax.swin
 
                 //Clear form fields
                 this.parent.clearContainerFieldsValues();
-                
+
                 //Reset the title
                 this.parent.setTitle("Détails palette");
-                
-                if(this.scanMode == 1){                
+
+                if (this.scanMode == 1) {
                     PackagingVars.Packaging_Gui_Mode1.setFeedbackTextarea("Scanner une référence pour ouvrir \nune palette\nOu selectionner une palette du tableau çi-dessous");
                     PackagingVars.Packaging_Gui_Mode1.setRequestedPallet_txt("");
                     //Refresh the main table
                     PackagingVars.Packaging_Gui_Mode1.reloadDataTable();
-                }else if (this.scanMode == 2){
+                } else if (this.scanMode == 2) {
                     PackagingVars.Packaging_Gui_Mode2.setFeedbackTextarea("Scanner le code à barre d'une référence.");
                     PackagingVars.Packaging_Gui_Mode2.setRequestedPallet_txt("");
                     //Refresh the main table
                     PackagingVars.Packaging_Gui_Mode2.reloadDataTable();
-                }if (this.scanMode == 3){
+                }
+                if (this.scanMode == 3) {
                     PackagingVars.Packaging_Gui_Mode3.setFeedbackTextarea("Scanner le code à barre d'une référence.");
                     PackagingVars.Packaging_Gui_Mode3.setRequestedPallet_txt("");
                     //Refresh the main table
                     PackagingVars.Packaging_Gui_Mode3.reloadDataTable();
                 }
-                
+
                 Helper.sess.flush();
 
                 this.dispose();
@@ -304,4 +305,12 @@ public final class PACKAGING_UI9001_DropContainerConfirmation extends javax.swin
     private javax.swing.JButton ok_btn;
     private javax.swing.JLabel palletNumber_lbl;
     // End of variables declaration//GEN-END:variables
+
+    private String getPackagingWh(String project) {
+        ConfigWarehouse cw = new ConfigWarehouse();
+        List result = cw.selectByProjectAndType(project, "PACKAGING");
+
+        cw = (ConfigWarehouse) result.get(0);
+        return (String) cw.getWarehouse();
+    }
 }

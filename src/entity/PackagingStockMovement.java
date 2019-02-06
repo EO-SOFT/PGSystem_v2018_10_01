@@ -161,15 +161,15 @@ public class PackagingStockMovement extends DAO implements Serializable {
      * @param packMaster : a master pack to book
      * @param qty : How many master pack to book
      * @param bookingType : IN for items reception, OUT for items out
-     * @param fromWh
-     * @param toWh
+     * @param pacakgingWh
+     * @param fgWh
      * @param comment
      * @param documentId
      * @return
      */
     public int bookMasterPack(String user, String packMaster,
-            float qty, String bookingType, String fromWh,
-            String toWh, String comment, String documentId) {
+            float qty, String bookingType, String pacakgingWh,
+            String fgWh, String comment, String documentId) {
         int returnCode = 0;
 
         Helper.startSession();
@@ -192,7 +192,7 @@ public class PackagingStockMovement extends DAO implements Serializable {
                         documentId,
                         user,
                         new Date(),
-                        fromWh,
+                        pacakgingWh,
                         -(qty * configItem.getCoefficient()),
                         comment
                 );
@@ -206,7 +206,7 @@ public class PackagingStockMovement extends DAO implements Serializable {
                         documentId,
                         user,
                         new Date(),
-                        toWh,
+                        fgWh,
                         qty * configItem.getCoefficient(),
                         comment
                 );
@@ -219,7 +219,7 @@ public class PackagingStockMovement extends DAO implements Serializable {
                         + " FROM packaging_stock_movement psv, packaging_items pi"
                         + " WHERE psv.pack_item = '" + configItem.getPackItem() + "'"
                         + " AND psv.pack_item = pi.pack_item "
-                        + " AND psv.warehouse = '" + GlobalVars.APP_PROP.getProperty("WH_PACKAGING") + "' "
+                        + " AND psv.warehouse = '" + pacakgingWh + "' "
                         + " GROUP BY psv.pack_item, pi.alert_qty";
 
                 SQLQuery sqlQuery = Helper.sess.createSQLQuery(check_stock_item);

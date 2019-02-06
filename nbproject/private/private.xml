@@ -19,6 +19,14 @@
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/D:/java_workspace/PGSystem_v2019_02/src/gui/packaging/reports/WIZARD_PACKAGING_MODE_CHOICE.java</file>
+            <file>file:/D:/java_workspace/PGSystem_v2019_02/src/print/PrintClosingPallet_A5_Mode3.java</file>
+            <file>file:/D:/java_workspace/PGSystem_v2019_02/src/ui/UILog.java</file>
+            <file>file:/D:/java_workspace/PGSystem_v2019_02/src/gui/packaging/PackagingVars.java</file>
+            <file>file:/D:/java_workspace/PGSystem_v2019_02/db.properties</file>
+            <file>file:/D:/java_workspace/PGSystem_v2019_02/src/gui/packaging/reports/PACKAGING_UI0010_PalletDetails.java</file>
+            <file>file:/D:/java_workspace/PGSystem_v2019_02/src/helper/HibernateUtil.java</file>
+        </group>
     </open-files>
 </project-private>
